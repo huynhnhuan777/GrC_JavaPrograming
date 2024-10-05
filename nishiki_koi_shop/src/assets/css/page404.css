@@ -1,0 +1,18 @@
+.page404-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 0;
+}
+
+.page404-container .page404-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+    flex-direction: column;
+}
+
+img.Error-icon {
+    width: 50%;
+}
