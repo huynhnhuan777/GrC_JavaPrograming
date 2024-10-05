@@ -33,6 +33,7 @@ ul.navigation li:hover {
 
 ul.navigation li a {
     padding: 25px 25px;
+    min-width: 90px;
     background-color: #E85C0D;
 }
 
@@ -67,11 +68,12 @@ ul.sub-nav li {
     padding: 0;
 }
 
-.show{
+.show {
     display: block;
+    animation: showing 0.2s;
 }
 
-.hidden{
+.hidden {
     display: none;
 }
 
@@ -108,6 +110,16 @@ form.form-field button.btn-search {
     border: thin solid gray;
 }
 
-form.form-field button.btn-search:hover{
+form.form-field button.btn-search:hover {
     cursor: pointer;
 }
+
+@keyframes showing {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
