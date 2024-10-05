@@ -1,7 +1,25 @@
-.header-banner {
+.header-container{
     display: flex;
+    align-items: center;
     justify-content: center;
-    flex-direction: row;
+    flex-direction: column;
+    font-size: 20px;
+}
+
+.header-slogan {
+    color:var(--text-color);
+    font-weight: bold;
+}
+
+/*logo*/
+.logo-brand{
+    width: 10%;
+}
+
+img.logo-header{
+    width:50%;
+    margin:1px 0;
+    border-radius: 100%;
 }
 
 /*for navigation*/
@@ -11,6 +29,16 @@
     align-items: center;
     background-color: #FABC3F;
     padding: 0;
+    width: 70%;
+    position: relative;
+}
+
+.sticky{
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 3px 30px 3px var(--box-shadow-btn);
+    border-radius: 10px;
 }
 
 .header-navigation ul.navigation {
