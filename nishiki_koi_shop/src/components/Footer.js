@@ -6,6 +6,9 @@ import contact from "../pages/Contact";
 const Footer = () => {
     return (
         <div className={'footer-container'}>
+            <div className={'footer-copyright'}>
+                <p>&copy; 2024 KOI-E. Tất cả các quyền được bảo lưu.</p>
+            </div>
             <div className={'footer-content'}>
                 <div className={'footer-part'}>
                     <img className={'banner'} src={''} alt={'banner'}/>
