@@ -1,4 +1,5 @@
-.header-container{
+/*format header*/
+.header-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -7,18 +8,18 @@
 }
 
 .header-slogan {
-    color:var(--text-color);
+    color: var(--text-color);
     font-weight: bold;
 }
 
 /*logo*/
-.logo-brand{
+.logo-brand {
     width: 10%;
 }
 
-img.logo-header{
-    width:50%;
-    margin:1px 0;
+img.logo-header {
+    width: 50%;
+    margin: 1px 0;
     border-radius: 100%;
 }
 
@@ -31,9 +32,12 @@ img.logo-header{
     padding: 0;
     width: 70%;
     position: relative;
+    border-radius: 10px;
+
+    box-shadow: 0px 0px 5px 3px #821131;
 }
 
-.sticky{
+.sticky {
     position: fixed;
     top: 0;
     z-index: 1000;
@@ -41,6 +45,7 @@ img.logo-header{
     border-radius: 10px;
 }
 
+/*format for main nav*/
 .header-navigation ul.navigation {
     list-style-type: none;
     display: flex;
@@ -48,21 +53,24 @@ img.logo-header{
     justify-content: center;
     flex-direction: row;
     margin: 0;
+    background-color: var(--btn-bg-color);
+    padding: 0;
 }
 
 ul.navigation li {
     padding: 25px 0;
+    background-color: var(--btn-bg-color);
 }
 
 ul.navigation li:hover {
     box-shadow: 0 3px 30px 3px var(--box-shadow-btn);
-    z-index: 10;
+    z-index: 100;
+    background-color: var(--btn-bg-color-hover);
 }
 
 ul.navigation li a {
     padding: 25px 25px;
     min-width: 90px;
-    background-color: #E85C0D;
 }
 
 .hr-custom {
@@ -74,7 +82,6 @@ ul.navigation li a {
 }
 
 /*for sub-nav*/
-
 ul.navigation ul.sub-nav {
     margin: 10px;
 }
@@ -102,6 +109,7 @@ ul.sub-nav li {
 }
 
 .hidden {
+    animation: hiding 0.2s;
     display: none;
 }
 
@@ -115,12 +123,32 @@ ul.sub-nav li a {
     position: relative;
 }
 
-/*for search input form*/
+/*format for minimize nav*/
+.icon-nav {
+    display: none;
+}
 
+.icon-nav-show {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    border: none;
+    margin: 2px;
+    cursor: pointer;
+    box-shadow: 0 3px 30px 3px var(--box-shadow-btn);
+    z-index: 10;
+}
+
+/*for search input form*/
 form.form-field {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: fit-content;
 }
 
 form.form-field input.search-input {
@@ -142,6 +170,7 @@ form.form-field button.btn-search:hover {
     cursor: pointer;
 }
 
+/*effect for sub nav*/
 @keyframes showing {
     0% {
         opacity: 0;
@@ -151,3 +180,125 @@ form.form-field button.btn-search:hover {
     }
 }
 
+@keyframes hiding {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/*format screen*/
+@media (max-width: 1600px) {
+    .header-navigation {
+        font-size: 14px;
+    }
+
+    .search-input {
+        width: 80%;
+    }
+}
+
+@media (max-width: 1400px) {
+    .header-navigation {
+        font-size: 13px;
+    }
+
+    .search-input {
+        width: 60%;
+    }
+    .form-field{
+        flex: 1;
+    }
+}
+
+@media (max-width: 1300px) {
+    .header-navigation {
+        font-size: 12px;
+    }
+
+    .search-input {
+        width: 55%;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .hr-custom {
+        display: none;
+    }
+
+    .header-slogan {
+        display: none;
+    }
+
+    form.form-field {
+        display: none;
+    }
+
+    .logo-brand {
+        display: none;
+    }
+
+    /*re-edit to convert from horizontal to vertical*/
+    .header-navigation {
+        background-color: transparent;
+        padding: 0;
+        position: fixed;
+        width: fit-content;
+        height: fit-content;
+        top: 70px;
+        left: 10px;
+        z-index: 10;
+        transition: opacity 0.5s ease;
+        box-shadow: none;
+        font-size: 16px;
+    }
+
+    .header-navigation ul.navigation {
+        display: block;
+        margin: 0;
+        width: 170px;
+        padding: 0;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 1s, visibility 1s;
+    }
+
+    .show-nav {
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    .hidden-nav {
+        visibility: hidden;
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    ul.navigation li {
+        width: inherit;
+        background-color: #E85C0D;
+    }
+
+    ul.navigation li:hover {
+        box-shadow: 0 3px 30px var(--box-shadow-btn);
+        position: relative;
+        z-index: 11;
+        background-color: var(--btn-bg-color-hover);
+    }
+
+    ul.navigation li a {
+        background-color: transparent;
+    }
+
+    ul.navigation ul.sub-nav {
+        margin-left: 170px;
+        margin-top: -35px;
+    }
+
+    ul.sub-nav li {
+        width: 175px;
+    }
+}

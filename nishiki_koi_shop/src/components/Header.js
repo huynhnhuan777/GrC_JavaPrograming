@@ -10,8 +10,9 @@ const Header = () => {
     const [list, setList] = useState([]);
     const [menu, setMenu] = useState([]);
     const navRef = useRef(null);
-
+    const [isExpanded, setIsExpanded] = useState(false);
     const [isSticky, setIsSticky] = useState(false);
+    const [isMinimize, setIsMinimize] = useState(false);
     const [linkMenu, setLinkMenu] = useState([
         ['level', 'genus', 'special', 'random'],
         ['opening-tour', 'hot-tour'],
@@ -23,6 +24,12 @@ const Header = () => {
         if (window.scrollY > 300) {
             setIsSticky(true);
         } else setIsSticky(false);
+    }
+
+    const handleMinimizeNav = () => {
+        if (window.innerWidth <= 960) {
+            setIsMinimize(true);
+        } else setIsMinimize(false);
     }
 
     const addItem = (newItem) => {
@@ -38,6 +45,17 @@ const Header = () => {
         setIsActive(li);
         setMenu(li);
     }
+
+    const handleExpandNav = () => {
+        setIsExpanded(prevState => !prevState);
+    }
+
+    useEffect(() => {
+        window.addEventListener('resize', handleMinimizeNav);
+        return () => {
+            window.removeEventListener('resize', handleMinimizeNav);
+        }
+    }, []);
 
     useEffect(() => {
         window.addEventListener('scroll', handleAutoScroll);
@@ -65,7 +83,9 @@ const Header = () => {
     return (
         <div className='header-container'>
             <div className='header-slogan'>Hệ thống phân phối cá Koi chuẩn Nhật số 100 Việt Nam</div>
-            <hr className='hr-custom'/>
+
+            <button className={isMinimize ? 'icon-nav-show' : 'icon-nav'}
+                    onClick={handleExpandNav}>{isExpanded ? '×' : '☰'}</button>
 
             <div ref={navRef} className={`header-navigation ${isSticky ? 'sticky' : ''}`}>
                 <div className={'logo-brand'}>
@@ -73,7 +93,9 @@ const Header = () => {
                         <img className={'logo-header'} src={logoBrand} alt={'logo-brand'}/>
                     </Link>
                 </div>
-                <ul className={'navigation'}>
+
+                {/*the code belows is for nav and sub-nav*/}
+                <ul className={`navigation ${isExpanded ? 'show-nav' : 'hidden-nav'} `}>
                     <li><Link to={'/'}>Trang chủ</Link></li>
                     <li onMouseEnter={() => HandleMouseEnter(['Loại', 'Giống', 'Đặc biệt', 'Ngẫu nhiên'])}
                         onMouseLeave={() => HandleMouseLeave()}
@@ -123,7 +145,9 @@ const Header = () => {
                     </li>
                     <li><Link to={'/about-us'}>Về chúng tôi</Link></li>
                 </ul>
+                {/*this is the end of this nav */}
 
+                {/*this form will be a search feature (wait for api provider)*/}
                 <form className={'form-field'}>
                     <input className={'search-input'} type={'text'} placeholder={'tìm kiếm gì ư?'}/>
                     <button className={'btn-search'}>
@@ -135,9 +159,7 @@ const Header = () => {
                     </button>
                 </form>
             </div>
-
-
-            <hr className='hr-custom'/>
-        </div>)
+        </div>
+    )
 }
 export default Header
