@@ -1,0 +1,95 @@
+.home-container {
+}
+
+.bannerSection {
+    margin-top: 20px;
+}
+
+.farmText {
+    flex: 1;
+    margin-right: 20px;
+    font-size: 20px;
+    font-family: "Times New Roman", serif;
+    line-height: 1.6;
+}
+
+.bannerImage {
+    width: 100%;
+    text-align: center;
+}
+
+.koiSection {
+    padding: 20px;
+    text-align: center;
+}
+
+.koiProductCard {
+    border: 2px solid #007BFF;
+    padding: 15px;
+    margin: 0 10px;
+    width: 50% !important;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    text-align: center;
+    background-color: #f0f0f0;
+    display: block;
+    z-index: 0;
+}
+
+.section-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.koiImage {
+    width: 70%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.farmAdSection {
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.formAdContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.farmImageWrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.farmImage {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.tripAdSection {
+    margin: 10px 0;
+}
+
+.tripCard {
+    border: 2px solid #007BFF;
+    padding: 15px;
+    width: 50% !important;
+    margin: 10px;
+    box-shadow: 10px 15px 40px #343a40;
+    border-radius: 10px;
+    text-align: center;
+    background-color: #f0f0f0;
+    z-index: 0;
+}
+
+.tripImage {
+    width: 70%;
+    height: calc(70% * 9.5);
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
