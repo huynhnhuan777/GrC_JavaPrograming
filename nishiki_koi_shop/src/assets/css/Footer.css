@@ -4,6 +4,7 @@
     align-items: center;
     border: 1px solid gray;
     flex-direction: column;
+    width:100%;
 }
 
 .footer-container .footer-copyright {
@@ -11,7 +12,7 @@
     background-color: #343a40;
     color: #fff;
     text-align: center;
-    padding: 10px;
+    padding: 10px 0;
 }
 
 .footer-container .footer-content {
