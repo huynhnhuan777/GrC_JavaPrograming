@@ -14,7 +14,7 @@ const Header = () => {
     const [isSticky, setIsSticky] = useState(false);
     const [isMinimize, setIsMinimize] = useState(false);
     const [linkMenu, setLinkMenu] = useState([
-        ['level', 'genus', 'special', 'random'],
+        ['fish-list', 'farm-list-tour-list'],
         ['opening-tour', 'hot-tour'],
         ['customer-support', 'policy'],
         ['sign-in', 'sign-up'],
@@ -79,7 +79,6 @@ const Header = () => {
         }
     }, [isActive, menu]);
 
-
     return (
         <div className='header-container'>
             <div className='header-slogan'>Hệ thống phân phối cá Koi chuẩn Nhật số 100 Việt Nam</div>
@@ -97,7 +96,7 @@ const Header = () => {
                 {/*the code belows is for nav and sub-nav*/}
                 <ul className={`navigation ${isExpanded ? 'show-nav' : 'hidden-nav'} `}>
                     <li><Link to={'/'}>Trang chủ</Link></li>
-                    <li onMouseEnter={() => HandleMouseEnter(['Loại', 'Giống', 'Đặc biệt', 'Ngẫu nhiên'])}
+                    <li onMouseEnter={() => HandleMouseEnter(['Giống cá', 'Trang trại', 'Tour'])}
                         onMouseLeave={() => HandleMouseLeave()}
                     ><Link to={'/list'}>Danh sách</Link>
                         <ul className={'sub-nav'}>

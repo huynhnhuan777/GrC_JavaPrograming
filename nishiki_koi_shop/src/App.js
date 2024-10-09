@@ -12,11 +12,13 @@ import ListFish from "./pages/ListFish";
 import Footer from "./components/Footer";
 import AboutUs from "./pages/AboutUs";
 import {useEffect} from "react";
+import Cart from "./pages/shoppingCart";
+import Payment from "./pages/Payment";
 
-const AutoScrollToTop=()=>{
-    const {pathname}=useLocation();
+const AutoScrollToTop = () => {
+    const {pathname} = useLocation();
     useEffect(() => {
-        window.scrollTo(0,0);
+        window.scrollTo(0, 0);
     }, [pathname]);
     return null;
 };
@@ -34,16 +36,17 @@ function App() {
                     <Route path={'/contact'} element={<Contact/>}/>
                     <Route path={'/account'} element={<Account/>}/>
                     <Route path={'/about-us'} element={<AboutUs/>}/>
+                    <Route path={'/opening-tour'} element={<Cart/>}/>
+                    <Route path={'/payment'} element={<Payment/>}/>
                     <Route path={'/*'} element={<Page404/>}/>
                 </Routes>
-            </BrowserRouter>
-
-            <BrowserRouter basename="/">
                 <Footer/>
-                <Routes>
-                    <Route path={'/test'} element={<Account/>}/>
-                </Routes>
             </BrowserRouter>
+            {/*<BrowserRouter basename="/">*/}
+            {/*    <Routes>*/}
+            {/*        <Route path={'/payment'} element={<Payment/>}/>*/}
+            {/*    </Routes>*/}
+            {/*</BrowserRouter>*/}
         </div>
     );
 }
