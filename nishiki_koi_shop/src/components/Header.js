@@ -149,7 +149,7 @@ const Header = () => {
 
                 {/*this form will be a search feature (wait for api provider)*/}
                 <form className={'form-field'}>
-                    <input className={'search-input'} type={'text'} placeholder={'tìm kiếm gì ư?'}/>
+                    <input className={'search-input'} type={'text'} placeholder={'  Tìm kiếm gì ư?'}/>
                     <button className={'btn-search'}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              className="bi bi-binoculars-fill" viewBox="0 0 16 16">
