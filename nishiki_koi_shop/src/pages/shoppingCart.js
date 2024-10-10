@@ -16,6 +16,8 @@ const Cart = () => {
         ]
     )
 
+    sessionStorage.setItem('prodList', JSON.stringify(tempData));
+
     const navigate = useNavigate();
 
     const handleIncreaseAmount = (index) => {
@@ -56,6 +58,17 @@ const Cart = () => {
         )
     }
 
+    const handleBuySingleProd = (index) => {
+        sessionStorage.setItem('buyProd', JSON.stringify(tempData[index]));
+        navigate('/payment');
+    }
+
+    const handleRemoveSingleProd = (index) => {
+        console.log('deleted');
+        const tmp = [...tempData];
+        setTempData(tmp.filter(item => item.id !== index));
+    }
+
     const handleBuyClick = () => {
         navigate('/payment');
     }
@@ -70,69 +83,76 @@ const Cart = () => {
                 3. nut chuc nang bao gom: chon, xoa
                 4. cuoi cung co nut chon het.
                 */}
-                <table border={'1px solid black'}>
-                    <tbody>
-                    <tr>
-                        <th>STT</th>
-                        <th>ID</th>
-                        <th>Thông tin sản phẩm</th>
-                        <th>Số lượng</th>
-                        <th>Giá</th>
-                        <th>Tạm tính</th>
-                        <th>Tùy chọn</th>
-                        <th>Đã chọn?</th>
-                    </tr>
-                    {tempData.map((value, index) => (
-                        <tr key={index}>
-                            <td style={{height: "fit-content"}}>{index}</td>
-                            <td>{value.id}</td>
-                            <td>
-                                <div className={'infoProd'}>
-                                    <img className={'thumbnailProd'} src={''} alt={'prod'}/>
-                                    <p>{value.name}</p>
-                                </div>
-                            </td>
-                            <td>
-                                <div className={'changeAmountBtns'}>
-                                    <button className={'featureBtns'}
-                                            onClick={() => handleDeceaseAmount(index)}>-
-                                    </button>
-                                    <p>{value.amount}</p>
-                                    <button className={'featureBtns'} onClick={() => handleIncreaseAmount(index)}>+
-                                    </button>
-                                </div>
-                            </td>
-                            <td>{value.price.toLocaleString('vi-VN')}</td>
-                            <td>{(value.amount * value.price).toLocaleString('vi-VN')}</td>
+                {tempData ?
+                    <table border={'1px solid black'}>
+                        <tbody>
+                        <tr>
+                            <th>STT</th>
+                            <th>ID</th>
+                            <th>Thông tin sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Giá</th>
+                            <th>Tạm tính</th>
+                            <th>Tùy chọn</th>
+                            <th>Đã chọn?</th>
+                        </tr>
+                        {tempData.map((value, index) => (
+                            <tr key={index}>
+                                <td style={{height: "fit-content"}}>{index}</td>
+                                <td>{value.id}</td>
+                                <td>
+                                    <div className={'infoProd'}>
+                                        <img className={'thumbnailProd'} src={''} alt={'prod'}/>
+                                        <p>{value.name}</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div className={'changeAmountBtns'}>
+                                        <button className={'featureBtns'}
+                                                onClick={() => handleDeceaseAmount(index)}>-
+                                        </button>
+                                        <p>{value.amount}</p>
+                                        <button className={'featureBtns'} onClick={() => handleIncreaseAmount(index)}>+
+                                        </button>
+                                    </div>
+                                </td>
+                                <td>{value.price.toLocaleString('vi-VN')}</td>
+                                <td>{(value.amount * value.price).toLocaleString('vi-VN')}</td>
+                                <td>
+                                    <div className={'optionBtns'}>
+                                        <button className={'featureBtns'} onClick={() => handleBuySingleProd(index)}>Mua
+                                        </button>
+                                        <button className={'featureBtns'}
+                                                onClick={() => handleRemoveSingleProd(value.id)}>Xóa
+                                        </button>
+                                    </div>
+                                </td>
+                                <td>
+                                    <input type={"checkbox"} name={'choose'} value={'checked'}
+                                           onChange={() => handleChecked(index)}/>
+                                </td>
+                            </tr>
+                        ))}
+
+                        <tr>
+                            <td colSpan={2}>Tổng tiền:</td>
+                            <td colSpan={4}>{totalCost.toLocaleString('vi-VN')}</td>
                             <td>
                                 <div className={'optionBtns'}>
-                                    <button className={'featureBtns'}>Mua</button>
+                                    <button className={'featureBtns'} onClick={handleBuyClick}>Mua</button>
                                     <button className={'featureBtns'}>Xóa</button>
                                 </div>
                             </td>
                             <td>
                                 <input type={"checkbox"} name={'choose'} value={'checked'}
-                                       onChange={() => handleChecked(index)}/>
+                                       onChange={() => handleChecked(2)}/>
                             </td>
                         </tr>
-                    ))}
-
-                    <tr>
-                        <td colSpan={2}>Tổng tiền:</td>
-                        <td colSpan={4}>{totalCost.toLocaleString('vi-VN')}</td>
-                        <td>
-                            <div className={'optionBtns'}>
-                                <button className={'featureBtns'} onClick={handleBuyClick}>Mua</button>
-                                <button className={'featureBtns'}>Xóa</button>
-                            </div>
-                        </td>
-                        <td>
-                            <input type={"checkbox"} name={'choose'} value={'checked'}
-                                   onChange={() => handleChecked(2)}/>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                    :
+                    <p>Có mua cái dell gì đâu mà </p>
+                }
                 <ToastContainer
                     position="top-right"
                     autoClose={2000}
@@ -145,6 +165,7 @@ const Cart = () => {
                     pauseOnHover
                     theme="light"
                 />
+
             </div>
         </div>
     )
