@@ -11,7 +11,7 @@ import Account from "./pages/Account";
 import ListFish from "./pages/ListFish";
 import Footer from "./components/Footer";
 import AboutUs from "./pages/AboutUs";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import Cart from "./pages/shoppingCart";
 import Payment from "./pages/Payment";
 
@@ -23,7 +23,15 @@ const AutoScrollToTop = () => {
     return null;
 };
 
-function App() {
+
+const App = () => {
+
+    const [tempUser, setTempUser] = useState([
+        {id: 'user_1101_1121', name: 'CaoNhatHao'}
+    ])
+
+    sessionStorage.setItem('user', JSON.stringify(tempUser));
+
     return (
         <div className="App">
             <BrowserRouter basename="/">
@@ -36,7 +44,7 @@ function App() {
                     <Route path={'/contact'} element={<Contact/>}/>
                     <Route path={'/account'} element={<Account/>}/>
                     <Route path={'/about-us'} element={<AboutUs/>}/>
-                    <Route path={'/opening-tour'} element={<Cart/>}/>
+                    <Route path={'/cart'} element={<Cart/>}/>
                     <Route path={'/payment'} element={<Payment/>}/>
                     <Route path={'/*'} element={<Page404/>}/>
                 </Routes>
