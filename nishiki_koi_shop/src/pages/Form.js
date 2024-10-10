@@ -77,6 +77,8 @@ const styles = {
   label: {
     marginBottom: '5px',
     fontSize: '16px',
+    display: 'block',
+    textAlign:'left',
   },
   input: {
     padding: '10px',
