@@ -13,10 +13,14 @@ const Header = () => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [isSticky, setIsSticky] = useState(false);
     const [isMinimize, setIsMinimize] = useState(false);
+
+    const user = JSON.parse(sessionStorage.getItem('user'));
+
     const [linkMenu, setLinkMenu] = useState([
         ['fish-list', 'farm-list-tour-list'],
         ['opening-tour', 'hot-tour'],
         ['customer-support', 'policy'],
+        ['profile', 'orders', 'history', 'cart'],
         ['sign-in', 'sign-up'],
     ])
 
@@ -50,6 +54,10 @@ const Header = () => {
         setIsExpanded(prevState => !prevState);
     }
 
+    const handleSignOut = () => {
+        sessionStorage.removeItem('user');
+    }
+
     useEffect(() => {
         window.addEventListener('resize', handleMinimizeNav);
         return () => {
@@ -81,7 +89,12 @@ const Header = () => {
 
     return (
         <div className='header-container'>
-            <div className='header-slogan'>Hệ thống phân phối cá Koi chuẩn Nhật số 100 Việt Nam</div>
+            <div className='header-slogan'>
+                <p>Hệ thống phân phối cá Koi chuẩn Nhật số 100 Việt Nam</p>
+                {user ? 'Xin chào, ' + user[0].name :
+                    <p><Link to={'login'}>Đăng nhập đi nào!</Link> - <Link to={'/register'}>Đăng kí ngay thôi</Link>
+                    </p>}
+            </div>
 
             <button className={isMinimize ? 'icon-nav-show' : 'icon-nav'}
                     onClick={handleExpandNav}>{isExpanded ? '×' : '☰'}</button>
@@ -125,24 +138,42 @@ const Header = () => {
                         <ul className={'sub-nav'}>
                             {list.map((item, index) => (
                                 <li key={3 * index} className={isActive ? 'show' : 'hidden'}>
-                                    <Link to={`/${linkMenu[1][index]}`}>{item}</Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </li>
-                    <li
-                        onMouseEnter={() => HandleMouseEnter(['Đăng nhập', 'Đăng kí'])}
-                        onMouseLeave={() => HandleMouseLeave()}
-                    ><Link to={'/account'}>Tài khoản</Link>
-                        <ul className={'sub-nav'}>
-                            {list.map((item, index) => (
-                                <li key={4 * index} className={isActive ? 'show' : 'hidden'}>
                                     <Link to={`/${linkMenu[2][index]}`}>{item}</Link>
                                 </li>
                             ))}
                         </ul>
                     </li>
-                    <li><Link to={'/about-us'}>Về chúng tôi</Link></li>
+                    {user ?
+                        <li
+                            onMouseEnter={() => HandleMouseEnter(['Thông tin cá nhân', 'Đơn hàng', 'Lịch sử', 'Giỏ hàng', 'Đăng xuất'])}
+                            onMouseLeave={() => HandleMouseLeave()}
+                        ><Link to={'/account'}>{user[0].name}</Link>
+                            <ul className={'sub-nav'}>
+                                {list.map((item, index) => (
+                                    <li key={4 * index} className={isActive ? 'show' : 'hidden'}>
+                                        {item === 'Đăng xuất'
+                                            ? (<Link to={'/'} onClick={() => handleSignOut()}>{item} < /Link>)
+                                            : (<Link to={`/${linkMenu[3][index]}`}>{item}</Link>)
+                                        }
+                                    </li>
+                                ))}
+                            </ul>
+                        </li>
+                        :
+                        <li
+                            onMouseEnter={() => HandleMouseEnter(['Đăng nhập', 'Đăng kí'])}
+                            onMouseLeave={() => HandleMouseLeave()}
+                        ><Link to={'/account'}>Tài khoản</Link>
+                            <ul className={'sub-nav'}>
+                                {list.map((item, index) => (
+                                    <li key={5 * index} className={isActive ? 'show' : 'hidden'}>
+                                        <Link to={`/${linkMenu[4][index]}`}>{item}</Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </li>
+                    }
+                    <li><Link to={'/about-us'}>Về KOI-E</Link></li>
                 </ul>
                 {/*this is the end of this nav */}
 
