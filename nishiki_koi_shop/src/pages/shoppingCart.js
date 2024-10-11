@@ -1,13 +1,20 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {ToastContainer, toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import '../assets/css/cart.css'
 import {Link, useNavigate} from "react-router-dom";
+import {isDisabled} from "@testing-library/user-event/dist/utils";
 
 const Cart = () => {
+    /*danh sach san pham se mua-khoi tao rong*/
     const [listProd, setListProd] = useState([]);
+
+    /*danh sach san phan can thanh toan- se chuyen sang trang payment*/
+    const [paymentList, setPaymentList] = useState([]);
+
     const [isChecked, setIsChecked] = useState({});
     const [totalCost, setTotalCost] = useState(0);
+    const [checkedAll, setCheckedAll] = useState(false);
 
     /*Du lieu mau*/
     const [tempData, setTempData] = useState([
@@ -15,8 +22,6 @@ const Cart = () => {
             {id: 'KOI_1001_11_2214', name: 'KOI OSAKA', amount: 2, price: 1155000},
         ]
     )
-
-    sessionStorage.setItem('prodList', JSON.stringify(tempData));
 
     const navigate = useNavigate();
 
@@ -26,6 +31,7 @@ const Cart = () => {
         setListProd(reUpdate);
 
         if (isChecked[index]) {
+            console.log('check');
             setTotalCost(totalCost + reUpdate[index].price);
         }
     }
@@ -47,16 +53,75 @@ const Cart = () => {
                 if (newCheckedList[index]) {
                     const tmp = [...tempData];
                     setTotalCost(totalCost + tmp[index].amount * tmp[index].price);
+                    setPaymentList([...paymentList, tmp[index]]);
+                    setCheckedAll(false);
                     toast("Checked");
                 } else {
                     const tmp = [...tempData];
-                    setTotalCost(totalCost - (tmp[index].amount * tmp[index].price))
+                    setTotalCost(totalCost - (tmp[index].amount * tmp[index].price));
+                    setPaymentList(paymentList.filter(paymentList => paymentList.id !== tmp[index].id));
                     toast("Unchecked");
+                    setCheckedAll(false);
                 }
                 return newCheckedList;
             }
         )
     }
+
+    const handleCheckedAll = () => {
+        if (checkedAll === false) {
+            setIsChecked(prevState => {
+                let newCheckedState = {};
+
+                const inp = document.getElementsByClassName('chooseProd');
+                for (let i = 0; i < inp.length; i++) {
+                    inp[i].checked = true;
+                    newCheckedState[i] = true;
+                }
+                const tmp = [...tempData];
+                setTotalCost(tmp.reduce((acc, currentValue) => acc + (currentValue.price * currentValue.amount), 0));
+                setPaymentList(tmp);
+                toast("Checked All");
+                setCheckedAll(true);
+                return newCheckedState;
+            });
+        } else toast("You have checked all!");
+    }
+
+    const handleCheckBox = () => {
+        for (const [key, value] of Object.entries(isChecked)) {
+            if (value === true) {
+                return true; // Break sẽ hoạt động trong vòng lặp for...of
+            }
+        }
+        return false
+    }
+
+    const handleUnCheckedAll = () => {
+
+
+        if (checkedAll === true || handleCheckBox()) {
+            setIsChecked(prevState => {
+                const newCheckedState = {};
+                for (let key in prevState) {
+                    if (prevState.hasOwnProperty(key)) {
+                        newCheckedState[key] = false;
+                    }
+                }
+                const inp = document.getElementsByClassName('chooseProd');
+                for (let i = 0; i < inp.length; i++) {
+                    inp[i].checked = false;
+                }
+
+                setTotalCost(0);
+                setPaymentList([]);
+                toast('Unchecked all');
+                setCheckedAll(false);
+                return newCheckedState;
+            })
+        } else toast("You have unchecked all!");
+    }
+
 
     const handleBuySingleProd = (index) => {
         sessionStorage.setItem('buyProd', JSON.stringify(tempData[index]));
@@ -73,6 +138,14 @@ const Cart = () => {
         navigate('/payment');
     }
 
+    const handleRemoveAllClick = () => {
+        handleUnCheckedAll();
+    }
+
+    useEffect(() => {
+        console.log("checked all:", checkedAll);
+    }, [checkedAll]); // Chạy mỗi khi paymentList thay đổi
+
     return (
         <div className={'cart-container'}>
             <div className={'cart-content'}>
@@ -84,22 +157,24 @@ const Cart = () => {
                 4. cuoi cung co nut chon het.
                 */}
                 {tempData ?
-                    <table border={'1px solid black'}>
+                    <table style={{borderCollapse: 'collapse'}}>
                         <tbody>
-                        <tr>
-                            <th>STT</th>
-                            <th>ID</th>
+                        <tr style={{backgroundColor: 'var(--bg-color-table)'}}>
+                            {/*<th>ID</th>*/}
                             <th>Thông tin sản phẩm</th>
-                            <th>Số lượng</th>
-                            <th>Giá</th>
-                            <th>Tạm tính</th>
-                            <th>Tùy chọn</th>
-                            <th>Đã chọn?</th>
+                            <th style={{width: '10%'}}>Số lượng</th>
+                            <th style={{width: '15%'}}>Giá</th>
+                            <th style={{width: '15%'}}>Tạm tính</th>
+                            <th style={{width: '10%'}}>
+                                <div className={''}>
+                                    <button className={'featureBtns'} onClick={handleCheckedAll}>Chọn hết</button>
+                                    <button className={'featureBtns'} onClick={handleUnCheckedAll}>Bỏ Hểt</button>
+                                </div>
+                            </th>
                         </tr>
                         {tempData.map((value, index) => (
                             <tr key={index}>
-                                <td style={{height: "fit-content"}}>{index}</td>
-                                <td>{value.id}</td>
+                                {/*<td>{value.id}</td>*/}
                                 <td>
                                     <div className={'infoProd'}>
                                         <img className={'thumbnailProd'} src={''} alt={'prod'}/>
@@ -118,34 +193,34 @@ const Cart = () => {
                                 </td>
                                 <td>{value.price.toLocaleString('vi-VN')}</td>
                                 <td>{(value.amount * value.price).toLocaleString('vi-VN')}</td>
+                                {/*<td>*/}
+                                {/*    <div className={'optionBtns'}>*/}
+                                {/*        <button className={'featureBtns'} onClick={() => handleBuySingleProd(index)}>Mua*/}
+                                {/*        </button>*/}
+                                {/*        <button className={'featureBtns'}*/}
+                                {/*                onClick={() => handleRemoveSingleProd(value.id)}>Xóa*/}
+                                {/*        </button>*/}
+                                {/*    </div>*/}
+                                {/*</td>*/}
                                 <td>
-                                    <div className={'optionBtns'}>
-                                        <button className={'featureBtns'} onClick={() => handleBuySingleProd(index)}>Mua
-                                        </button>
-                                        <button className={'featureBtns'}
-                                                onClick={() => handleRemoveSingleProd(value.id)}>Xóa
-                                        </button>
-                                    </div>
-                                </td>
-                                <td>
-                                    <input type={"checkbox"} name={'choose'} value={'checked'}
-                                           onChange={() => handleChecked(index)}/>
+                                    <input className={'chooseProd'} type={"checkbox"} name={'choose'} value={'checked'}
+                                           onClick={() => handleChecked(index)}/>
                                 </td>
                             </tr>
                         ))}
 
-                        <tr>
-                            <td colSpan={2}>Tổng tiền:</td>
-                            <td colSpan={4}>{totalCost.toLocaleString('vi-VN')}</td>
+                        <tr style={{borderBottom: 'none', backgroundColor: 'transparent'}}>
+                            <td colSpan={4}>Tổng tiền: {totalCost.toLocaleString('vi-VN')}</td>
+                            {/*<td>*/}
+                            {/*    <div className={'optionBtns'}>*/}
+                            {/*        <button className={'featureBtns'} onClick={handleBuyClick}>Mua</button>*/}
+                            {/*        <button className={'featureBtns'} onClick={handleRemoveAllClick}>Xóa</button>*/}
+                            {/*    </div>*/}
+                            {/*</td>*/}
                             <td>
                                 <div className={'optionBtns'}>
-                                    <button className={'featureBtns'} onClick={handleBuyClick}>Mua</button>
-                                    <button className={'featureBtns'}>Xóa</button>
+                                    <button className={'featureBtns'} onClick={handleBuyClick}>Mua ngay</button>
                                 </div>
-                            </td>
-                            <td>
-                                <input type={"checkbox"} name={'choose'} value={'checked'}
-                                       onChange={() => handleChecked(2)}/>
                             </td>
                         </tr>
                         </tbody>
