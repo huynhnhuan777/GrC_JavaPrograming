@@ -49,3 +49,17 @@
     cursor: pointer;
     box-shadow: 0 1px 10px 3px var(--box-shadow-btn);
 }
+
+tr{
+    border-bottom:1px solid gray;
+}
+tr:hover{
+    background-color: rgba(128, 128, 128, 0.22);
+}
+
+.disable{
+    background-color: transparent;
+}
+.disable:hover{
+    background-color: transparent;
+}
