@@ -101,6 +101,7 @@ function Home() {
             imageUrl: 'https://www.koikoimatsuda.jp/en/set_pics/home02.JPG',
         },
     ];
+    
 
     const sliderSettings = {
         dots: true,
