@@ -3,7 +3,6 @@ import {ToastContainer, toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import '../assets/css/cart.css'
 import {Link, useNavigate} from "react-router-dom";
-import {isDisabled} from "@testing-library/user-event/dist/utils";
 
 const Cart = () => {
     /*danh sach san pham se mua-khoi tao rong*/
@@ -55,12 +54,12 @@ const Cart = () => {
                     setTotalCost(totalCost + tmp[index].amount * tmp[index].price);
                     setPaymentList([...paymentList, tmp[index]]);
                     setCheckedAll(false);
-                    toast("Checked");
+                    toast("Chọn thành công!");
                 } else {
                     const tmp = [...tempData];
                     setTotalCost(totalCost - (tmp[index].amount * tmp[index].price));
                     setPaymentList(paymentList.filter(paymentList => paymentList.id !== tmp[index].id));
-                    toast("Unchecked");
+                    toast("Hông lấy nữa hả? Tiếc ghê...");
                     setCheckedAll(false);
                 }
                 return newCheckedList;
@@ -81,11 +80,11 @@ const Cart = () => {
                 const tmp = [...tempData];
                 setTotalCost(tmp.reduce((acc, currentValue) => acc + (currentValue.price * currentValue.amount), 0));
                 setPaymentList(tmp);
-                toast("Checked All");
+                toast("Chọn hết cả rồi nha!");
                 setCheckedAll(true);
                 return newCheckedState;
             });
-        } else toast("You have checked all!");
+        } else toast("Bạn đã chọn hết rồi!");
     }
 
     const handleCheckBox = () => {
@@ -98,8 +97,6 @@ const Cart = () => {
     }
 
     const handleUnCheckedAll = () => {
-
-
         if (checkedAll === true || handleCheckBox()) {
             setIsChecked(prevState => {
                 const newCheckedState = {};
@@ -115,36 +112,23 @@ const Cart = () => {
 
                 setTotalCost(0);
                 setPaymentList([]);
-                toast('Unchecked all');
+                toast('Bỏ hết, mua sau đúng hem?');
                 setCheckedAll(false);
                 return newCheckedState;
             })
-        } else toast("You have unchecked all!");
-    }
-
-
-    const handleBuySingleProd = (index) => {
-        sessionStorage.setItem('buyProd', JSON.stringify(tempData[index]));
-        navigate('/payment');
-    }
-
-    const handleRemoveSingleProd = (index) => {
-        console.log('deleted');
-        const tmp = [...tempData];
-        setTempData(tmp.filter(item => item.id !== index));
+        } else toast("Còn gì nữa đây để bỏ đây hở!?");
     }
 
     const handleBuyClick = () => {
-        navigate('/payment');
-    }
-
-    const handleRemoveAllClick = () => {
-        handleUnCheckedAll();
+        if (handleCheckBox()) {
+            sessionStorage.setItem('listPayment', JSON.stringify(paymentList));
+            navigate('/payment');
+        } else toast("Tính thanh toán không khí hả?!");
     }
 
     useEffect(() => {
-        console.log("checked all:", checkedAll);
-    }, [checkedAll]); // Chạy mỗi khi paymentList thay đổi
+        console.log('Payment list: ', paymentList);
+    }, [paymentList]); // Chạy mỗi khi paymentList thay đổi
 
     return (
         <div className={'cart-container'}>
