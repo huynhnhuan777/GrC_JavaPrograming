@@ -11,8 +11,7 @@ function AboutUs() {
                 <source src={bgVideo} type="video/webm"/>
             </video>
             <div className="about-us-content">
-                <h1 className={'text'}>N-KOI: Nơi kết nối cộng đồng yêu thích cá chép xứ sở hoa anh
-                    đào</h1> {/* Tiêu đề */}
+                <h1 className={'text'}>N-KOI: Nơi kết nối cộng đồng yêu thích cá chép xứ sở hoa anh đào</h1> {/* Tiêu đề */}
                 <p className={'text'}>
                     Chào mừng các bạn đến với <strong><Link to={'/'}>N-Koi</Link> </strong>, chúng tôi ở đây để cung
                     cấp cho các bạn một trải ngiệm
