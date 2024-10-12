@@ -1,21 +1,20 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {ToastContainer, toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import '../assets/css/payment.css'
-import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
 
 const Payment = () => {
-    const [amount, setAmount] = useState(0); /*se lam thanh [] sau*/
-    const [list, setList] = useState([]);/*Thiet lap danh sach san phan*/
+    const [listPayment, setListPayment] = useState([]);/*Thiet lap danh sach san pham*/
 
-    const handleIncreaseAmount = () => {
-        setAmount(amount + 1);
-    }
-    const handleDeceaseAmount = () => {
-        if (amount > 0) {
-            setAmount(amount - 1);
-        }
-    }
+    /*Du lieu mau ve customer*/
+
+    const [tempUser, setTempUser] = useState([
+        {id: 'user_1101_1121', name: 'CaoNhatHao'}
+    ])
+
+    useEffect(() => {
+        setListPayment(JSON.parse(sessionStorage.getItem('listPayment')));
+    }, []);
 
     return (
         <div className={'payment-container'}>
@@ -41,29 +40,25 @@ const Payment = () => {
                         <tbody>
                         <tr>
                             <th>STT</th>
-                            <th>ID</th>
                             <th>Thông tin sản phẩm</th>
                             <th>Số lượng</th>
                             <th>Giá</th>
                             <th>Tổng</th>
                         </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>
-                                <div className={'prodInfo'}>
-                                    <img className={'thumbnailProd'} src={''} alt={'prod'}/>
-                                    <h5>product</h5>
-                                </div>
-                            </td>
-                            <td>
-                                <button className={'featureBtns'} onClick={handleDeceaseAmount}>-</button>
-                                <p>{amount}</p>
-                                <button className={'featureBtns'} onClick={handleIncreaseAmount}>+</button>
-                            </td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+                        {listPayment.map((item, index) => (
+                            <tr key={{index}}>
+                                <td>{index + 1}</td>
+                                <td>
+                                    <div className={'infoProd'}>
+                                        <img className={'thumbnailProd'} src={''} alt={'prod'}/>
+                                        <p>{item.name}</p>
+                                    </div>
+                                </td>
+                                <td>{item.amount}</td>
+                                <td>{item.price}</td>
+                                <td>{(item.amount * item.price).toLocaleString('vi-VN')}</td>
+                            </tr>
+                        ))}
                         </tbody>
                     </table>
                 </div>
