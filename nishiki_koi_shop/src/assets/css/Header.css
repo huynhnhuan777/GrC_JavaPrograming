@@ -10,17 +10,33 @@
 .header-slogan {
     color: #343a40;;
     font-weight: bold;
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 /*logo*/
 .logo-brand {
     width: 10%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 img.logo-header {
-    width: 50%;
+    width: 100%;
     margin: 1px 0;
     border-radius: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-70%, -50%);
+    box-shadow: 0 3px 30px 3px var(--box-shadow-btn);
 }
 
 /*for navigation*/
@@ -32,7 +48,7 @@ img.logo-header {
     padding: 0;
     width: 70%;
     position: relative;
-    border-radius: 10px;
+    border-radius: 50px;
 
     box-shadow: 0px 0px 5px 3px #821131;
 }
