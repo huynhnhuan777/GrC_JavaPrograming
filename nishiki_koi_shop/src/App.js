@@ -10,8 +10,8 @@ import ListFish from "./pages/ListFish";
 import Footer from "./components/Footer";
 import AboutUs from "./pages/AboutUs";
 import {useEffect, useState} from "react";
-import Cart from "./pages/shoppingCart";
-import Payment from "./pages/Payment";
+import Cart from "./pages/Account/shoppingCart";
+import Payment from "./pages/Account/Payment";
 import RegisterForm from './pages/RegisterForm';
 
 const AutoScrollToTop = () => {
@@ -63,8 +63,6 @@ const App = () => {
                     <Route path={'/farm'} element={<Farm/>}/>
                     <Route path={'/list'} element={<ListFish/>}/>
                     <Route path={'/contact'} element={<Contact/>}/>
-                    <Route path={'/account'} element={<CustomerAccount/>}/>
-                    <Route path={'/order-history'} element={<OrderHistory/>}/>
                     <Route path={'/about-us'} element={<AboutUs/>}/>
                     <Route path={'/cart'} element={<Cart/>}/>
                     <Route path={'/payment'} element={<Payment/>}/>
