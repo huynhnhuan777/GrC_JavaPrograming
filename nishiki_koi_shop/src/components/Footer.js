@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import '../assets/css/Footer.css'
-import contact from "../pages/Contact";
+import contact from "../pages/Feedback/Contact";
 
 const Footer = () => {
     return (

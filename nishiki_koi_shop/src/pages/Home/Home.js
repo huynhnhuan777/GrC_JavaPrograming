@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ContactForm from './Form';
-import '../assets/css/Home.css'; // Đảm bảo đường dẫn đúng
+import '../../assets/css/Home.css'; // Đảm bảo đường dẫn đúng
 
 function Home() {
     const bannerUrl = "https://inhat.vn/wp-content/uploads/2021/03/4-37.jpg";
