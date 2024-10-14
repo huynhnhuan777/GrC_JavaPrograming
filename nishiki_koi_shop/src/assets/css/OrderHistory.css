@@ -1,0 +1,76 @@
+.order-history-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #007BFF;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    color: #007BFF;
+}
+
+.order-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.order-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.order-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.order-details {
+    flex-grow: 1;
+    text-align: left; /* Căn trái chữ */
+}
+
+.button-group {
+    display: flex;
+    gap: 10px; /* Khoảng cách giữa hai nút */
+}
+
+.reorder-button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #28a745; /* Màu xanh cho nút mua lại */
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.reorder-button:hover {
+    background-color: #218838; /* Màu xanh đậm hơn khi hover */
+}
+
+.view-details-button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #007BFF; /* Màu xanh cho nút xem chi tiết */
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.view-details-button:hover {
+    background-color: #0056b3; /* Màu xanh đậm hơn khi hover */
+}
