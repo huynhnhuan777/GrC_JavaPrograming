@@ -11,10 +11,8 @@ import ListFish from "./pages/ListFish";
 import Footer from "./components/Footer";
 import AboutUs from "./pages/AboutUs";
 import {useEffect, useState} from "react";
-import Cart from "./pages/shoppingCart";
-import Payment from "./pages/Payment";
-import CustomerAccount from "./pages/CustomerAccount";
-import OrderHistory from "./pages/OrderHistory";
+import Cart from "./pages/Account/shoppingCart";
+import Payment from "./pages/Account/Payment";
 
 const AutoScrollToTop = () => {
     const {pathname} = useLocation();

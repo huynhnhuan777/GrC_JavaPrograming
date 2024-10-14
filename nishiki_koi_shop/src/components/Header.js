@@ -17,8 +17,6 @@ const Header = () => {
     const user = JSON.parse(sessionStorage.getItem('user'));
 
     const [linkMenu, setLinkMenu] = useState([
-        ['fish-list', 'farm-list', 'tour-list'],
-        ['opening-tour', 'hot-tour'],
         ['customer-support', 'policy'],
         ['profile', 'orders', 'history', 'cart'],
         ['sign-in', 'sign-up'],
@@ -84,11 +82,11 @@ const Header = () => {
             const interval = setInterval(() => {
                 addItem(`${menu[index]}`);
                 index++;
-            }, 200);
+            }, 100);
 
             setTimeout(() => {
                 clearInterval(interval);
-            }, menu.length * 200);
+            }, menu.length * 100);
             return () => clearInterval(interval);
         }
     }, [isActive, menu]);
@@ -115,36 +113,22 @@ const Header = () => {
                 {/*the code belows is for nav and sub-nav*/}
                 <ul className={`navigation ${isExpanded ? 'show-nav' : 'hidden-nav'} `}>
                     <li><Link to={'/'} onClick={handleCloseNavBar}>Trang chủ</Link></li>
-                    <li onMouseEnter={() => HandleMouseEnter(['Giống cá', 'Trang trại', 'Tour'])}
-                        onMouseLeave={() => HandleMouseLeave()}
-                    ><Link to={'/list'}>Danh sách</Link>
-                        <ul className={'sub-nav'}>
-                            {list.map((item, index) => (
-                                <li key={index} className={isActive ? 'show' : 'hidden'}>
-                                    <Link to={`/${linkMenu[0][index]}`} onClick={handleCloseNavBar}>{item}</Link>
-                                </li>
-                            ))}
-                        </ul>
+                    <li
+                    ><Link to={'/list'}>Giống cá</Link>
+
                     </li>
-                    <li onMouseEnter={() => HandleMouseEnter(['Tour đang mở', 'Tour phổ biến'])}
-                        onMouseLeave={() => HandleMouseLeave()}
+                    <li
                     ><Link to={'/farm'} onClick={handleCloseNavBar}>Trang trại</Link>
-                        <ul className={'sub-nav'}>
-                            {list.map((item, index) => (
-                                <li key={2 * index} className={isActive ? 'show' : 'hidden'}>
-                                    <Link to={`/${linkMenu[1][index]}`} onClick={handleCloseNavBar}>{item}</Link>
-                                </li>
-                            ))}
-                        </ul>
                     </li>
+                    <li><Link to={'/tour'}>Chuyến đi</Link></li>
                     <li
                         onMouseEnter={() => HandleMouseEnter(['CSKH', 'Chính sách'])}
                         onMouseLeave={() => HandleMouseLeave()}
                     ><Link to={'/contact'} onClick={handleCloseNavBar}>Liên hệ</Link>
                         <ul className={'sub-nav'}>
                             {list.map((item, index) => (
-                                <li key={3 * index} className={isActive ? 'show' : 'hidden'}>
-                                    <Link to={`/${linkMenu[2][index]}`} onClick={handleCloseNavBar}>{item}</Link>
+                                <li key={index} className={isActive ? 'show' : 'hidden'}>
+                                    <Link to={`/${linkMenu[0][index]}`} onClick={handleCloseNavBar}>{item}</Link>
                                 </li>
                             ))}
                         </ul>
@@ -156,11 +140,11 @@ const Header = () => {
                         ><Link to={'/account'} onClick={handleCloseNavBar}>{user[0].name}</Link>
                             <ul className={'sub-nav'}>
                                 {list.map((item, index) => (
-                                    <li key={4 * index} className={isActive ? 'show' : 'hidden'}>
+                                    <li key={1 * index} className={isActive ? 'show' : 'hidden'}>
                                         {item === 'Đăng xuất'
                                             ? (<Link to={'/'} onClick={() => handleSignOut()}
                                                      onClick={handleCloseNavBar}>{item} < /Link>)
-                                            : (<Link to={`/${linkMenu[3][index]}`}
+                                            : (<Link to={`/${linkMenu[1][index]}`}
                                                      onClick={handleCloseNavBar}>{item}</Link>)
                                         }
                                     </li>
@@ -174,8 +158,8 @@ const Header = () => {
                         ><Link to={'/account'} onClick={handleCloseNavBar}>Tài khoản</Link>
                             <ul className={'sub-nav'}>
                                 {list.map((item, index) => (
-                                    <li key={5 * index} className={isActive ? 'show' : 'hidden'}>
-                                        <Link to={`/${linkMenu[4][index]}`} onClick={handleCloseNavBar}>{item}</Link>
+                                    <li key={2 * index} className={isActive ? 'show' : 'hidden'}>
+                                        <Link to={`/${linkMenu[2    ][index]}`} onClick={handleCloseNavBar}>{item}</Link>
                                     </li>
                                 ))}
                             </ul>
