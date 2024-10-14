@@ -1,18 +1,18 @@
 import './App.css';
 import './assets/root.css';
-import Home from './pages/Home';
+import Home from './pages/Home/Home';
 import Header from './components/Header';
 import Page404 from "./pages/Page404";
 import Farm from "./pages/Farm";
 import {BrowserRouter, Routes, Route, useLocation} from 'react-router-dom';
-import Contact from "./pages/Contact";
+import Contact from "./pages/Feedback/Contact";
 import ListFish from "./pages/ListFish";
 import Footer from "./components/Footer";
-import AboutUs from "./pages/AboutUs";
+import AboutUs from "./pages/Feedback/AboutUs";
 import {useEffect, useState} from "react";
 import Cart from "./pages/Account/shoppingCart";
 import Payment from "./pages/Account/Payment";
-import RegisterForm from './pages/RegisterForm';
+import RegisterForm from './pages/Account/RegisterForm';
 
 const AutoScrollToTop = () => {
     const {pathname} = useLocation();
@@ -23,25 +23,24 @@ const AutoScrollToTop = () => {
 };
 
 const AppContent = () => {
-    const { pathname } = useLocation(); // Lấy route hiện tại
+    const {pathname} = useLocation(); // Lấy route hiện tại
 
     return (
         <>
             {/* Chỉ hiển thị Header và Footer khi không ở trang đăng kí */}
-            {pathname !== '/register' && <Header />}
+            {pathname !== '/register' && <Header/>}
             <Routes>
-                <Route path={'/'} element={<Home />} />
-                <Route path={'/farm'} element={<Farm />} />
-                <Route path={'/list'} element={<ListFish />} />
-                <Route path={'/contact'} element={<Contact />} />
-                <Route path={'/account'} element={<Account />} />
-                <Route path={'/about-us'} element={<AboutUs />} />
-                <Route path={'/cart'} element={<Cart />} />
-                <Route path={'/payment'} element={<Payment />} />
-                <Route path={'/register'} element={<RegisterForm />} />
-                <Route path={'/*'} element={<Page404 />} />
+                <Route path={'/'} element={<Home/>}/>
+                <Route path={'/farm'} element={<Farm/>}/>
+                <Route path={'/list'} element={<ListFish/>}/>
+                <Route path={'/contact'} element={<Contact/>}/>
+                <Route path={'/about-us'} element={<AboutUs/>}/>
+                <Route path={'/cart'} element={<Cart/>}/>
+                <Route path={'/payment'} element={<Payment/>}/>
+                <Route path={'/register'} element={<RegisterForm/>}/>
+                <Route path={'/*'} element={<Page404/>}/>
             </Routes>
-            {pathname !== '/register' && <Footer />}
+            {pathname !== '/register' && <Footer/>}
         </>
     );
 }
@@ -55,7 +54,7 @@ const App = () => {
 
     return (
         <div className="App">
-            <BrowserRouter basename="/">           
+            <BrowserRouter basename="/">
                 <AutoScrollToTop/>
                 <Header/>
                 <Routes>
@@ -66,6 +65,7 @@ const App = () => {
                     <Route path={'/about-us'} element={<AboutUs/>}/>
                     <Route path={'/cart'} element={<Cart/>}/>
                     <Route path={'/payment'} element={<Payment/>}/>
+                    <Route path={'/register'} element={<RegisterForm/>}/>
                     <Route path={'/*'} element={<Page404/>}/>
                 </Routes>
                 <Footer/>

@@ -1,7 +1,7 @@
 import React from 'react';
-import bgVideo from '../assets/video/vid.webm'
+import bgVideo from '../../assets/video/vid.webm'
 import {Link} from "react-router-dom";
-import '../assets/css/AboutUs.css'
+import '../../assets/css/AboutUs.css'
 
 function AboutUs() {
     return (
