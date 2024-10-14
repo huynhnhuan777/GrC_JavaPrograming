@@ -1,5 +1,5 @@
 import React, {useRef, useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import '../assets/css/Header.css'
 import logoBrand from '../assets/img/logo.png'
 
@@ -15,6 +15,7 @@ const Header = () => {
     const [isMinimize, setIsMinimize] = useState(false);
 
     const user = JSON.parse(sessionStorage.getItem('user'));
+    const navigate = useNavigate();
 
     const [linkMenu, setLinkMenu] = useState([
         ['fish-list', 'farm-list', 'tour-list'],
@@ -50,6 +51,9 @@ const Header = () => {
         setIsActive(li);
         setMenu(li);
     }
+    const handleRegisterClick = () => {
+        navigate('/register'); // Navigate to RegisterForm
+    };
 
     const handleCloseNavBar = () => {
         setIsActive(false);
@@ -158,10 +162,15 @@ const Header = () => {
                                 {list.map((item, index) => (
                                     <li key={4 * index} className={isActive ? 'show' : 'hidden'}>
                                         {item === 'Đăng xuất'
+
+                                            ? (<Link to={'/'} onClick={() => handleSignOut()}>{item} </Link>)
+                                            : (<Link to={`/${linkMenu[3][index]}`}>{item}</Link>)
+
                                             ? (<Link to={'/'} onClick={() => handleSignOut()}
                                                      onClick={handleCloseNavBar}>{item} < /Link>)
                                             : (<Link to={`/${linkMenu[3][index]}`}
                                                      onClick={handleCloseNavBar}>{item}</Link>)
+
                                         }
                                     </li>
                                 ))}
@@ -171,6 +180,18 @@ const Header = () => {
                         <li
                             onMouseEnter={() => HandleMouseEnter(['Đăng nhập', 'Đăng kí'])}
                             onMouseLeave={() => HandleMouseLeave()}
+
+                        >
+                            <Link to={'/account'}>Tài khoản</Link>
+                            <ul className={'sub-nav'}>
+                                {list.map((item, index) => (
+                                    <li key={5 * index} className={isActive ? 'show' : 'hidden'}>
+                                        {item === 'Đăng kí' ? (
+                                            <Link to={'/register'}>{item}</Link> // Điều hướng đến trang đăng ký
+                                        ) : (
+                                            <Link to={`/${linkMenu[4][index]}`}>{item}</Link>
+                                        )}
+
                         ><Link to={'/account'} onClick={handleCloseNavBar}>Tài khoản</Link>
                             <ul className={'sub-nav'}>
                                 {list.map((item, index) => (
