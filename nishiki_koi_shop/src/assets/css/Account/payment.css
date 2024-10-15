@@ -1,6 +1,6 @@
 .payment-container {
     width: 100%;
-    margin: 40px 0;
+    margin: 100px 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -14,23 +14,107 @@
     align-items: center;
 }
 
-.chooseAddress {
-    width: 30%;
+.chooseAddress, .PaymentZone, .showProdList {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 }
 
-.chooseAddress .availableAddress,.chooseAddress .newAddress {
+.chooseAddress, .PaymentZone {
+    width: 30%;
+}
+
+.showProdList {
+    width: 40%;
+}
+
+.chooseAddress .availableAddress, .chooseAddress .newAddress {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 }
-.form-address{
+
+/*format choose address*/
+
+.newAddress {
+    background-color: var(--bg-color-table);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 12px var(--box-shadow-btn);
+    width: 70%;
+}
+
+.form-address {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
+}
+
+fieldset.fieldset {
+    width: 100%;
+    padding: 0;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+fieldset.fieldset legend {
+    text-align: left;
+    font-weight: bold;
+}
+
+.selectInput, .textInput {
+    width: 100%;
+    height: 2rem;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+
+.selectInput:focus-visible, .textInput:focus-visible {
+    outline: 2px solid #007BFF;
+    border-radius: 3px;
+}
+
+/*format table*/
+table.listProd {
+    width: 100%;
+    background-color: #f0f0f0;
+    box-shadow: 0 4px 14px var(--box-shadow-btn);
+    border-radius: 5px;
+    padding: 5px;
+}
+
+table.listProd tr:nth-child(odd) {
+    background-color: rgba(80, 83, 87, 0.51);
+}
+
+/*format payment zone*/
+.Payment {
+    box-shadow: 0 4px 14px var(--box-shadow-btn);
+    width: 80%;
+    border-radius: 5px;
+    padding: 10px 0;
+}
+
+.chooseMethodPayment{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+.form-payment{
+    width: 70%;
+}
+
+.showInfoBanking{
+    margin-bottom: 10px;
+}
+
+.ShowQR{
+    margin:10px 0;
 }
