@@ -1,6 +1,6 @@
 import React, {useRef, useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
-import '../assets/css/Header.css'
+import '../assets/css/Component/Header.css'
 import logoBrand from '../assets/img/logo.png'
 
 
@@ -19,7 +19,7 @@ const Header = () => {
 
     const [linkMenu, setLinkMenu] = useState([
         ['customer-support', 'policy'],
-        ['profile', 'orders', 'history', 'cart'],
+        ['account', 'orders', 'history', 'cart'],
         ['sign-in', 'sign-up'],
     ])
 

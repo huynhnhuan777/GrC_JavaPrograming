@@ -30,8 +30,8 @@ label {
     text-align: left;
 }
 
-input[type="text"],
-input[type="email"] {
+input.inputText[type="text"],
+input.inputEmail[type="email"] {
     width: 90%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -48,7 +48,7 @@ input[disabled] {
     justify-content: space-between;
 }
 
-button {
+.UpdateBtn, .ResetBtn, .ViewBtn {
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
@@ -59,11 +59,11 @@ button {
     transition: background-color 0.3s;
 }
 
-button:hover {
+.UpdateBtn:hover, .ResetBtn:hover, .ViewBtn:hover {
     background-color: #0056b3;
 }
 
-button:disabled {
+.UpdateBtn:disabled, .ResetBtn:disabled, .ViewBtn:disabled {
     background-color: #ccc;
     cursor: not-allowed;
 }
