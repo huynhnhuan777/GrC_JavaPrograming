@@ -1,0 +1,99 @@
+.register-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f0f0f0;
+  }
+  .register-form {
+  padding: 20px;
+  max-width: 400px;
+  margin: 0 auto; /* Đảm bảo form ở chính giữa */
+}
+  .image-section img {
+    max-width: auto;
+    height: 100%;
+    display: block;
+    margin-top: 0;
+    padding: 0rem;
+    border-radius: 0 50px 50px 0 ;
+  }
+
+  .form-section {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 20%;
+    margin-right: 70px;
+  }
+
+  .form-section h2 {
+    text-align: center;
+    color: #333;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+    text-align: left;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #333;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+  }
+
+  .form-group input:focus {
+    border-color: #033871;
+  }
+
+  .error {
+    color: red;
+    font-size: 1.2rem;
+    margin-left: 0.5rem;
+  }
+
+
+  .submit-form {
+    width: 50%;
+    padding: 0.75rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .submit-form:hover {
+    background-color: #0056b3;
+  }
+  h2{
+    font-size: 20px;
+  }
+  /* ------------------------------------- */
+.back-link {
+  display: block;
+  margin-top: 2rem;
+  text-align: left;
+  color: #007bff;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}
+
+

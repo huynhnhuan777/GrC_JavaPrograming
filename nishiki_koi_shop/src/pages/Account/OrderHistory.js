@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../assets/css/OrderHistory.css';
+import '../../assets/css/Account/OrderHistory.css';
 
 function OrderHistory() {
     // Giả lập dữ liệu đơn hàng (thay thế bằng dữ liệu từ API)

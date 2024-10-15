@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom'; // Nhập Link và useNavigate
-import '../../assets/css/RegisterForm.css';
+import '../../assets/css/Account/Register.css';
 
 const RegisterForm = () => {
   const [username, setUsername] = useState('');
@@ -102,7 +102,7 @@ const RegisterForm = () => {
             </div>
 
             {error && <p className="error-text">{error}</p>}
-            <button type="submit">Đăng Ký</button>
+            <button className={'submit-Form'} type="submit">Đăng Ký</button>
           </form>
 
           {/* Liên kết Quay lại */}

@@ -11,8 +11,9 @@ import Footer from "./components/Footer";
 import AboutUs from "./pages/Feedback/AboutUs";
 import {useEffect, useState} from "react";
 import Cart from "./pages/Account/shoppingCart";
-import Payment from "./pages/Account/Payment";
+import Payment from "./pages/Account/payment";
 import RegisterForm from './pages/Account/RegisterForm';
+import Account from "./pages/Account/Account";
 
 const AutoScrollToTop = () => {
     const {pathname} = useLocation();
@@ -36,6 +37,7 @@ const AppContent = () => {
                 <Route path={'/contact'} element={<Contact/>}/>
                 <Route path={'/about-us'} element={<AboutUs/>}/>
                 <Route path={'/cart'} element={<Cart/>}/>
+                <Route path={'/account'} element={<Account/>}/>
                 <Route path={'/payment'} element={<Payment/>}/>
                 <Route path={'/register'} element={<RegisterForm/>}/>
                 <Route path={'/*'} element={<Page404/>}/>
@@ -65,6 +67,7 @@ const App = () => {
                     <Route path={'/about-us'} element={<AboutUs/>}/>
                     <Route path={'/cart'} element={<Cart/>}/>
                     <Route path={'/payment'} element={<Payment/>}/>
+                    <Route path={'/account'} element={<Account/>}/>
                     <Route path={'/register'} element={<RegisterForm/>}/>
                     <Route path={'/*'} element={<Page404/>}/>
                 </Routes>
