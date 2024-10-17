@@ -55,10 +55,14 @@
 }
 
 fieldset.fieldset {
-    width: 100%;
+    width: auto;
     padding: 0;
     margin: 10px 0;
     border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 fieldset.fieldset legend {

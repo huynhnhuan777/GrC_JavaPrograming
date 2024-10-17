@@ -14,6 +14,7 @@ import Cart from "./pages/Account/shoppingCart";
 import Payment from "./pages/Account/payment";
 import RegisterForm from './pages/Account/RegisterForm';
 import Account from "./pages/Account/Account";
+import Tour from "./pages/Tour/Tour";
 
 const AutoScrollToTop = () => {
     const {pathname} = useLocation();
@@ -40,6 +41,7 @@ const AppContent = () => {
                 <Route path={'/account'} element={<Account/>}/>
                 <Route path={'/payment'} element={<Payment/>}/>
                 <Route path={'/register'} element={<RegisterForm/>}/>
+                <Route path={'/tour'} element={<Tour/>}/>
                 <Route path={'/*'} element={<Page404/>}/>
             </Routes>
             {pathname !== '/register' && <Footer/>}
@@ -68,6 +70,7 @@ const App = () => {
                     <Route path={'/cart'} element={<Cart/>}/>
                     <Route path={'/payment'} element={<Payment/>}/>
                     <Route path={'/account'} element={<Account/>}/>
+                    <Route path={'/tour'} element={<Tour/>}/>
                     <Route path={'/register'} element={<RegisterForm/>}/>
                     <Route path={'/*'} element={<Page404/>}/>
                 </Routes>
