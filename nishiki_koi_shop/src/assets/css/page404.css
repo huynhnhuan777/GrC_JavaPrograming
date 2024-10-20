@@ -2,7 +2,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 40px 0;
 }
 
 .page404-container .page404-content {
@@ -11,6 +10,8 @@
     justify-content: center;
     width: 70%;
     flex-direction: column;
+    margin: 40px 0;
+
 }
 
 img.Error-icon {

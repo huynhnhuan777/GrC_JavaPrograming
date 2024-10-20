@@ -35,7 +35,7 @@
     flex-direction: column;
 }
 
-.featureBtns {
+.featureBtn {
     background-color: var(--btn-bg-color);
     border: none;
     padding: 5px 15px;
@@ -45,7 +45,7 @@
     text-align: center;
 }
 
-.featureBtns:hover {
+.featureBtn:hover {
     cursor: pointer;
     box-shadow: 0 1px 10px 3px var(--box-shadow-btn);
 }
