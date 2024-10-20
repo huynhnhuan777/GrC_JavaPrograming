@@ -4,7 +4,20 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    font-size: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: transparent;
+    width: 100%;
 }
 
 .header-slogan {
@@ -21,36 +34,31 @@
 
 /*logo*/
 .logo-brand {
-    width: 10%;
-    position: relative;
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.logo-brand a {
+    height: inherit;
+}
+
 img.logo-header {
-    width: 100%;
+    height: inherit;
     margin: 1px 0;
     border-radius: 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-70%, -50%);
-    box-shadow: 0 3px 30px 3px var(--box-shadow-btn);
 }
 
 /*for navigation*/
 .header-navigation {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    background-color: #FABC3F;
-    padding: 0;
-    width: 70%;
+    width: 100%;
+    height: 70%;
     position: relative;
-    border-radius: 50px;
-
-    box-shadow: 0px 0px 5px 3px #821131;
+    padding: 10px 0 10px 10px;
 }
 
 .sticky {
@@ -58,7 +66,8 @@ img.logo-header {
     top: 0;
     z-index: 1000;
     box-shadow: 0 3px 30px 3px var(--box-shadow-btn);
-    border-radius: 10px;
+    height: max-content;
+    background-color: #f0f0f0;
 }
 
 /*format for main nav*/
@@ -69,13 +78,30 @@ img.logo-header {
     justify-content: center;
     flex-direction: row;
     margin: 0;
-    background-color: var(--btn-bg-color);
     padding: 0;
 }
 
 ul.navigation li {
-    padding: 25px 0;
     background-color: var(--btn-bg-color);
+    border-radius: 50px;
+    margin: 0 10px;
+    width: 120px;
+    height: 40px;
+    position: relative;
+
+}
+
+ul.navigation li a {
+    width: inherit;
+    height: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+ul.navigation li a:hover{
+    color: black;
 }
 
 ul.navigation li:hover {
@@ -84,39 +110,40 @@ ul.navigation li:hover {
     background-color: var(--btn-bg-color-hover);
 }
 
-ul.navigation li a {
-    padding: 25px 25px;
-    min-width: 90px;
-}
-
-.hr-custom {
-    width: 100%;
-    height: 1px;
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(90deg, red, orange, rgb(209, 209, 60));
-}
-
 /*for sub-nav*/
 ul.navigation ul.sub-nav {
-    margin: 10px;
+    width: inherit;
+    height: inherit;
+    padding: 0;
 }
 
 ul.sub-nav {
     display: none;
-    padding: 0;
-    position: absolute;
+    position: relative;
 }
 
 ul.navigation li:hover ul.sub-nav {
     display: block;
-    box-shadow: 0 3px 30px 3px var(--box-shadow-btn);
+    padding: 0;
 }
 
 ul.sub-nav li {
     position: relative;
     list-style-type: none;
     padding: 0;
+    border-radius: 0;
+    width: inherit;
+    height: inherit;
+    margin: 0;
+}
+
+ul.sub-nav li a {
+    width: inherit;
+    height: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
 }
 
 .show {
@@ -130,13 +157,9 @@ ul.sub-nav li {
 }
 
 ul.sub-nav li a:hover {
+    width: inherit;
+    height: inherit;
     background-color: var(--btn-bg-color-hover);
-}
-
-ul.sub-nav li a {
-    text-decoration: none;
-    display: block;
-    position: relative;
 }
 
 /*format for minimize nav*/
@@ -160,6 +183,10 @@ ul.sub-nav li a {
 }
 
 /*for search input form*/
+.search-zone {
+    padding: 10px 10px 10px 0;
+}
+
 form.form-field {
     display: flex;
     justify-content: center;
@@ -172,14 +199,15 @@ form.form-field input.search-input {
     border-radius: 50px;
     border: thin solid gray;
     margin-left: 5px;
-
+    width: 200px;
 }
 
 form.form-field button.btn-search {
     padding: 5px 6px;
     margin-left: 5px;
-    border-radius: 10px;
-    border: thin solid gray;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--btn-bg-color);
 }
 
 form.form-field button.btn-search:hover {
@@ -224,7 +252,8 @@ form.form-field button.btn-search:hover {
     .search-input {
         width: 60%;
     }
-    .form-field{
+
+    .form-field {
         flex: 1;
     }
 }
