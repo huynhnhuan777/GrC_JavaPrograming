@@ -2,95 +2,68 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    width: 100%;
-    padding: 100px 0;
-    position: relative;
+    background-image: url("../../img/koi-trans-bg.webp");
 }
 
 .tour-content {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
-    width: 90%;
-}
-
-.filter-zone {
-    width: 25%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.show-tours {
-    width: 50%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
-.show-summary-tour {
-    display: none;
-}
-
-.fieldset {
-    align-items: flex-start !important;
-    width: 80% !important;
-}
-
-/*format filter zone*/
-.filter-zone .filter-form {
-    width: 60%;
-    box-shadow: 0 4px 14px var(--box-shadow-btn);
-    padding: 10px;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
+    margin:100px 0;
+    width: 70%;
 }
 
-.date-form {
+.summary-tour {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     width: 100%;
 }
 
-.date-form .fieldset {
-    margin: 0 10px !important;
+.info-summary-tour{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.dateInput {
-    width: 40px;
-    border: none;
+.summary-content ul {
+    list-style-type: none;
 }
 
-/*format show tours*/
+ul.show-info-tour {
+    text-align: left;
+}
 
-.show-tours .tour-card {
-    width: max-content;
-    padding: 10px;
+.image-tour, .info-summary-tour, .description-tour {
     border-radius: 5px;
-    box-shadow: 0 4px 14px var(--box-shadow-btn);
+    box-shadow: 0 4px 14px var(--box-shadow-dialog);
+    margin:10px;
+    background-color: #f0f0f0;
 }
 
-.show-summary-tour {
+.image-tour{
+    width: 60%;
+    height: max-content;
+    padding:10px;
     display: flex;
     justify-content: center;
-    align-items:center;
-    flex-direction: column;
-    width: 25%;
+    align-items: center;
 }
 
-.summary-tour-content{
-    background-color: #f0f0f0;
-    border-radius: 5px;
+.info-summary-tour{
+    width: 40%;
+    height: max-content;
     padding: 10px;
-    width: 80%;
-    box-shadow: 0 4px 14px var(--box-shadow-btn);
+}
+
+/*format description*/
+.description-tour{
+    width: 100%;
+}
+
+.optionBtns{
+    display: flex;
+    flex-direction: row;
 }

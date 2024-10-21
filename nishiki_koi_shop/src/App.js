@@ -14,6 +14,7 @@ import Cart from "./pages/Account/shoppingCart";
 import Payment from "./pages/Account/payment";
 import RegisterForm from './pages/Account/RegisterForm';
 import Account from "./pages/Account/Account";
+import Tours from "./pages/Tour/Tours";
 import Tour from "./pages/Tour/Tour";
 import FishDetail from "./pages/Detail/FishDetail";
 
@@ -26,31 +27,6 @@ const AutoScrollToTop = () => {
     return null;
 };
 
-const AppContent = () => {
-    const {pathname} = useLocation(); // Lấy route hiện tại
-
-    return (
-        <>
-            {/* Chỉ hiển thị Header và Footer khi không ở trang đăng kí */}
-            {pathname !== '/register' && <Header/>}
-            <Routes>
-                <Route path={'/'} element={<Home/>}/>
-                <Route path={'/farm'} element={<Farm/>}/>
-                <Route path={'/list'} element={<ListFish/>}/>
-                <Route path={'/contact'} element={<Contact/>}/>
-                <Route path={'/about-us'} element={<AboutUs/>}/>
-                <Route path={'/cart'} element={<Cart/>}/>
-                <Route path={'/account'} element={<Account/>}/>
-                <Route path={'/payment'} element={<Payment/>}/>
-                <Route path={'/register'} element={<RegisterForm/>}/>
-                <Route path={'/tour'} element={<Tour/>}/>
-                <Route path='/fish/:id' element={<FishDetail />} />
-                <Route path={'/*'} element={<Page404/>}/>
-            </Routes>
-            {pathname !== '/register' && <Footer/>}
-        </>
-    );
-}
 
 const App = () => {
     const [tempUser, setTempUser] = useState([
@@ -73,7 +49,8 @@ const App = () => {
                     <Route path={'/cart'} element={<Cart/>}/>
                     <Route path={'/payment'} element={<Payment/>}/>
                     <Route path={'/account'} element={<Account/>}/>
-                    <Route path={'/tour'} element={<Tour/>}/>
+                    <Route path={'/tours'} element={<Tours/>}/>
+                    <Route path={'/tours/:id'} element={<Tour/>}/>
                     <Route path={'/register'} element={<RegisterForm/>}/>
                     <Route path={'/*'} element={<Page404/>}/>
                 </Routes>

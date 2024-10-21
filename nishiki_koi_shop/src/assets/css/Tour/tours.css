@@ -1,0 +1,172 @@
+.tours-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    padding: 100px 0;
+    position: relative;
+    background-image: url("../../img/koi-trans-bg.webp");
+}
+
+.tours-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+}
+
+.filter-zone {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    top: 200px;
+}
+
+.show-tours {
+    width: 55%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.show-summary-tour {
+    width: 20%;
+    display: none;
+}
+
+.fieldset {
+    align-items: flex-start !important;
+    width: 80% !important;
+}
+
+/*format filter zone*/
+.filter-zone .filter-form {
+    width: 80%;
+    box-shadow: 0 4px 14px var(--box-shadow-dialog);
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: white;
+}
+
+.date-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.date-form .fieldset {
+    margin: 0 10px !important;
+}
+
+.dateInput {
+    width: 98%;
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+
+/*format show tours*/
+
+.show-tours .tour-card {
+    width: 300px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 14px var(--box-shadow-dialog);
+    margin-bottom: 30px;
+    background-color: #f0f0f0;
+}
+
+
+.thumbnail-tour {
+    width: inherit;
+    border-radius: 5px;
+}
+
+.tour-card:hover {
+    cursor: pointer;
+}
+
+.show-summary-tour {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 25%;
+}
+
+.summary-tour-content {
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    padding: 10px;
+    width: 80%;
+    box-shadow: 0 4px 14px var(--box-shadow-dialog);
+    position: relative;
+}
+
+.closeBtn {
+    display: block;
+    position: absolute;
+    top: -16px;
+    right: -16px;
+    height: 32px;
+    width: 32px;
+}
+
+.closeBtn:hover {
+    cursor: pointer;
+    box-shadow: 0 0 14px var(--box-shadow-btn);
+    border-radius: 100%;
+}
+
+.show-more {
+    font-weight: bold;
+    color: green;
+}
+
+.effect-show {
+    animation-name: effect-show;
+    animation-duration: 1s;
+}
+
+.hidden {
+    animation-name: effect-hidden;
+    animation-duration: 1s;
+}
+
+@keyframes effect-show {
+    0% {
+        display: block;
+        opacity: 0;
+        font-size: 0;
+    }
+    100% {
+        display: block;
+        opacity: 1;
+        font-size: 16px;
+    }
+}
+
+@keyframes effect-hidden {
+    0%{
+        display: block;
+        opacity: 1;
+        font-size:16px;
+    }
+    100%{
+        display: block;
+        opacity: 0;
+        font-size: 0;
+    }
+}
