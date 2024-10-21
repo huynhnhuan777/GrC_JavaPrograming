@@ -15,6 +15,8 @@ import Payment from "./pages/Account/payment";
 import RegisterForm from './pages/Account/RegisterForm';
 import Account from "./pages/Account/Account";
 import Tour from "./pages/Tour/Tour";
+import FishDetail from "./pages/Detail/FishDetail";
+
 
 const AutoScrollToTop = () => {
     const {pathname} = useLocation();
@@ -42,6 +44,7 @@ const AppContent = () => {
                 <Route path={'/payment'} element={<Payment/>}/>
                 <Route path={'/register'} element={<RegisterForm/>}/>
                 <Route path={'/tour'} element={<Tour/>}/>
+                <Route path='/fish/:id' element={<FishDetail />} />
                 <Route path={'/*'} element={<Page404/>}/>
             </Routes>
             {pathname !== '/register' && <Footer/>}

@@ -118,7 +118,6 @@ function Home() {
             <section className='bannerSection'>
                 <img src={bannerUrl} alt="Banner quảng cáo" className='bannerImage' />
             </section>
-
             <section className='koiSection'>
                 <div className='section-content'>
                     <h2>Sản phẩm bán chạy</h2>
