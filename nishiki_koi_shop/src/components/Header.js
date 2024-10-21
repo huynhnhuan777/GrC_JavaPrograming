@@ -19,12 +19,12 @@ const Header = () => {
 
     const [linkMenu, setLinkMenu] = useState([
         ['customer-support', 'policy'],
-        ['account', 'orders', 'history', 'cart'],
+        ['account', 'orders', 'cart'],
         ['sign-in', 'sign-up'],
     ])
 
     const handleAutoScroll = () => {
-        if (window.scrollY > 300) {
+        if (window.scrollY > 50) {
             setIsSticky(true);
         } else setIsSticky(false);
     }
@@ -127,7 +127,7 @@ const Header = () => {
                     {/*the code belows is for nav and sub-nav*/}
                     <ul className={`navigation ${isExpanded[0] ? 'show-nav' : 'hidden-nav'} `}>
                         <li><Link to={'/'} onClick={handleCloseNavBar}>Trang chủ</Link></li>
-                        <li><Link to={'/list'}>Giống cá</Link></li>
+                        <li><Link to={'/fish'}>Giống cá</Link></li>
                         <li><Link to={'/farm'} onClick={handleCloseNavBar}>Trang trại</Link></li>
                         <li><Link to={'/tours'}>Chuyến đi</Link></li>
                         <li
@@ -144,7 +144,7 @@ const Header = () => {
                         </li>
                         {user ?
                             <li
-                                onMouseEnter={() => HandleMouseEnter(['Thông tin cá nhân', 'Đơn hàng', 'Lịch sử', 'Giỏ hàng', 'Đăng xuất'])}
+                                onMouseEnter={() => HandleMouseEnter(['Thông tin cá nhân', 'Đơn hàng', 'Giỏ hàng', 'Đăng xuất'])}
                                 onMouseLeave={() => HandleMouseLeave()}
                             ><Link to={'/account'} onClick={handleCloseNavBar}>{user[0].name}</Link>
                                 <ul className={'sub-nav'}>

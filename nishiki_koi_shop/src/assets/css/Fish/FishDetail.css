@@ -1,8 +1,16 @@
 .fish-detail-container {
-    width: 80%;
+    width: 100%;
     margin: 0 auto;
     padding: 20px;
     background-color: #f9f9f9;
+}
+
+.fish-detail-content{
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
 }
 
 .fish-detail {

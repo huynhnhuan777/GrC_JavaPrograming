@@ -6,7 +6,7 @@ import Page404 from "./pages/Page404";
 import Farm from "./pages/Farm";
 import {BrowserRouter, Routes, Route, useLocation} from 'react-router-dom';
 import Contact from "./pages/Feedback/Contact";
-import ListFish from "./pages/ListFish";
+import Fish from "./pages/Fish/ListFish";
 import Footer from "./components/Footer";
 import AboutUs from "./pages/Feedback/AboutUs";
 import {useEffect, useState} from "react";
@@ -16,7 +16,7 @@ import RegisterForm from './pages/Account/RegisterForm';
 import Account from "./pages/Account/Account";
 import Tours from "./pages/Tour/Tours";
 import Tour from "./pages/Tour/Tour";
-import FishDetail from "./pages/Detail/FishDetail";
+import FishDetail from "./pages/Fish/FishDetail";
 
 
 const AutoScrollToTop = () => {
@@ -43,7 +43,8 @@ const App = () => {
                 <Routes>
                     <Route path={'/'} element={<Home/>}/>
                     <Route path={'/farm'} element={<Farm/>}/>
-                    <Route path={'/list'} element={<ListFish/>}/>
+                    <Route path={'/fish'} element={<Fish/>}/>
+                    <Route path={'/fish/:id'} element={<FishDetail/>}/>
                     <Route path={'/contact'} element={<Contact/>}/>
                     <Route path={'/about-us'} element={<AboutUs/>}/>
                     <Route path={'/cart'} element={<Cart/>}/>
