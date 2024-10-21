@@ -182,6 +182,13 @@ ul.sub-nav li a:hover {
     z-index: 10;
 }
 
+.search-btn{
+    position: fixed;
+    top:60px;
+    left:10px;
+    display: block;
+}
+
 /*for search input form*/
 .search-zone {
     padding: 10px 10px 10px 0;
@@ -269,16 +276,22 @@ form.form-field button.btn-search:hover {
 }
 
 @media screen and (max-width: 1000px) {
-    .hr-custom {
-        display: none;
-    }
-
     .header-slogan {
         display: none;
     }
 
+    /*re-format: convert from horizontal to vertical*/
     form.form-field {
-        display: none;
+        position: fixed;
+        width: fit-content;
+        height: fit-content;
+        top: 64px;
+        left: 60px;
+        z-index:11;
+    }
+
+    input.search-input{
+        margin-left:0 !important;
     }
 
     .logo-brand {
@@ -295,7 +308,6 @@ form.form-field button.btn-search:hover {
         top: 70px;
         left: 10px;
         z-index: 10;
-        transition: opacity 0.5s ease;
         box-shadow: none;
         font-size: 16px;
     }
@@ -324,7 +336,9 @@ form.form-field button.btn-search:hover {
 
     ul.navigation li {
         width: inherit;
+        height: 60px;
         background-color: #E85C0D;
+        border-radius: 0;
     }
 
     ul.navigation li:hover {
@@ -340,10 +354,16 @@ form.form-field button.btn-search:hover {
 
     ul.navigation ul.sub-nav {
         margin-left: 170px;
-        margin-top: -35px;
+        margin-top: -60px;
     }
 
     ul.sub-nav li {
         width: 175px;
+    }
+
+    .search-zone{
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 1s, visibility 1s;
     }
 }
