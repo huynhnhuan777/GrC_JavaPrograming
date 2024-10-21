@@ -16,6 +16,8 @@ import RegisterForm from './pages/Account/RegisterForm';
 import Account from "./pages/Account/Account";
 import Tours from "./pages/Tour/Tours";
 import Tour from "./pages/Tour/Tour";
+import FishDetail from "./pages/Detail/FishDetail";
+
 
 const AutoScrollToTop = () => {
     const {pathname} = useLocation();
@@ -24,6 +26,7 @@ const AutoScrollToTop = () => {
     }, [pathname]);
     return null;
 };
+
 
 const App = () => {
     const [tempUser, setTempUser] = useState([
