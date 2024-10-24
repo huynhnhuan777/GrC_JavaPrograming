@@ -64,7 +64,29 @@
     cursor: pointer;
 }
 
+.nextPage,.prevPage{
+    font-weight: bold;
+}
+
+.nextPage:hover,.prevPage:hover,.pageNumber:hover{
+    background-color: rgba(52, 58, 64, 0.24);
+    color: white;
+}
+
+.nextPage a, .prevPage a, .pageNumber a{
+    width: inherit;
+    height: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .selected{
+    background-color:var(--btn-bg-color) !important;
+}
+
+.selected a{
+    color: #f0f0f0;
     font-weight: bold;
 }
 

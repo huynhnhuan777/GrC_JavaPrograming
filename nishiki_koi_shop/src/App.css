@@ -1,19 +1,39 @@
 .App {
-  text-align: center;
-  position: relative;
-  /*overflow: hidden;*/
+    text-align: center;
+    position: relative;
+    overflow-x: hidden;
 }
 
-a{
-  text-decoration: none;
-  color:black;
+a {
+    text-decoration: none;
+    color: black;
+}
+
+ul {
+    padding: 0;
+}
+
+.mg-x-s {
+    margin: 5px 0;
+}
+
+.mg-y-s {
+    margin: 0 5px;
+}
+
+.mg-y-m {
+    margin: 0 10px;
+}
+
+.mg-x-m {
+    margin: 10px 0;
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }

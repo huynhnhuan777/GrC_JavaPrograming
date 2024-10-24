@@ -15,6 +15,7 @@ const Header = () => {
     const [isMinimize, setIsMinimize] = useState(false);
 
     const user = JSON.parse(sessionStorage.getItem('user'));
+    console.log(user);
     const navigate = useNavigate();
 
     const [linkMenu, setLinkMenu] = useState([
@@ -146,7 +147,7 @@ const Header = () => {
                             <li
                                 onMouseEnter={() => HandleMouseEnter(['Thông tin cá nhân', 'Đơn hàng', 'Giỏ hàng', 'Đăng xuất'])}
                                 onMouseLeave={() => HandleMouseLeave()}
-                            ><Link to={'/account'} onClick={handleCloseNavBar}>{user[0].name}</Link>
+                            ><Link to={'/account'} onClick={handleCloseNavBar}>{user.name}</Link>
                                 <ul className={'sub-nav'}>
                                     {list.map((item, index) => (
                                         <li key={index} className={isActive ? 'show' : 'hidden'}>

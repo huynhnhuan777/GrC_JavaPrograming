@@ -1,0 +1,37 @@
+.home-admin-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+}
+
+.process-tour-order{
+    height: 400px;
+}
+.process-order{
+    box-shadow: 0 4px 14px var(--box-shadow-dialog);
+    width: 500px;
+    height: max-content;
+    padding:10px;
+    border-radius: 5px;
+}
+
+.process-revenue, .process-tour-order,.process-products-view{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    box-shadow: 0 4px 14px var(--box-shadow-dialog);
+    width: max-content;
+    padding:10px;
+    border-radius: 5px;
+}
+.revenue-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
