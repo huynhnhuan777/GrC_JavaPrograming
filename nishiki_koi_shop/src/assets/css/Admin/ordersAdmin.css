@@ -1,0 +1,88 @@
+.manager-order-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.manager-order-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.tool-manager {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: max-content;
+    height: 40px;
+    border-radius: 50px;
+    background-color: white;
+    box-shadow: 0 2px 6px var(--box-shadow-dialog);
+}
+
+.choose-all-btn input:hover,
+.filter-btn:hover,
+.sort-down-btn:hover,
+.sort-down-reverse-btn:hover,
+.delete-btn:hover {
+    cursor: pointer;
+}
+
+.list-orders {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 90%;
+}
+
+.order-item {
+    width: 100%;
+    display: flex;
+    background-image: linear-gradient(to right, palevioletred, #e9ecef);
+    margin: 10px 0;
+    padding: 10px 0;
+    border-radius: 50px;
+    color: white;
+    font-weight: bolder;
+}
+
+.order-user-name {
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.order-total-cost {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.order-id, .order-status {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tool, .order-details {
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.select-status {
+    padding: 10px;
+    border-radius: 50px;
+    color: blueviolet;
+    font-weight: 700;
+    border: none;
+}

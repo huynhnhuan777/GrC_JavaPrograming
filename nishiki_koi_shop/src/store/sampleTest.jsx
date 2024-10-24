@@ -183,3 +183,180 @@ export const tripItems = [
         imageUrl: 'https://www.koikoimatsuda.jp/en/set_pics/home02.JPG',
     },
 ];
+
+export const tempUsers = [
+    {id: 'user-1101-1121', name: 'CaoNhatHao', role: 'customer'},
+    {id: 'admin-1101-2211', name: 'Haoca.oi', role: 'manager'}
+]
+
+export const revenueWeeklyAnalyst = [
+    {day: 'Mon', revenue: 1200},
+    {day: 'Tues', revenue: 1500},
+    {day: 'Wed', revenue: 800},
+    {day: 'Thur', revenue: 1700},
+    {day: 'Frid', revenue: 2000},
+    {day: 'Sat', revenue: 2200},
+    {day: 'Sun', revenue: 1300},
+];
+
+export const revenueMonthlyAnalyst = [
+    {day: '1', revenue: 1000},
+    {day: '2', revenue: 1200},
+    {day: '3', revenue: 1100},
+    {day: '4', revenue: 900},
+    {day: '5', revenue: 1500},
+    {day: '6', revenue: 1400},
+    {day: '7', revenue: 1600},
+    {day: '8', revenue: 1700},
+    {day: '9', revenue: 1800},
+    {day: '10', revenue: 1300},
+    {day: '11', revenue: 1200},
+    {day: '12', revenue: 1100},
+    {day: '13', revenue: 1500},
+    {day: '14', revenue: 1400},
+    {day: '15', revenue: 1300},
+    {day: '16', revenue: 1200},
+    {day: '17', revenue: 1600},
+    {day: '18', revenue: 1700},
+    {day: '19', revenue: 1800},
+    {day: '20', revenue: 1400},
+    {day: '21', revenue: 1300},
+    {day: '22', revenue: 1500},
+    {day: '23', revenue: 1600},
+    {day: '24', revenue: 1700},
+    {day: '25', revenue: 1800},
+    {day: '26', revenue: 1900},
+    {day: '27', revenue: 2000},
+    {day: '28', revenue: 2100},
+    {day: '29', revenue: 2200},
+    {day: '30', revenue: 2300},
+];
+export const revenueYearlyAnalyst = [
+    {month: 'Jan', revenue: 12000},
+    {month: 'Feb', revenue: 11000},
+    {month: 'Mar', revenue: 15000},
+    {month: 'Apr', revenue: 13000},
+    {month: 'May', revenue: 16000},
+    {month: 'Jun', revenue: 14000},
+    {month: 'Jul', revenue: 17000},
+    {month: 'Aug', revenue: 18000},
+    {month: 'Sep', revenue: 19000},
+    {month: 'Oct', revenue: 20000},
+    {month: 'Nov', revenue: 21000},
+    {month: 'Dec', revenue: 22000},
+];
+
+export const orderStatus = [
+    { type: 'Pending', value: 10 },
+    { type: 'Shipped', value: 70 },
+    { type: 'Delivered', value: 19 },
+    { type: 'Cancelled', value: 1 },
+];
+
+export const visitorAnalyst = [
+    { month: 'Jan', visitors: 1500 },
+    { month: 'Feb', visitors: 1200 },
+    { month: 'Mar', visitors: 1800 },
+    { month: 'Apr', visitors: 2000 },
+    { month: 'May', visitors: 2500 },
+    { month: 'Jun', visitors: 2300 },
+    { month: 'Jul', visitors: 3000 },
+    { month: 'Aug', visitors: 2700 },
+    { month: 'Sep', visitors: 2200 },
+    { month: 'Oct', visitors: 2400 },
+    { month: 'Nov', visitors: 1900 },
+    { month: 'Dec', visitors: 2600 },
+];
+
+export const outstandingFish = [
+    { name: 'Salmon', quantitySold: 500 },
+    { name: 'Tuna', quantitySold: 450 },
+    { name: 'Catfish', quantitySold: 400 },
+    { name: 'Trout', quantitySold: 350 },
+    { name: 'Mackerel', quantitySold: 300 },
+];
+
+export const outstandingFarm = [
+    { name: 'Dairy', quantitySold: 600 },
+    { name: 'Organic', quantitySold: 550 },
+    { name: 'Fruit Orchard', quantitySold: 500 },
+    { name: 'Poultry', quantitySold: 450 },
+    { name: 'Fish', quantitySold: 400 },
+];
+
+export const outstandingTour = [
+    { name: 'Sightseeing', quantitySold: 700 },
+    { name: 'Mountain', quantitySold: 650 },
+    { name: 'Cultural', quantitySold: 600 },
+    { name: 'Beach', quantitySold: 550 },
+    { name: 'Wildlife', quantitySold: 500 },
+];
+
+export const sampleOrders = [
+    {
+        username: "Alice",
+        orderId: "ORD001",
+        price: 120.5,
+        status: "PENDING"
+    },
+    {
+        username: "Bob",
+        orderId: "ORD002",
+        price: 89.99,
+        status: "APPROVED"
+    },
+    {
+        username: "Charlie",
+        orderId: "ORD003",
+        price: 45.0,
+        status: "REJECTED"
+    },
+    {
+        username: "David",
+        orderId: "ORD004",
+        price: 220.75,
+        status: "PENDING"
+    },
+    {
+        username: "Eva",
+        orderId: "ORD005",
+        price: 150.0,
+        status: "CANCELLED"
+    },
+    {
+        username: "Frank",
+        orderId: "ORD006",
+        price: 310.99,
+        status: "APPROVED"
+    },
+    {
+        username: "Grace",
+        orderId: "ORD007",
+        price: 78.25,
+        status: "PENDING"
+    },
+    {
+        username: "Hannah",
+        orderId: "ORD008",
+        price: 95.5,
+        status: "REJECTED"
+    },
+    {
+        username: "Ian",
+        orderId: "ORD009",
+        price: 145.9,
+        status: "APPROVED"
+    },
+    {
+        username: "Jack",
+        orderId: "ORD010",
+        price: 500.0,
+        status: "CANCELLED"
+    }
+];
+
+
+
+
+
+
