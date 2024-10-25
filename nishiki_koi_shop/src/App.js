@@ -24,8 +24,13 @@ import {tempUsers} from "./store/sampleTest";
 
 import AdminLayout from "./components/Admin/AdminLayout";
 import HomeAdmin from "./pages/Admin/HomeAdmin";
-import OrdersAdmin from "./pages/Admin/OrdersAdmin";
-import OrderDetailAdmin from "./pages/Admin/OrderDetailAdmin";
+import OrdersAdmin from "./pages/Admin/Order/OrdersAdmin";
+import OrderDetailAdmin from "./pages/Admin/Order/OrderDetailAdmin";
+import SIgnInForm from "./pages/Account/SignInForm";
+import AdminTours from "./components/Admin/AdminTours";
+import AdminFarms from "./components/Admin/AdminFarms";
+import AdminProducts from "./components/Admin/AdminTours";
+import AdminUser from "./components/Admin/Modals/AdminUser";
 
 
 const AutoScrollToTop = () => {
@@ -38,17 +43,12 @@ const AutoScrollToTop = () => {
 
 
 const App = () => {
-    const [roleSerial, setRoleSerial] = useState(0); /*0:customer, 1: staff, 2: manager*/
+    const [roleSerial, setRoleSerial] = useState(2); /*0:customer, 1: staff, 2: manager*/
 
-    sessionStorage.setItem('user', JSON.stringify(tempUsers[1]));
+    // sessionStorage.setItem('user', JSON.stringify(tempUsers[1]));
 
     useEffect(() => {
-        const temp = JSON.parse(sessionStorage.getItem('user'));
-        if (temp.role === 'customer') {
-            setRoleSerial(0);
-        } else if (temp.role === 'manager') {
-            setRoleSerial(2);
-        }
+
     }, []);
 
     return (<div className="App">
@@ -68,7 +68,8 @@ const App = () => {
                         <Route path={'/account'} element={<Account/>}/>
                         <Route path={'/tours'} element={<Tours/>}/>
                         <Route path={'/tours/:id'} element={<Tour/>}/>
-                        <Route path={'/register'} element={<RegisterForm/>}/>
+                        <Route path={'/sign-up'} element={<RegisterForm/>}/>
+                        <Route path={'/sign-in'} element={<SIgnInForm/>}/>
                         <Route path={'/*'} element={<Page404/>}/>
                     </Routes>
                     <Footer/>
@@ -94,6 +95,30 @@ const App = () => {
                            element={<AdminLayout
                                childCompo={<OrderDetailAdmin/>}
                                title={'Thông tin hóa đơn chi tiết'}>
+                           </AdminLayout>}
+                    />
+                    <Route path={'/products'}
+                           element={<AdminLayout
+                               childCompo={<AdminProducts/>}
+                               title={'Quản lí sản phẩm'}>
+                           </AdminLayout>}
+                    />
+                    <Route path={'/farms'}
+                           element={<AdminLayout
+                               childCompo={<AdminFarms/>}
+                               title={'Quản lí trang trại'}>
+                           </AdminLayout>}
+                    />
+                    <Route path={'/tours'}
+                           element={<AdminLayout
+                               childCompo={<AdminTours/>}
+                               title={'Quản lí chuyến đi'}>
+                           </AdminLayout>}
+                    />
+                    <Route path={'/users'}
+                           element={<AdminLayout
+                               childCompo={<AdminUser/>}
+                               title={'Quản lí tài khoản người dùng'}>
                            </AdminLayout>}
                     />
                 </Routes>
