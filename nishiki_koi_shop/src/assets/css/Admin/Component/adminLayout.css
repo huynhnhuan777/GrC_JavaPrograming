@@ -47,7 +47,6 @@ ul.controller-navbar {
 }
 
 ul.controller-navbar li {
-    /*padding: 15px 15px;*/
     background-color: var(--btn-bg-color);
     z-index: 1;
     position: relative;

@@ -2,6 +2,7 @@ import React, {useRef, useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import '../assets/css/Component/Header.css'
 import logoBrand from '../assets/img/logo.png'
+import axios from "axios";
 
 
 const Header = () => {
@@ -14,8 +15,8 @@ const Header = () => {
     const [isSticky, setIsSticky] = useState(false);
     const [isMinimize, setIsMinimize] = useState(false);
 
-    const user = JSON.parse(sessionStorage.getItem('user'));
-    console.log(user);
+    const [user, setUser] = useState({});
+
     const navigate = useNavigate();
 
     const [linkMenu, setLinkMenu] = useState([
@@ -107,6 +108,9 @@ const Header = () => {
         }
     }, [isActive, menu]);
 
+    useEffect(() => {
+    }, [])
+
     return (
         <div className='header-container'>
             <div ref={navRef} className={`header-content ${isSticky ? 'sticky' : ''}`}>
@@ -143,7 +147,7 @@ const Header = () => {
                                 ))}
                             </ul>
                         </li>
-                        {user ?
+                        {Object.keys(user).length !== 0 ?
                             <li
                                 onMouseEnter={() => HandleMouseEnter(['Thông tin cá nhân', 'Đơn hàng', 'Giỏ hàng', 'Đăng xuất'])}
                                 onMouseLeave={() => HandleMouseLeave()}
@@ -155,7 +159,6 @@ const Header = () => {
                                                 ? (<Link to={'/'} onClick={() => handleSignOut()}>{item} < /Link>)
                                                 : (<Link to={`/${linkMenu[1][index]}`}
                                                          onClick={handleCloseNavBar}>{item}</Link>)
-
                                             }
                                         </li>
                                     ))}
@@ -170,7 +173,7 @@ const Header = () => {
                                     {list.map((item, index) => (
                                         <li key={5 * index} className={isActive ? 'show' : 'hidden'}>
                                             {item === 'Đăng kí' ? (
-                                                <Link to={'/register'}>{item}</Link> // Điều hướng đến trang đăng ký
+                                                <Link to={'/sign-up'}>{item}</Link> // Điều hướng đến trang đăng ký
                                             ) : (
                                                 <Link to={`/${linkMenu[2][index]}`}>{item}</Link>
                                             )}
@@ -179,8 +182,7 @@ const Header = () => {
                                 </ul>
                             </li>
                         }
-                        <li><Link to={'/abou' +
-                            't-us'} onClick={handleCloseNavBar}>Về KOI-E</Link></li>
+                        <li><Link to={'/about-us'} onClick={handleCloseNavBar}>Về KOI-E</Link></li>
                     </ul>
                 </div>
                 <div className={`search-zone ${isExpanded[1] ? 'show-nav' : 'hidden-nav'}`}>

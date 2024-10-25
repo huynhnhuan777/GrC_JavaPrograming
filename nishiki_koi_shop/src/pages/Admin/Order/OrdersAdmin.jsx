@@ -1,5 +1,5 @@
-import {sampleOrders} from "../../store/sampleTest";
-import '../../assets/css/Admin/ordersAdmin.css'
+import {sampleOrders} from "../../../store/sampleTest";
+import '../../../assets/css/Admin/ordersAdmin.css'
 import {toast, ToastContainer} from "react-toastify";
 import {useState} from "react";
 import {Link} from "react-router-dom";
