@@ -1,0 +1,65 @@
+.fish-detail-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.fish-detail-content {
+    display: flex;
+    width: 100%;
+    margin-bottom: 20px;
+    max-width: 1200px;
+}
+
+.fish-detail-left {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.fish-detail-right {
+    flex: 1;
+    padding: 20px;
+}
+
+.thumbnail-fish {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.add-to-cart-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #45a049;
+}
+
+.other-fish-section {
+    width: 100%;
+    margin-top: 20px;
+    max-width: 1200px;
+}
+
+.other-fish-list {
+    display: flex;
+    gap: 10px;
+    justify-content: space-around;
+}
+
+.other-fish-card {
+    width: 150px;
+    text-align: center;
+}
+
+.other-fish-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
