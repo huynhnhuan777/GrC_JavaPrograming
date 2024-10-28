@@ -12,7 +12,7 @@ import {
     outstandingFarm
 } from "../../store/sampleTest";
 
-const HomeAdmin = () => {
+const AdminHome = () => {
 
     const renderLineChart = (data, dataKey, key) => {
         return (
@@ -69,7 +69,7 @@ const HomeAdmin = () => {
                 </div>
                 <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
                     <div className={'process-order'} style={{margin: '20px 0'}}>
-                        <h4>Tỉ lệ hóa đơn xử lí</h4>
+                        <h4>Tỉ lệ xử lí hóa đơn</h4>
                         {renderPieChart(orderStatus, 'value', 'type')}
                         <p style={{
                             marginLeft: '100px',
@@ -133,4 +133,4 @@ const HomeAdmin = () => {
         </div>
     )
 }
-export default HomeAdmin
+export default AdminHome

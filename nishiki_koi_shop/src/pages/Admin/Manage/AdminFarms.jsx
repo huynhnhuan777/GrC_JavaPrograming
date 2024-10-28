@@ -1,5 +1,5 @@
 import {useState} from "react";
-import AddNewFarm from "./Modals/AddNewFarm";
+import AddNewFarm from "../../../components/Admin/Modals/AddNewFarm";
 
 const AdminFarms = () => {
     const [status, setStatus] = useState(false);

@@ -19,7 +19,7 @@
 }
 
 .form-field {
-    flex-direction: column !important   ;
+    flex-direction: column   ;
     justify-content: center !important;
     align-items: center !important;
     padding: 10px;

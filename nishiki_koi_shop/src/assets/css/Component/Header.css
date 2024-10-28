@@ -88,7 +88,7 @@ ul.navigation li {
     width: 120px;
     height: 40px;
     position: relative;
-
+    padding: 2px;
 }
 
 ul.navigation li a {
@@ -100,7 +100,7 @@ ul.navigation li a {
     color: white;
 }
 
-ul.navigation li a:hover{
+ul.navigation li a:hover {
     color: black;
 }
 
@@ -182,10 +182,10 @@ ul.sub-nav li a:hover {
     z-index: 10;
 }
 
-.search-btn{
+.search-btn {
     position: fixed;
-    top:60px;
-    left:10px;
+    top: 60px;
+    left: 10px;
     display: block;
 }
 
@@ -288,11 +288,11 @@ form.form-field button.btn-search:hover {
         height: fit-content;
         top: 64px;
         left: 60px;
-        z-index:11;
+        z-index: 11;
     }
 
-    input.search-input{
-        margin-left:0 !important;
+    input.search-input {
+        margin-left: 0 !important;
     }
 
     .logo-brand {
@@ -362,7 +362,7 @@ form.form-field button.btn-search:hover {
         width: 175px;
     }
 
-    .search-zone{
+    .search-zone {
         opacity: 0;
         visibility: hidden;
         transition: opacity 1s, visibility 1s;

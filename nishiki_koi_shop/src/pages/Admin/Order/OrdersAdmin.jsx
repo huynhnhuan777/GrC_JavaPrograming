@@ -4,11 +4,12 @@ import {toast, ToastContainer} from "react-toastify";
 import {useState} from "react";
 import {Link} from "react-router-dom";
 import Tooltip from '@mui/material/Tooltip';
+import {useChooseAll} from "../../../utils/handleFuncs";
 
 const OrdersAdmin = () => {
     const orderStatus = ['PENDING', 'APPROVED', 'REJECTED', 'CANCELLED'];
-    const [chooseAll, setChooseAll] = useState(false);
-    const [chooseOne, setChooseOne] = useState(Array(sampleOrders.length).fill(false));
+
+    const {chooseAll, chooseOne, handleChooseAll, setChooseOne, setChooseAll} = useChooseAll(sampleOrders.length);
 
     const handleRenderSelectCard = (currChoice) => {
         let temp = [false, false, false, false];
@@ -38,29 +39,29 @@ const OrdersAdmin = () => {
     }
     const handleSelectOption = (index) => {
     }
-    const handleChooseAll = () => {
-        if (chooseAll) {
-            toast.success('Đã hủy chọn toàn bộ!');
-            setChooseAll(false);
-            const temp = Array(sampleOrders.length).fill(false);
-            setChooseOne(temp);
-
-            let checkInput = document.getElementsByClassName('check-box');
-            for (let i = 0; i < checkInput.length; i++) {
-                checkInput[i].checked = false;
-            }
-        } else {
-            toast.success('Đã chọn hết!');
-            setChooseAll(true);
-            const temp = Array(sampleOrders.length).fill(true);
-            setChooseOne(temp);
-
-            let checkInput = document.getElementsByClassName('check-box');
-            for (let i = 0; i < checkInput.length; i++) {
-                checkInput[i].checked = true;
-            }
-        }
-    }
+    // const handleChooseAll = () => {
+    //     if (chooseAll) {
+    //         toast.success('Đã hủy chọn toàn bộ!');
+    //         setChooseAll(false);
+    //         const temp = Array(sampleOrders.length).fill(false);
+    //         setChooseOne(temp);
+    //
+    //         let checkInput = document.getElementsByClassName('check-box');
+    //         for (let i = 0; i < checkInput.length; i++) {
+    //             checkInput[i].checked = false;
+    //         }
+    //     } else {
+    //         toast.success('Đã chọn hết!');
+    //         setChooseAll(true);
+    //         const temp = Array(sampleOrders.length).fill(true);
+    //         setChooseOne(temp);
+    //
+    //         let checkInput = document.getElementsByClassName('check-box');
+    //         for (let i = 0; i < checkInput.length; i++) {
+    //             checkInput[i].checked = true;
+    //         }
+    //     }
+    // }
     const handleChooseOne = (index) => {
         if (chooseOne[index]) toast('Đã hủy chọn thành công');
         else toast.success('Đã chọn thành công');
