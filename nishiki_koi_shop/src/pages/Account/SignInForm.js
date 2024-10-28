@@ -20,17 +20,21 @@ const SignInForm = () => {
                 email,
                 password
             });
-
             // Thông báo thành công
             // setSuccess('Đăng nhập thành công!');
+            if (!response) {
+                console.log("cannot sign in");
+                return;
+            }
             toast.success('Đăng nhập thành công!');
             setError('');
-            sessionStorage.setItem('userId', JSON.stringify(response.data.id))
-            navigate('/')
+            console.log(response.data);
+            sessionStorage.setItem('userId', JSON.stringify(response.data))
+            window.location.assign('/');
         } catch (err) {
             console.error(err.message);
             if (err.response && err.response.data) {
-                setError(err.response.data.message || 'Đã xảy ra lỗi trong quá trình đăng ký.');
+                setError(err.response.data.message || 'Đã xảy ra lỗi trong quá trình đăng nhập.');
             } else {
                 setError('Đã xảy ra lỗi không xác định.');
                 toast.warning('Đã xảy ra lỗi không xác định!');

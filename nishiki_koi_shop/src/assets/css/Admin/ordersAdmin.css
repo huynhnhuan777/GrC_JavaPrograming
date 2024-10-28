@@ -24,11 +24,7 @@
     box-shadow: 0 2px 6px var(--box-shadow-dialog);
 }
 
-.choose-all-btn input:hover,
-.filter-btn:hover,
-.sort-down-btn:hover,
-.sort-down-reverse-btn:hover,
-.delete-btn:hover {
+.feature-btn:hover{
     cursor: pointer;
 }
 

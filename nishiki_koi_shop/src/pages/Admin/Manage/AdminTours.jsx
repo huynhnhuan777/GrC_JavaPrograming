@@ -1,8 +1,7 @@
-import {Link} from "react-router-dom";
-import AddNewProd from "./Modals/AddNewProd";
 import {useState} from "react";
+import AddNewTour from "../../../components/Admin/Modals/AddNewTour";
 
-const AdminProducts = () => {
+const AdminTours = () => {
     const [status, setStatus] = useState(false);
     const handleAddNewProd = () => {
         setStatus(true);
@@ -11,8 +10,8 @@ const AdminProducts = () => {
     return (
         <div>
             <button onClick={handleAddNewProd}>Thêm</button>
-            {status && <AddNewProd setStatus={setStatus}/>}
+            {status && <AddNewTour setStatus={setStatus}/>}
         </div>
     )
 }
-export default AdminProducts
+export default AdminTours

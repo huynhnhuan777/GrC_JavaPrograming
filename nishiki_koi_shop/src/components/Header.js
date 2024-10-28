@@ -74,8 +74,8 @@ const Header = () => {
     }
 
     const handleSignOut = () => {
-        sessionStorage.removeItem('user');
-        handleCloseNavBar();
+        sessionStorage.removeItem('userId');
+        window.location.assign('/');
     }
 
     useEffect(() => {
@@ -109,7 +109,15 @@ const Header = () => {
     }, [isActive, menu]);
 
     useEffect(() => {
+        const check = sessionStorage.getItem('userId');
+        if (check !== 'undefined' || check !== null) {
+            setUser(JSON.parse(sessionStorage.getItem('userId')));
+        }
     }, [])
+
+    useEffect(() => {
+        console.log(user);
+    }, [user]);
 
     return (
         <div className='header-container'>
@@ -147,11 +155,12 @@ const Header = () => {
                                 ))}
                             </ul>
                         </li>
-                        {Object.keys(user).length !== 0 ?
+                        {user && Object.keys(user).length !== 0 ?
                             <li
                                 onMouseEnter={() => HandleMouseEnter(['Thông tin cá nhân', 'Đơn hàng', 'Giỏ hàng', 'Đăng xuất'])}
                                 onMouseLeave={() => HandleMouseLeave()}
-                            ><Link to={'/account'} onClick={handleCloseNavBar}>{user.name}</Link>
+                            ><Link to={'/account'}
+                                   onClick={handleCloseNavBar}>{(user.fullName !== null ? user.fullName : 'Tài khoản của bạn')}</Link>
                                 <ul className={'sub-nav'}>
                                     {list.map((item, index) => (
                                         <li key={index} className={isActive ? 'show' : 'hidden'}>
@@ -187,7 +196,7 @@ const Header = () => {
                 </div>
                 <div className={`search-zone ${isExpanded[1] ? 'show-nav' : 'hidden-nav'}`}>
                     {/*this form will be a search feature (wait for api provider)*/}
-                    <form className={'form-field'}>
+                    <form className={'form-field'} style={{flexDirection:'row'}}>
                         <input className={'search-input'} type={'text'} placeholder={'  Tìm kiếm gì ư?'}/>
                         <button className={'btn-search'}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white"
