@@ -1,0 +1,95 @@
+.list-fish-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.list-fish-content {
+    margin-top: 100px;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+/*card*/
+.fish-card {
+    width: 300px;
+    height: 400px;
+    margin: 10px;
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px 10px 10px 10px;
+    border: thin solid rgba(128, 128, 128, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.fish-card:hover {
+    box-shadow: 0 14px 14px var(--box-shadow-dialog);
+}
+
+.thumbnail-fish {
+    height: 80%;
+}
+
+.thumbnail-fish img {
+    width: 70% !important;
+}
+
+/*pagination*/
+.pageControl {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.pageNumber, .prevPage, .nextPage {
+    height: 40px;
+    width: 40px;
+    border: 1px solid var(--btn-bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nextPage,.prevPage,.pageNumber{
+    cursor: pointer;
+}
+
+.nextPage,.prevPage{
+    font-weight: bold;
+}
+
+.nextPage:hover,.prevPage:hover,.pageNumber:hover{
+    background-color: rgba(52, 58, 64, 0.24);
+    color: white;
+}
+
+.nextPage a, .prevPage a, .pageNumber a{
+    width: inherit;
+    height: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.selected{
+    background-color:var(--btn-bg-color) !important;
+}
+
+.selected a{
+    color: #f0f0f0;
+    font-weight: bold;
+}
+
+.disabled{
+    cursor: not-allowed !important;
+}
