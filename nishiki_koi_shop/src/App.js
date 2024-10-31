@@ -7,8 +7,8 @@ import {useEffect, useState} from "react";
 import Home from './pages/Home/Home';
 import Header from './components/Header';
 import Page404 from "./pages/Page404";
-import Farm from "./pages/Farm";
-import Contact from "./pages/Feedback/Contact";
+import Farms from "./pages/Farms";
+import Contact from "./pages/Contact/Contact";
 import Fish from "./pages/Fish/ListFish";
 import Footer from "./components/Footer";
 import AboutUs from "./pages/Feedback/AboutUs";
@@ -30,8 +30,10 @@ import SIgnInForm from "./pages/Account/SignInForm";
 import AdminTours from "./pages/Admin/Manage/AdminTours";
 import AdminFarms from "./pages/Admin/Manage/AdminFarms";
 import AdminProducts from "./pages/Admin/Manage/AdminProducts";
-import AdminUser from "./components/Admin/Modals/AdminUser";
+import AdminUser from "./pages/Admin/Manage/AdminUser";
 import AdminReports from "./components/Admin/AdminReports";
+import Policy from "./pages/Contact/Policy";
+import {jwtDecode} from "jwt-decode";
 
 
 const AutoScrollToTop = () => {
@@ -42,28 +44,36 @@ const AutoScrollToTop = () => {
     return null;
 };
 
-
 const App = () => {
-    const [roleSerial, setRoleSerial] = useState(0); /*0:customer, 1: staff, 2: manager*/
-
-    // sessionStorage.setItem('user', JSON.stringify(tempUsers[1]));
+    const [role, setRole] = useState(null);
 
     useEffect(() => {
-
+        if (sessionStorage.getItem('token')) {
+            const data = jwtDecode(sessionStorage.getItem('token'));
+            if (data)
+                setRole(data.role);
+        }
     }, []);
+
+    let basename = '/';
+    if (role !== null && role !== '') {
+        if (role === 'ROLE_MANAGER') basename = '/admin';
+    } else basename = '/';
 
     return (
         <div className="App">
-            {roleSerial === 0 ? (<>
-                    <BrowserRouter basename="/">
+            <BrowserRouter basename={role === 'ROLE_MANAGER' ? '/admin' : '/'}>
+                {(role === 'ROLE_CUSTOMER' || role === null || role === '') ? (
+                    <>
                         <AutoScrollToTop/>
                         <Header/>
                         <Routes>
                             <Route path={'/'} element={<Home/>}/>
-                            <Route path={'/farm'} element={<Farm/>}/>
+                            <Route path={'/farms'} element={<Farms/>}/>
                             <Route path={'/fish'} element={<Fish/>}/>
                             <Route path={'/fish/:id'} element={<FishDetail/>}/>
                             <Route path={'/contact'} element={<Contact/>}/>
+                            <Route path={'/policy'} element={<Policy/>}/>
                             <Route path={'/about-us'} element={<AboutUs/>}/>
                             <Route path={'/cart'} element={<Cart/>}/>
                             <Route path={'/payment'} element={<Payment/>}/>
@@ -75,11 +85,8 @@ const App = () => {
                             <Route path={'/*'} element={<Page404/>}/>
                         </Routes>
                         <Footer/>
-                    </BrowserRouter>
-                </>
-
-            ) : (
-                <BrowserRouter basename={'/admin'}>
+                    </>
+                ) : (
                     <Routes>
                         <Route path={'/'}
                                element={<AdminLayout
@@ -130,9 +137,11 @@ const App = () => {
                                </AdminLayout>}
                         />
                     </Routes>
-                </BrowserRouter>
-            )}
-        </div>);
+                )}
+            </BrowserRouter>
+        </div>
+    );
 };
+
 
 export default App;

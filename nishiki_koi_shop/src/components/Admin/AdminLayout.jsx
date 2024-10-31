@@ -1,8 +1,13 @@
 import {Link} from "react-router-dom";
 import '../../assets/css/Admin/Component/adminLayout.css'
-import adminAvatar from  '../../assets/img/adminAvatar.jpg'
+import adminAvatar from '../../assets/img/adminAvatar.jpg'
 
-const AdminLayout = ({childCompo,title}) => {
+const AdminLayout = ({childCompo, title}) => {
+    const handleSignOut = () => {
+        sessionStorage.removeItem('user');
+        sessionStorage.removeItem('token');
+        window.location.assign('/')
+    }
     return (
         <div className={'admin-layout-container'}>
             <div className={'admin-layout-content'}>
@@ -16,7 +21,7 @@ const AdminLayout = ({childCompo,title}) => {
                             <li><Link to={'/'}>Trang chủ</Link></li>
                             <li><Link to={'/orders'}>Đơn hàng</Link></li>
                             <li><Link to={'/report'}>Báo cáo</Link></li>
-                            <li style={{padding:"15px",color:"white"}}>Quản lí
+                            <li style={{padding: "15px", color: "white"}}>Quản lí
                                 <ul className={'controller-sub-navbar'}>
                                     <li><Link to={'/products'}>Sản phẩm</Link></li>
                                     <li><Link to={'/farms'}>Trang trại</Link></li>
@@ -24,7 +29,7 @@ const AdminLayout = ({childCompo,title}) => {
                                     <li><Link to={'/users'}>Người dùng</Link></li>
                                 </ul>
                             </li>
-                            <li><Link to={'/'}>Đăng xuất</Link></li>
+                            <li><Link to={'/'} onClick={handleSignOut}>Đăng xuất</Link></li>
                         </ul>
                     </div>
                 </div>

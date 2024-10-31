@@ -1,62 +1,37 @@
 import '../../../assets/css/Admin/Component/addNewProd.css'
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {handleGetElement, handleSubmit, handleUploadImage, useHookFarmForm} from "../../../utils/handleFuncs";
+import {toast, ToastContainer} from "react-toastify";
 
-const AddNewProd = ({setStatus}) => {
+const AddNewFarm = ({setStatus}) => {
+    const {formData, setFormData} = useHookFarmForm();
+    const [imageUrl, setImageUrl] = useState('');
 
-    const [formData, setFormData] = useState({
-        contact: '',
-        description: '',
-        location: '',
-        name: '',
-        image: null,
-    })
-
-    const handleGetElement = (e) => {
-        const {name, value} = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        })
-    }
-    const handleGetFile = (e) => {
-        setFormData({
-            ...formData,
-            image: e.target.files[0]
-        })
-    }
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const formDataToSend = new FormData;
-            Object.keys(formData).forEach(key => {
-                formDataToSend.append(key, formData[key]);
-            });
-
-            const response = await fetch("http://localhost:8080/api/v1/farm", {
-                method: 'POST',
-                body: formDataToSend
-            });
-            if (response.ok) {
-                console.log('successfully!');
-                setStatus(false);
-            } else {
-                console.log('False');
-            }
-        } catch (e) {
-            console.error("ERROR: ", e.message());
-        }
+    const handleGetFile = async (e) => {
+        await handleUploadImage(e.target.files[0], setImageUrl, 'zpjxvfjb');
     }
 
     const handleCancelForm = (e) => {
         e.preventDefault();
         setStatus(false);
     }
+
+    useEffect(() => {
+        if (imageUrl !== '') {
+            toast.success('Cacthed this file!')
+            setFormData({
+                ...formData,
+                image: imageUrl
+            })
+        }
+    }, [imageUrl]);
+
     return (
         <div className={'form-container'}>
             <div className={'form-content'}>
                 <h3>Thêm sản phẩm mới</h3>
-                <form className={'form-field'} onSubmit={handleSubmit}>
+                <form className={'form-field'}
+                      onSubmit={(e) => handleSubmit(e, formData, "http://localhost:8080/api/v1/manager/farm/create-farm", sessionStorage.getItem('token'), setStatus)}>
                     <div style={{
                         display: 'flex',
                         justifyContent: 'center',
@@ -73,13 +48,13 @@ const AddNewProd = ({setStatus}) => {
                         }}>
                             <fieldset className={'fieldset'}>
                                 <legend>Thông tin liên hệ</legend>
-                                <input className={'textInput'} type={'text'} name={'contact'}
-                                       onChange={handleGetElement}/>
+                                <input className={'textInput'} type={'text'} name={'contactInfo'}
+                                       onChange={(e) => handleGetElement(e, setFormData, formData)}/>
                             </fieldset>
                             <fieldset className={'fieldset'}>
                                 <legend>Mô tả</legend>
                                 <input className={'textInput'} type={'text'} name={'description'}
-                                       onChange={handleGetElement}/>
+                                       onChange={(e) => handleGetElement(e, setFormData, formData)}/>
                             </fieldset>
                         </div>
                         <div style={{
@@ -92,12 +67,12 @@ const AddNewProd = ({setStatus}) => {
                             <fieldset className={'fieldset'}>
                                 <legend>Địa chỉ trang trại</legend>
                                 <input className={'textInput'} type={'text'} name={'location'}
-                                       onChange={handleGetElement}/>
+                                       onChange={(e) => handleGetElement(e, setFormData, formData)}/>
                             </fieldset>
                             <fieldset className={'fieldset'}>
                                 <legend>Tên trang trại</legend>
                                 <input className={'textInput'} type={'text'} name={'name'}
-                                       onChange={handleGetElement}/>
+                                       onChange={(e) => handleGetElement(e, setFormData, formData)}/>
                             </fieldset>
                         </div>
                         <div style={{
@@ -114,7 +89,9 @@ const AddNewProd = ({setStatus}) => {
                         </div>
                     </div>
                     <div className={'optionBtns'}>
-                        <button className={'featureBtn'} type={'submit'}>Xác nhận</button>
+                        <button className={'featureBtn'} type={'submit'}
+                                disabled={imageUrl === ''}>Xác nhận
+                        </button>
                         <button className={'featureBtn'} onClick={handleCancelForm}>Hủy bỏ</button>
                     </div>
                 </form>
@@ -122,7 +99,8 @@ const AddNewProd = ({setStatus}) => {
             <div style={{width: "inherit", height: 'inherit', position: 'absolute', zIndex: '1'}}
                  className={'bg-close-dialog'}
                  onClick={handleCancelForm}></div>
+            <ToastContainer/>
         </div>
     )
 }
-export default AddNewProd
+export default AddNewFarm

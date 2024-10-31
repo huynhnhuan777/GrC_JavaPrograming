@@ -1,0 +1,68 @@
+.ad-user-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.ad-user-content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    width: 95%;
+    position: relative;
+    height: 100%;
+}
+
+.list-user {
+    width: 100%;
+    margin: 20px 0;
+}
+
+.item-user {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+    background-image: linear-gradient(90deg, #ff5555, #ffba53);
+    border-radius: 50px;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.user-id {
+    width: 5%;
+}
+
+.user-username {
+    width: 10%;
+}
+
+.user-fullName {
+    width: 15%;
+}
+
+.user-email {
+    width: 15%;
+}
+
+.user-address {
+    width: 15%;
+}
+
+.user-roleName {
+    width: 20%;
+}
+
+.user-phonenumber {
+    width: 15%;
+}
+
+.user-choice {
+    width: 5%;
+}
