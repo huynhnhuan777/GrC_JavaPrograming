@@ -1,65 +1,53 @@
 import '../../../assets/css/Admin/Component/addNewProd.css'
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {
+    handleGetAllProd,
+    handleGetElementFromInp,
+    handleSubmit,
+    handleUploadImage, useChooseAll,
+    useHookProdForm
+} from "../../../utils/handleFuncs";
+import axios from "axios";
+import {toast} from "react-toastify";
 
 const AddNewProd = ({setStatus}) => {
+    const {formData, setFormData} = useHookProdForm();
+    const [data, setData] = useState([]);
+    const [imageUrl, setImageUrl] = useState('');
+    const [farmData, setFarmData] = useState([]);
+    const {chooseAll, chooseOne, handleChooseAll, setChooseOne, setChooseAll} = useChooseAll(data.length);
 
-    const [formData, setFormData] = useState({
-        name: '',
-        price: '',
-        size: '',
-        description: '',
-        image: null,
-        farmID: '',
-        type: '',
-        quantity: ''
-    })
-
-    const handleGetElement = (e) => {
-        const {name, value} = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        })
-    }
-    const handleGetFile = (e) => {
-        setFormData({
-            ...formData,
-            image: e.target.files[0]
-        })
-    }
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const formDataToSend = new FormData;
-            Object.keys(formData).forEach(key => {
-                formDataToSend.append(key, formData[key]);
-            });
-
-            const response = await fetch("http://localhost:8080/api/v1/fish", {
-                method: 'POST',
-                body: formDataToSend
-            });
-            if (response.ok) {
-                console.log('successfully!');
-                setStatus(false);
-            } else {
-                console.log('False');
-            }
-        } catch (e) {
-            console.error("ERROR: ", e.message());
-        }
+    const handleGetFile = async (e) => {
+        await handleUploadImage(e.target.files[0], setImageUrl);
     }
 
     const handleCancelForm = (e) => {
         e.preventDefault();
         setStatus(false);
     }
+
+    useEffect(() => {
+        if (imageUrl !== '') {
+            toast.success('Cacthed this file!')
+            setFormData({
+                ...formData,
+                image: imageUrl
+            })
+        }
+    }, [imageUrl]);
+
+    useEffect(() => {
+        handleGetAllProd('http://localhost:8080/api/v1/manager/farm/get-all-farm', sessionStorage.getItem('token'), setFarmData, setChooseOne);
+        handleGetAllProd('http://localhost:8080/api/v1/manager/fish/get-all-fishe', sessionStorage.getItem('token'), setData, setChooseOne);
+    }, []);
+
     return (
         <div className={'form-container'}>
             <div className={'form-content'}>
                 <h3>Thêm sản phẩm mới</h3>
-                <form className={'form-field'} onSubmit={handleSubmit}>
+                <form className={'form-field'}
+                      onSubmit={(e) => handleSubmit(e, formData, "http://localhost:8080/api/v1/manager/fish/create-fish", sessionStorage.getItem('token'), setStatus)}
+                      style={{flexDirection: 'column'}}>
                     <div style={{
                         display: 'flex',
                         justifyContent: 'center',
@@ -77,17 +65,17 @@ const AddNewProd = ({setStatus}) => {
                             <fieldset className={'fieldset'}>
                                 <legend>Tên sản phẩm</legend>
                                 <input className={'textInput'} type={'text'} name={'name'}
-                                       onChange={handleGetElement}/>
+                                       onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}/>
                             </fieldset>
                             <fieldset className={'fieldset'}>
                                 <legend>Mức giá</legend>
                                 <input className={'textInput'} type={'text'} name={'price'}
-                                       onChange={handleGetElement}/>
+                                       onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}/>
                             </fieldset>
                             <fieldset className={'fieldset'}>
                                 <legend>Số lượng tồn</legend>
                                 <input className={'textInput'} type={'text'} name={'quantity'}
-                                       onChange={handleGetElement}/>
+                                       onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}/>
                             </fieldset>
                         </div>
                         <div style={{
@@ -100,23 +88,29 @@ const AddNewProd = ({setStatus}) => {
                             <fieldset className={'fieldset'}>
                                 <legend>Kích thước sản phẩm</legend>
                                 <input className={'textInput'} type={'text'} name={'size'}
-                                       onChange={handleGetElement}/>
+                                       onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}/>
                             </fieldset>
                             <fieldset className={'fieldset'}>
                                 <legend>Mô tả</legend>
                                 <input className={'textInput'} type={'text'} name={'description'}
-                                       onChange={handleGetElement}/>
+                                       onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}/>
                             </fieldset>
                             <fieldset className={'fieldset'}>
                                 <legend>Trang trại</legend>
-                                <select className={'selectInput'} name={'farmID'} onChange={handleGetElement}>
+                                <select className={'selectInput'} name={'farmID'}
+                                        onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}>
                                     <option defaultValue={-1}>Không</option>
+                                    {farmData.map((item, index) => (
+                                        <option key={index} value={item.id}>{item.farmName}</option>
+                                    ))}
                                 </select>
                             </fieldset>
                             <fieldset className={'fieldset'}>
                                 <legend>Phân loại</legend>
-                                <select className={'selectInput'} name={'type'} onChange={handleGetElement}>
+                                <select className={'selectInput'} name={'type'}
+                                        onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}>
                                     <option defaultValue={0}>1</option>
+
                                 </select>
                             </fieldset>
                         </div>
@@ -134,12 +128,12 @@ const AddNewProd = ({setStatus}) => {
                         </div>
                     </div>
                     <div className={'optionBtns'}>
-                        <button className={'featureBtn'} type={'submit'}>Xác nhận</button>
+                        <button className={'featureBtn'} type={'submit'} disabled={imageUrl === ''}>Xác nhận</button>
                         <button className={'featureBtn'} onClick={handleCancelForm}>Hủy bỏ</button>
                     </div>
                 </form>
             </div>
-            <div style={{width: "inherit", height: 'inherit',position:'absolute'}} className={'bg-close-dialog'}
+            <div style={{width: "inherit", height: 'inherit', position: 'absolute'}} className={'bg-close-dialog'}
                  onClick={handleCancelForm}></div>
         </div>
     )

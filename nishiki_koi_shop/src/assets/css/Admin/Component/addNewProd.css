@@ -1,10 +1,12 @@
 .form-container {
-    width: 100%;
-    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    top: -40px;
 }
 
 .form-content {
@@ -16,10 +18,11 @@
     box-shadow: 0 4px 14px var(--box-shadow-dialog);
     border-radius: 5px;
     z-index: 10;
+    background-color: white;
 }
 
 .form-field {
-    flex-direction: column   ;
+    flex-direction: column;
     justify-content: center !important;
     align-items: center !important;
     padding: 10px;

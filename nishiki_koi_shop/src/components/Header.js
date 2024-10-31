@@ -21,7 +21,7 @@ const Header = () => {
 
     const [linkMenu, setLinkMenu] = useState([
         ['customer-support', 'policy'],
-        ['account', 'orders', 'cart'],
+        ['account', 'orders', 'cart', 'booking'],
         ['sign-in', 'sign-up'],
     ])
 
@@ -74,7 +74,7 @@ const Header = () => {
     }
 
     const handleSignOut = () => {
-        sessionStorage.removeItem('userId');
+        sessionStorage.removeItem('user');
         window.location.assign('/');
     }
 
@@ -109,15 +109,11 @@ const Header = () => {
     }, [isActive, menu]);
 
     useEffect(() => {
-        const check = sessionStorage.getItem('userId');
+        const check = sessionStorage.getItem('user');
         if (check !== 'undefined' || check !== null) {
-            setUser(JSON.parse(sessionStorage.getItem('userId')));
+            setUser(JSON.parse(sessionStorage.getItem('user')));
         }
     }, [])
-
-    useEffect(() => {
-        console.log(user);
-    }, [user]);
 
     return (
         <div className='header-container'>
@@ -141,7 +137,7 @@ const Header = () => {
                     <ul className={`navigation ${isExpanded[0] ? 'show-nav' : 'hidden-nav'} `}>
                         <li><Link to={'/'} onClick={handleCloseNavBar}>Trang chủ</Link></li>
                         <li><Link to={'/fish'}>Giống cá</Link></li>
-                        <li><Link to={'/farm'} onClick={handleCloseNavBar}>Trang trại</Link></li>
+                        <li><Link to={'/farms'} onClick={handleCloseNavBar}>Trang trại</Link></li>
                         <li><Link to={'/tours'}>Chuyến đi</Link></li>
                         <li
                             onMouseEnter={() => HandleMouseEnter(['CSKH', 'Chính sách'])}
@@ -160,7 +156,7 @@ const Header = () => {
                                 onMouseEnter={() => HandleMouseEnter(['Thông tin cá nhân', 'Đơn hàng', 'Giỏ hàng', 'Đăng xuất'])}
                                 onMouseLeave={() => HandleMouseLeave()}
                             ><Link to={'/account'}
-                                   onClick={handleCloseNavBar}>{(user.fullName !== null ? user.fullName : 'Tài khoản của bạn')}</Link>
+                                   onClick={handleCloseNavBar}>{(user.username)}</Link>
                                 <ul className={'sub-nav'}>
                                     {list.map((item, index) => (
                                         <li key={index} className={isActive ? 'show' : 'hidden'}>
@@ -196,7 +192,7 @@ const Header = () => {
                 </div>
                 <div className={`search-zone ${isExpanded[1] ? 'show-nav' : 'hidden-nav'}`}>
                     {/*this form will be a search feature (wait for api provider)*/}
-                    <form className={'form-field'} style={{flexDirection:'row'}}>
+                    <form className={'form-field'} style={{flexDirection: 'row'}}>
                         <input className={'search-input'} type={'text'} placeholder={'  Tìm kiếm gì ư?'}/>
                         <button className={'btn-search'}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white"

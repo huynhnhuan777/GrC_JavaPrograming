@@ -1,6 +1,6 @@
 import {LineChart, Line, CartesianAxis, XAxis, YAxis, Tooltip, Legend, CartesianGrid} from "recharts";
 import {PieChart, Pie, Sector, Cell, ResponsiveContainer} from "recharts";
-import '../../assets/css/Admin/Home/adminHome.css'
+import '../../assets/css/Admin/Page/Home/adminHome.css'
 import {
     revenueWeeklyAnalyst,
     revenueMonthlyAnalyst,

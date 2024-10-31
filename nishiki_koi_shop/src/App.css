@@ -28,7 +28,10 @@ ul {
 .mg-x-m {
     margin: 10px 0;
 }
-
+html {
+    scrollbar-color: rgb(255, 0, 0) transparent !important;
+    scrollbar-width: thin;
+}
 @keyframes App-logo-spin {
     from {
         transform: rotate(0deg);

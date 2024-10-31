@@ -3,6 +3,7 @@ import axios from 'axios';
 import {Link, useNavigate} from 'react-router-dom'; // Nhập Link và useNavigate
 import '../../assets/css/Account/Register.css';
 import {toast, ToastContainer} from "react-toastify";
+import {jwtDecode} from "jwt-decode";
 
 const SignInForm = () => {
     const [email, setEmail] = useState('');
@@ -12,25 +13,56 @@ const SignInForm = () => {
 
     const navigate = useNavigate(); // Tạo hook useNavigate để điều hướng
 
+    const handleGetInfoUser = async (urlAPI, token) => {
+        try {
+            const userResponse = await fetch(urlAPI, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (!userResponse.ok) {
+                throw new Error("Failed to fetch user info");
+            }
+
+            // Chuyển đổi phản hồi thành JSON
+            const userInfo = await userResponse.json();
+            sessionStorage.setItem('user', JSON.stringify(userInfo));
+        } catch (e) {
+            console.error("Error: ", e.message);
+            toast.error('Không thể lấy thông tin người dùng!');
+        }
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
             const response = await axios.post('http://localhost:8080/api/v1/auth/login', {
                 email,
                 password
             });
+
             // Thông báo thành công
-            // setSuccess('Đăng nhập thành công!');
             if (!response) {
                 console.log("cannot sign in");
                 return;
             }
+
             toast.success('Đăng nhập thành công!');
             setError('');
-            console.log(response.data);
-            sessionStorage.setItem('userId', JSON.stringify(response.data))
-            window.location.assign('/');
+            // Lưu token vào sessionStorage (hoặc localStorage nếu bạn muốn)
+            sessionStorage.setItem('token', response.data.token);
+            const roleName = jwtDecode(response.data.token);
+            console.log(roleName)
+
+            // Gọi API để lấy thông tin customer
+            if (roleName.role === 'ROLE_CUSTOMER') {
+                await handleGetInfoUser('http://localhost:8080/api/v1/users/myInfo', response.data.token);
+                window.location.assign('/')
+            } else if (roleName.role === 'ROLE_MANAGER') {
+                await handleGetInfoUser('http://localhost:8080/api/v1/manager/myInfo', response.data.token);
+                window.location.assign('/admin')
+            }
         } catch (err) {
             console.error(err.message);
             if (err.response && err.response.data) {
