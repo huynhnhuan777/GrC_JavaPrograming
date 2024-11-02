@@ -1,7 +1,7 @@
 import {ToolManager} from "../../../components/ToolManager";
 import {useEffect, useState} from "react";
 import AddNewUser from "../../../components/Admin/Modals/AddNewUser";
-import '../../../assets/css/Admin/Page/AdminUser.css'
+import '../../../assets/css/Admin/Page/Manage/AdminUser.css'
 import {handleChooseOne, useChooseAll} from "../../../utils/handleFuncs";
 import {toast, ToastContainer} from "react-toastify";
 import {handleRenderSelectCard} from "../../../utils/handleRenderFuncs";

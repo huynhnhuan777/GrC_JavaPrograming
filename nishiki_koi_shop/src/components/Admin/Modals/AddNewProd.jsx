@@ -18,7 +18,7 @@ const AddNewProd = ({setStatus}) => {
     const {chooseAll, chooseOne, handleChooseAll, setChooseOne, setChooseAll} = useChooseAll(data.length);
 
     const handleGetFile = async (e) => {
-        await handleUploadImage(e.target.files[0], setImageUrl);
+        await handleUploadImage(e.target.files[0], setImageUrl, process.env.REACT_APP_UPLOAD_PRESET_FISH);
     }
 
     const handleCancelForm = (e) => {
@@ -38,7 +38,6 @@ const AddNewProd = ({setStatus}) => {
 
     useEffect(() => {
         handleGetAllProd('http://localhost:8080/api/v1/manager/farm/get-all-farm', sessionStorage.getItem('token'), setFarmData, setChooseOne);
-        handleGetAllProd('http://localhost:8080/api/v1/manager/fish/get-all-fishe', sessionStorage.getItem('token'), setData, setChooseOne);
     }, []);
 
     return (
@@ -46,7 +45,7 @@ const AddNewProd = ({setStatus}) => {
             <div className={'form-content'}>
                 <h3>Thêm sản phẩm mới</h3>
                 <form className={'form-field'}
-                      onSubmit={(e) => handleSubmit(e, formData, "http://localhost:8080/api/v1/manager/fish/create-fish", sessionStorage.getItem('token'), setStatus)}
+                      onSubmit={(e) => handleSubmit(e, formData, "http://localhost:8080/api/v1/manager/fish/create-fish", sessionStorage.getItem('token'), setStatus,'/admin/products')}
                       style={{flexDirection: 'column'}}>
                     <div style={{
                         display: 'flex',
@@ -97,7 +96,7 @@ const AddNewProd = ({setStatus}) => {
                             </fieldset>
                             <fieldset className={'fieldset'}>
                                 <legend>Trang trại</legend>
-                                <select className={'selectInput'} name={'farmID'}
+                                <select className={'selectInput'} name={'farmId'}
                                         onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}>
                                     <option defaultValue={-1}>Không</option>
                                     {farmData.map((item, index) => (
@@ -107,10 +106,9 @@ const AddNewProd = ({setStatus}) => {
                             </fieldset>
                             <fieldset className={'fieldset'}>
                                 <legend>Phân loại</legend>
-                                <select className={'selectInput'} name={'type'}
+                                <select className={'selectInput'} name={'fishTypeId'}
                                         onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}>
                                     <option defaultValue={0}>1</option>
-
                                 </select>
                             </fieldset>
                         </div>
