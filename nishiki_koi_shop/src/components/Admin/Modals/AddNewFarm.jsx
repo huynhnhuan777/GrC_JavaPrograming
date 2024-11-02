@@ -8,7 +8,7 @@ const AddNewFarm = ({setStatus}) => {
     const [imageUrl, setImageUrl] = useState('');
 
     const handleGetFile = async (e) => {
-        await handleUploadImage(e.target.files[0], setImageUrl, 'zpjxvfjb');
+        await handleUploadImage(e.target.files[0], setImageUrl,process.env.REACT_APP_UPLOAD_PRESET_FARM);
     }
 
     const handleCancelForm = (e) => {
@@ -47,6 +47,25 @@ const AddNewFarm = ({setStatus}) => {
                             width: '35%'
                         }}>
                             <fieldset className={'fieldset'}>
+                                <legend>Tên trang trại</legend>
+                                <input className={'textInput'} type={'text'} name={'name'}
+                                       onChange={(e) => handleGetElement(e, setFormData, formData)}/>
+                            </fieldset>
+                            <fieldset className={'fieldset'}>
+                                <legend>Địa chỉ trang trại</legend>
+                                <input className={'textInput'} type={'text'} name={'location'}
+                                       onChange={(e) => handleGetElement(e, setFormData, formData)}/>
+                            </fieldset>
+
+                        </div>
+                        <div style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            flexDirection: 'column',
+                            width: '35%'
+                        }}>
+                            <fieldset className={'fieldset'}>
                                 <legend>Thông tin liên hệ</legend>
                                 <input className={'textInput'} type={'text'} name={'contactInfo'}
                                        onChange={(e) => handleGetElement(e, setFormData, formData)}/>
@@ -57,24 +76,7 @@ const AddNewFarm = ({setStatus}) => {
                                        onChange={(e) => handleGetElement(e, setFormData, formData)}/>
                             </fieldset>
                         </div>
-                        <div style={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            flexDirection: 'column',
-                            width: '35%'
-                        }}>
-                            <fieldset className={'fieldset'}>
-                                <legend>Địa chỉ trang trại</legend>
-                                <input className={'textInput'} type={'text'} name={'location'}
-                                       onChange={(e) => handleGetElement(e, setFormData, formData)}/>
-                            </fieldset>
-                            <fieldset className={'fieldset'}>
-                                <legend>Tên trang trại</legend>
-                                <input className={'textInput'} type={'text'} name={'name'}
-                                       onChange={(e) => handleGetElement(e, setFormData, formData)}/>
-                            </fieldset>
-                        </div>
+
                         <div style={{
                             display: 'flex',
                             justifyContent: 'center',

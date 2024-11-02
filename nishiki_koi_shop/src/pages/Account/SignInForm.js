@@ -45,6 +45,7 @@ const SignInForm = () => {
             // Thông báo thành công
             if (!response) {
                 console.log("cannot sign in");
+                toast.warning('Lỗi 403: truy cập vào máy chủ không thành công!')
                 return;
             }
 
@@ -69,7 +70,7 @@ const SignInForm = () => {
                 setError(err.response.data.message || 'Đã xảy ra lỗi trong quá trình đăng nhập.');
             } else {
                 setError('Đã xảy ra lỗi không xác định.');
-                toast.warning('Đã xảy ra lỗi không xác định!');
+                toast.warning('Không thể kết nối đến máy chủ!');
             }
         }
     };

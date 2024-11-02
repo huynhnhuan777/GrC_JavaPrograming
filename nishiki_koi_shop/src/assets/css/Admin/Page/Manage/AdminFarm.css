@@ -1,0 +1,84 @@
+.ad-farm-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.ad-farm-content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    width: 95%;
+    position: relative;
+    height: 100%;
+}
+
+.item-farm {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-image: linear-gradient(90deg, #ff5555, #ffba53);
+    border-radius:100px;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.list-farm {
+    width: 100%;
+    margin: 20px;
+}
+
+.farm-id {
+    width: 5%;
+    padding: 0 5px;
+}
+
+.farm-name {
+    width: 5%;
+    padding: 0 5px;
+}
+
+.farm-location {
+    width: 20%;
+    padding: 0 5px;
+}
+
+.farm-desc {
+    width: 30%;
+    padding: 0 5px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overflow-wrap: anywhere;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.farm-contact {
+    width: 10%;
+    padding: 0 5px;
+}
+
+.farm-date {
+    width: 10%;
+    padding: 0 5px;
+}
+
+.farm-url {
+    width: 15%;
+    overflow: auto;
+    padding: 0 5px;
+}
+
+.farm-tool {
+    width: 5%;
+    padding: 0 5px;
+}

@@ -1,7 +1,7 @@
 import AddNewProd from "../../../components/Admin/Modals/AddNewProd";
 import {useEffect, useState} from "react";
 import {ToolManager} from "../../../components/ToolManager";
-import '../../../assets/css/Admin/Page/AdminProducts.css'
+import '../../../assets/css/Admin/Page/Manage/AdminProducts.css'
 import {handleChooseOne, handleGetAllProd, useChooseAll} from "../../../utils/handleFuncs";
 import {ToastContainer} from "react-toastify";
 

@@ -68,8 +68,10 @@ export const useHookProdForm = () => {
         price: '',
         description: '',
         image: '',
-        size: 0,
-        quantity: ''
+        size: '',
+        quantity: '',
+        fishTypeId:'',
+        farmId:''
     })
     return {formData, setFormData}
 }
@@ -81,6 +83,20 @@ export const useHookFarmForm = () => {
         location: '',
         image: '',
         contactInfo: '',
+    })
+    return {formData, setFormData}
+}
+
+export const useHookTourForm = () => {
+    const [formData, setFormData] = useState({
+        tourName: '',
+        tourDescription: '',
+        tourPrice: '',
+        tourImage: '',
+        tourStartDate: '',
+        tourEndDate: '',
+        tourCapacity: 0,
+        farmId: 0,
     })
     return {formData, setFormData}
 }
@@ -124,13 +140,16 @@ export const handleUploadImage = async (file, setImageUrl, upload_preset) => {
             body: fData,
         });
         const data = await response.json();
-        setImageUrl(data.secure_url);
+        const imageUrl = data.secure_url;
+        if (imageUrl !== null || imageUrl !== '')
+            setImageUrl(data.secure_url);
+        else throw new Error('Can not upload image');
     } catch (e) {
         console.error('error: ', e.message);
     }
 }
 
-export const handleSubmit = async (e, formData, urlAPI, token, setStatus) => {
+export const handleSubmit = async (e, formData, urlAPI, token, setStatus,urlCurrPage) => {
     e.preventDefault();
 
     try {
@@ -140,17 +159,17 @@ export const handleSubmit = async (e, formData, urlAPI, token, setStatus) => {
         });
 
         const response = await fetch(urlAPI, {
-            method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`
             },
+            method: 'POST',
             body: formDataToSend
         });
 
         if (response.ok) {
             console.log('successfully!');
             setStatus(false);
-            window.location.assign('/admin/farms')
+            window.location.assign(urlCurrPage)
         } else {
             console.log('False');
         }

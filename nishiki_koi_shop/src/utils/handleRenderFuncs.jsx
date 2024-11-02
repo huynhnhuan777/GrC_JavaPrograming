@@ -1,5 +1,5 @@
 import {toast} from "react-toastify";
-import '../assets/css/Admin/Page/AdminUser.css'
+import '../assets/css/Admin/Page/Manage/AdminUser.css'
 
 export const handleRenderSelectCard = (currChoice, statusArray, isDisabled) => {
     let temp;

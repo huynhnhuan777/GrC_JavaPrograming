@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {ToolManager} from "../../../components/ToolManager";
 import {handleChooseOne, handleGetAllProd, useChooseAll} from "../../../utils/handleFuncs";
-import '../../../assets/css/Admin/Page/AdminFarm.css'
+import '../../../assets/css/Admin/Page/Manage/AdminFarm.css'
 import AddNewFarm from "../../../components/Admin/Modals/AddNewFarm";
 import {ToastContainer} from "react-toastify";
 
@@ -9,7 +9,6 @@ import {ToastContainer} from "react-toastify";
 const AdminFarms = () => {
     const [status, setStatus] = useState(false);
     const [data, setData] = useState([]);
-    const roleName = ['ROLE_CUSTOMER', 'ROLE_MANAGER', 'ROLE_SALE_STAFF', 'ROLE_DELIVERY_STAFF', 'ROLE_CONSULTING_STAFF'];
     const [id, setId] = useState(-1);
 
     const {chooseAll, chooseOne, handleChooseAll, setChooseOne, setChooseAll} = useChooseAll(data.length);
@@ -17,6 +16,8 @@ const AdminFarms = () => {
     useEffect(() => {
         handleGetAllProd('http://localhost:8080/api/v1/manager/farm/get-all-farm', sessionStorage.getItem('token'), setData, setChooseOne);
     }, []);
+
+    console.log(data)
 
     return (
         <div className={'ad-farm-container'}>
@@ -35,7 +36,7 @@ const AdminFarms = () => {
                         <div className={'farm-contact'} style={{fontWeight: 'bold'}}>Liên hệ</div>
                         <div className={'farm-date'} style={{fontWeight: 'bold'}}>Ngày tạo</div>
                         <div className={'farm-url'} style={{fontWeight: 'bold'}}>URL ảnh</div>
-                        <div className={'tool'} style={{fontWeight: 'bold'}}></div>
+                        <div className={'farm-tool'} style={{fontWeight: 'bold'}}></div>
                     </div>
                     {data && data.map((item, index) => (
                         <div key={index} className={'item-farm'}>
@@ -46,10 +47,10 @@ const AdminFarms = () => {
                             <div className={'farm-contact'}>{item.contactInfo}</div>
                             <div className={'farm-date'}>{item.createdDate}</div>
                             <div className={'farm-url'}>{item.imageUrl}</div>
-                            <div className={'tool'}>
+                            <div className={'farm-tool'}>
                                 <input className={'check-box'} type={'checkbox'}
                                        style={{width: '15px', height: '15px'}}
-                                       onClick={() => handleChooseOne(chooseOne, setChooseOne, index,  Number(item.farmId),setId)}
+                                       onClick={() => handleChooseOne(chooseOne, setChooseOne, index, Number(item.farmId), setId)}
                                 />
                             </div>
                         </div>
