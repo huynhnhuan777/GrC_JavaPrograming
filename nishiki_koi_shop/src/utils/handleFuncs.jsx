@@ -1,5 +1,11 @@
 import {useState} from "react";
 import {toast} from "react-toastify";
+import {type} from "@testing-library/user-event/dist/type";
+
+export const useHookDetailTitle = () => {
+    const [title, setTitle] = useState("");
+    return {title, setTitle};
+}
 
 export const useChooseAll = (itemLength) => {
     const [chooseAll, setChooseAll] = useState(false);
@@ -39,7 +45,7 @@ export const handleChooseOne = (chooseOne, setChooseOne, index, idItem, setId) =
         setId(-1);
     } else {
         toast.success('Đã chọn thành công');
-        setId(idItem)
+        setId(idItem);
     }
 
     // Toggle the value at the specified index
@@ -70,8 +76,8 @@ export const useHookProdForm = () => {
         image: '',
         size: '',
         quantity: '',
-        fishTypeId:'',
-        farmId:''
+        fishTypeId: '',
+        farmId: ''
     })
     return {formData, setFormData}
 }
@@ -124,7 +130,8 @@ export async function handleGetAllProd(urlAPI, token, setData, setChooseOne) {
 
         const data = await response.json();
         setData(data);
-        setChooseOne(Array(data.length).fill(false));
+        if (setChooseOne !== null)
+            setChooseOne(Array(data.length).fill(false));
     } catch (e) {
         console.error("error: ", e.message);
     }
@@ -149,7 +156,7 @@ export const handleUploadImage = async (file, setImageUrl, upload_preset) => {
     }
 }
 
-export const handleSubmit = async (e, formData, urlAPI, token, setStatus,urlCurrPage) => {
+export const handleSubmit = async (e, formData, urlAPI, token, setStatus, urlCurrPage) => {
     e.preventDefault();
 
     try {
@@ -160,10 +167,11 @@ export const handleSubmit = async (e, formData, urlAPI, token, setStatus,urlCurr
 
         const response = await fetch(urlAPI, {
             headers: {
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${token}`,
+                ContentType: "application/json"
             },
             method: 'POST',
-            body: formDataToSend
+            body: formDataToSend,
         });
 
         if (response.ok) {

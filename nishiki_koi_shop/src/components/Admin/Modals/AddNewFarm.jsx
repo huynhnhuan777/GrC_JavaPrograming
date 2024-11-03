@@ -8,7 +8,7 @@ const AddNewFarm = ({setStatus}) => {
     const [imageUrl, setImageUrl] = useState('');
 
     const handleGetFile = async (e) => {
-        await handleUploadImage(e.target.files[0], setImageUrl,process.env.REACT_APP_UPLOAD_PRESET_FARM);
+        await handleUploadImage(e.target.files[0], setImageUrl, process.env.REACT_APP_UPLOAD_PRESET_FARM);
     }
 
     const handleCancelForm = (e) => {
@@ -31,7 +31,7 @@ const AddNewFarm = ({setStatus}) => {
             <div className={'form-content'}>
                 <h3>Thêm sản phẩm mới</h3>
                 <form className={'form-field'}
-                      onSubmit={(e) => handleSubmit(e, formData, "http://localhost:8080/api/v1/manager/farm/create-farm", sessionStorage.getItem('token'), setStatus)}>
+                      onSubmit={(e) => handleSubmit(e, formData, 'http://localhost:8080/api/v1/manager/farm/create-farm', sessionStorage.getItem('token'), setStatus, 'farms')}>
                     <div style={{
                         display: 'flex',
                         justifyContent: 'center',
@@ -98,8 +98,7 @@ const AddNewFarm = ({setStatus}) => {
                     </div>
                 </form>
             </div>
-            <div style={{width: "inherit", height: 'inherit', position: 'absolute', zIndex: '1'}}
-                 className={'bg-close-dialog'}
+            <div className={'bg-close-dialog'}
                  onClick={handleCancelForm}></div>
             <ToastContainer/>
         </div>

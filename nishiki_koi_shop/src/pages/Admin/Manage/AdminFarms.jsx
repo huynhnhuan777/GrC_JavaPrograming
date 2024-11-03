@@ -17,8 +17,6 @@ const AdminFarms = () => {
         handleGetAllProd('http://localhost:8080/api/v1/manager/farm/get-all-farm', sessionStorage.getItem('token'), setData, setChooseOne);
     }, []);
 
-    console.log(data)
-
     return (
         <div className={'ad-farm-container'}>
             <div className={'ad-farm-content'}>
@@ -41,12 +39,15 @@ const AdminFarms = () => {
                     {data && data.map((item, index) => (
                         <div key={index} className={'item-farm'}>
                             <div className={'farm-id'}>{item.farmId}</div>
-                            <div className={'farm-name'}>{item.farmName === null ? 'empty' : item.farmName}</div>
-                            <div className={'farm-desc'} style={{height: '100px'}}>{item.farmDescription}</div>
+                            <div className={'farm-name'}>{item.name === null ? 'empty' : item.name}</div>
+                            <div className={'farm-desc'} style={{minHeight: '10px'}}>{item.description}</div>
                             <div className={'farm-location'}>{item.location}</div>
                             <div className={'farm-contact'}>{item.contactInfo}</div>
                             <div className={'farm-date'}>{item.createdDate}</div>
-                            <div className={'farm-url'}>{item.imageUrl}</div>
+                            <div className={'farm-url'}>
+                                <a href={item.image} target="_blank"
+                                   rel="noopener noreferrer">Xem</a>
+                            </div>
                             <div className={'farm-tool'}>
                                 <input className={'check-box'} type={'checkbox'}
                                        style={{width: '15px', height: '15px'}}

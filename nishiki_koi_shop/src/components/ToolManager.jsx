@@ -1,13 +1,17 @@
 import Tooltip from "@mui/material/Tooltip";
 import {toast} from "react-toastify";
+import {useNavigate} from "react-router-dom";
+import '../assets/css/Admin/Component/ToolManager.css'
 
-export const ToolManager = ({setStatus, useHook, idItem}) => {
+export const ToolManager = ({setStatus, useHook, idItem, baseUrl}) => {
     const {chooseAll, chooseOne, handleChooseAll, setChooseOne, setChooseAll} = useHook;
+    const navigate = useNavigate();
     const handleAddNewProd = () => {
         setStatus(true);
     }
-    const handleEditProd = (id) => {
+    const handleEditProd = (id, baseUrl) => {
         if (id === -1) toast.warning('Chưa chọn gì mà đòi sửa à? Phá quá ha!');
+        else navigate(`/${baseUrl}/detail/${id}`);
     }
     return (
         <div className={'tool-manager'}>
@@ -72,7 +76,7 @@ export const ToolManager = ({setStatus, useHook, idItem}) => {
                 </div>
             </Tooltip>
             <Tooltip title={'Chỉnh sửa'}>
-                <div className={'feature-btn mg-y-m'} onClick={() => handleEditProd(idItem)}>
+                <div className={'feature-btn mg-y-m'} onClick={() => handleEditProd(idItem, baseUrl)}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                          className="bi bi-pencil-square" viewBox="0 0 16 16">
                         <path
