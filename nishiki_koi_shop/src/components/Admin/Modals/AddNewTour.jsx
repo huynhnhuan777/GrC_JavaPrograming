@@ -45,7 +45,7 @@ const AddNewProd = ({setStatus}) => {
             <div className={'form-content'}>
                 <h3>Thêm chuyến đi mới</h3>
                 <form className={'form-field'}
-                      onSubmit={(e) => handleSubmit(e, formData, "http://localhost:8080/api/v1/manager/tour/create-tour", sessionStorage.getItem('token'), setStatus,'/admin/tours')}>
+                      onSubmit={(e) => handleSubmit(e, formData, "http://localhost:8080/api/v1/manager/tour/create-tour", sessionStorage.getItem('token'), setStatus, '/admin/tours')}>
                     <div style={{
                         display: 'flex',
                         justifyContent: 'center',
@@ -128,8 +128,9 @@ const AddNewProd = ({setStatus}) => {
                     </div>
                 </form>
             </div>
-            <div style={{width: "inherit", height: 'inherit', position: 'absolute'}} className={'bg-close-dialog'}
-                 onClick={handleCancelForm}></div>
+            <div className={'bg-close-dialog'}
+                 onClick={handleCancelForm}>
+            </div>
         </div>
     )
 }
