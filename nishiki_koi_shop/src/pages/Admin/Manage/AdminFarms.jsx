@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
-import {ToolManager} from "../../../components/ToolManager";
+import {ToolManager} from "../../../components/Admin/ToolManager";
 import {handleChooseOne, handleGetAllProd, useChooseAll} from "../../../utils/handleFuncs";
 import '../../../assets/css/Admin/Page/Manage/AdminFarm.css'
-import AddNewFarm from "../../../components/Admin/Modals/AddNewFarm";
+import AddNewFarm from "../../../components/Admin/Modals/New/AddNewFarm";
 import {ToastContainer} from "react-toastify";
 
 
@@ -23,6 +23,7 @@ const AdminFarms = () => {
                 <ToolManager setStatus={setStatus} itemLength={data.length}
                              useHook={{chooseAll, chooseOne, handleChooseAll, setChooseOne, setChooseAll}}
                              idItem={id}
+                             baseUrl={'farms'}
                 />
                 {status && <AddNewFarm setStatus={setStatus}/>}
                 <div className={'list-farm'}>

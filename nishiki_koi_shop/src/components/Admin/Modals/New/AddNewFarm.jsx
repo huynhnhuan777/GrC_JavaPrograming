@@ -1,6 +1,11 @@
-import '../../../assets/css/Admin/Component/addNewProd.css'
+import '../../../../assets/css/Admin/Component/CreateNew/addNewProd.css'
 import {useEffect, useState} from "react";
-import {handleGetElement, handleSubmit, handleUploadImage, useHookFarmForm} from "../../../utils/handleFuncs";
+import {
+    handleGetElementFromInp,
+    handleSubmit,
+    handleUploadImage,
+    useHookFarmForm
+} from "../../../../utils/handleFuncs";
 import {toast, ToastContainer} from "react-toastify";
 
 const AddNewFarm = ({setStatus}) => {
@@ -49,12 +54,12 @@ const AddNewFarm = ({setStatus}) => {
                             <fieldset className={'fieldset'}>
                                 <legend>Tên trang trại</legend>
                                 <input className={'textInput'} type={'text'} name={'name'}
-                                       onChange={(e) => handleGetElement(e, setFormData, formData)}/>
+                                       onChange={(e) => handleGetElementFromInp(e, setFormData, formData)}/>
                             </fieldset>
                             <fieldset className={'fieldset'}>
                                 <legend>Địa chỉ trang trại</legend>
                                 <input className={'textInput'} type={'text'} name={'location'}
-                                       onChange={(e) => handleGetElement(e, setFormData, formData)}/>
+                                       onChange={(e) => handleGetElementFromInp(e, {formData,setFormData})}/>
                             </fieldset>
 
                         </div>
@@ -68,12 +73,12 @@ const AddNewFarm = ({setStatus}) => {
                             <fieldset className={'fieldset'}>
                                 <legend>Thông tin liên hệ</legend>
                                 <input className={'textInput'} type={'text'} name={'contactInfo'}
-                                       onChange={(e) => handleGetElement(e, setFormData, formData)}/>
+                                       onChange={(e) => handleGetElementFromInp(e, {formData,setFormData})}/>
                             </fieldset>
                             <fieldset className={'fieldset'}>
                                 <legend>Mô tả</legend>
                                 <input className={'textInput'} type={'text'} name={'description'}
-                                       onChange={(e) => handleGetElement(e, setFormData, formData)}/>
+                                       onChange={(e) => handleGetElementFromInp(e, {formData,setFormData})}/>
                             </fieldset>
                         </div>
 

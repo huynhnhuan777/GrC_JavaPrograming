@@ -1,7 +1,8 @@
 import Tooltip from "@mui/material/Tooltip";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
-import '../assets/css/Admin/Component/ToolManager.css'
+import '../../assets/css/Admin/Component/ToolManager.css'
+import {handleGetAllProd} from "../../utils/handleFuncs";
 
 export const ToolManager = ({setStatus, useHook, idItem, baseUrl}) => {
     const {chooseAll, chooseOne, handleChooseAll, setChooseOne, setChooseAll} = useHook;
@@ -13,6 +14,29 @@ export const ToolManager = ({setStatus, useHook, idItem, baseUrl}) => {
         if (id === -1) toast.warning('Chưa chọn gì mà đòi sửa à? Phá quá ha!');
         else navigate(`/${baseUrl}/detail/${id}`);
     }
+
+    const handleRemoveProd = async (id) => {
+        try {
+            const response = await fetch(`http://localhost:8080/api/v1/manager/fish/delete/${id}`, {
+                    headers: {
+                        'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
+                        ContentType: "application/json"
+                    },
+                    method: 'POST'
+                }
+            )
+            if (!response.ok) {
+                console.log('Can not delete this, please contact to techical to resolve!');
+            } else {
+                toast.success('Xóa thành công!');
+                window.location.reload();
+            }
+        } catch
+            (e) {
+
+        }
+    }
+
     return (
         <div className={'tool-manager'}>
             <Tooltip title={'Chọn hết'}>
@@ -54,7 +78,7 @@ export const ToolManager = ({setStatus, useHook, idItem, baseUrl}) => {
                 </div>
             </Tooltip>
             <Tooltip title={'xóa'}>
-                <div className={'feature-btn mg-y-m'}>
+                <div className={'feature-btn mg-y-m'} onClick={() => handleRemoveProd(idItem)}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                          className="bi bi-trash" viewBox="0 0 16 16">
                         <path

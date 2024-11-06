@@ -1,11 +1,11 @@
 import {sampleOrders} from "../../../store/sampleTest";
-import '../../../assets/css/Admin/ordersAdmin.css'
+import '../../../assets/css/Admin/Page/ordersAdmin.css'
 import {toast, ToastContainer} from "react-toastify";
 import {useState} from "react";
 import {Link} from "react-router-dom";
 import {useChooseAll} from "../../../utils/handleFuncs";
 import {handleRenderSelectCard} from "../../../utils/handleRenderFuncs";
-import {ToolManager} from "../../../components/ToolManager";
+import {ToolManager} from "../../../components/Admin/ToolManager";
 
 const OrdersAdmin = () => {
     const orderStatus = ['PENDING', 'APPROVED', 'REJECTED', 'CANCELLED'];
