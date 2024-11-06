@@ -1,6 +1,6 @@
-import {ToolManager} from "../../../components/ToolManager";
+import {ToolManager} from "../../../components/Admin/ToolManager";
 import {useEffect, useState} from "react";
-import AddNewUser from "../../../components/Admin/Modals/AddNewUser";
+import AddNewUser from "../../../components/Admin/Modals/New/AddNewUser";
 import '../../../assets/css/Admin/Page/Manage/AdminUser.css'
 import {handleChooseOne, useChooseAll, useHookDetailTitle} from "../../../utils/handleFuncs";
 import {toast, ToastContainer} from "react-toastify";
@@ -37,8 +37,6 @@ const AdminUser = () => {
         handleGetAllUser();//please don't care this warning
         setTitle(' người dùng');
     }, []);
-
-    console.log(data)
 
     return (
         <div className={'ad-user-container'}>

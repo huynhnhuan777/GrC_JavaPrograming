@@ -137,6 +137,25 @@ export async function handleGetAllProd(urlAPI, token, setData, setChooseOne) {
     }
 }
 
+export async function handleGetObjById(urlAPI, token, setData) {
+    try {
+        const response = await fetch(urlAPI, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+        ;
+        if (!response.ok) {
+            console.log('can not fetch data');
+            return;
+        }
+        const data = await response.json();
+        setData(data);
+    } catch (error) {
+        console.error("error: ", error.message);
+    }
+}
+
 export const handleUploadImage = async (file, setImageUrl, upload_preset) => {
     const fData = new FormData();
     fData.append('file', file);
@@ -176,7 +195,8 @@ export const handleSubmit = async (e, formData, urlAPI, token, setStatus, urlCur
 
         if (response.ok) {
             console.log('successfully!');
-            setStatus(false);
+            if (setStatus !== null)
+                setStatus(false);
             window.location.assign(urlCurrPage)
         } else {
             console.log('False');
@@ -186,10 +206,10 @@ export const handleSubmit = async (e, formData, urlAPI, token, setStatus, urlCur
     }
 }
 
-export const handleGetElement = (e, setFormData, formData) => {
-    const {name, value} = e.target;
-    setFormData({
-        ...formData,
-        [name]: value
-    })
-}
+// export const handleGetElement = (e, setFormData, formData) => {
+//     const {name, value} = e.target;
+//     setFormData({
+//         ...formData,
+//         [name]: value
+//     })
+// }

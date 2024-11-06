@@ -1,6 +1,6 @@
-import AddNewProd from "../../../components/Admin/Modals/AddNewProd";
+import AddNewProd from "../../../components/Admin/Modals/New/AddNewProd";
 import {useEffect, useState} from "react";
-import {ToolManager} from "../../../components/ToolManager";
+import {ToolManager} from "../../../components/Admin/ToolManager";
 import '../../../assets/css/Admin/Page/Manage/AdminProducts.css'
 import {handleChooseOne, handleGetAllProd, useChooseAll} from "../../../utils/handleFuncs";
 import {ToastContainer} from "react-toastify";
@@ -40,6 +40,7 @@ const AdminProducts = () => {
                 <ToolManager setStatus={setStatus} itemLength={fishData.length}
                              useHook={{chooseAll, chooseOne, handleChooseAll, setChooseOne, setChooseAll}}
                              idItem={id}
+                             baseUrl={'products'}
                 />
                 {status && <AddNewProd setStatus={setStatus}/>}
                 <div className={'list-prod'}>
@@ -59,7 +60,7 @@ const AdminProducts = () => {
                             <div className={'prod-id'}>{item.fishId}</div>
                             <div className={'prod-name'}>{item.name === null ? 'empty' : item.name}</div>
                             <div className={'prod-desc'}
-                                 style={{minHeight:'10px'}}>{item.description === null ? 'empty' : item.description}</div>
+                                 style={{minHeight: '10px'}}>{item.description === null ? 'empty' : item.description}</div>
                             <div className={'prod-quantity'}>{item.quantity}</div>
                             <div className={'prod-size'}>{item.size}</div>
                             <div className={'prod-price'}>{item.price}</div>
@@ -67,8 +68,8 @@ const AdminProducts = () => {
                             <div className={'prod-type'}>{handleGetTypeName(item.fishTypeId)}</div>
                             <div className={'prod-tool'}>
                                 <input className={'check-box'} type={'checkbox'}
-                                       style={{width: '20px', height: '20px', borderRadius:'100%'}}
-                                       onClick={() => handleChooseOne(chooseOne, setChooseOne, index, Number(item.proId), setId)}
+                                       style={{width: '20px', height: '20px', borderRadius: '100%'}}
+                                       onClick={() => handleChooseOne(chooseOne, setChooseOne, index, Number(item.fishId), setId)}
                                 />
                             </div>
                         </div>

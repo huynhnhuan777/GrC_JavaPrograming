@@ -1,23 +1,25 @@
-import '../../../assets/css/Admin/Component/addNewProd.css'
+import '../../../../assets/css/Admin/Component/CreateNew/addNewProd.css'
 import {useEffect, useState} from "react";
 import {
-    handleGetAllProd, handleGetElement, handleGetElementFromInp,
+    handleGetAllProd,
+    handleGetElementFromInp,
     handleSubmit,
     handleUploadImage, useChooseAll,
-    useHookFarmForm,
-    useHookTourForm
-} from "../../../utils/handleFuncs";
+    useHookProdForm
+} from "../../../../utils/handleFuncs";
+import axios from "axios";
 import {toast} from "react-toastify";
 
 const AddNewProd = ({setStatus}) => {
-    const {formData, setFormData} = useHookTourForm();
+    const {formData, setFormData} = useHookProdForm();
+    const [data, setData] = useState([]);
     const [imageUrl, setImageUrl] = useState('');
     const [farmData, setFarmData] = useState([]);
-    const [data, setData] = useState([]);
+    const [typeData, setTypeData] = useState([]);
     const {chooseAll, chooseOne, handleChooseAll, setChooseOne, setChooseAll} = useChooseAll(data.length);
 
     const handleGetFile = async (e) => {
-        await handleUploadImage(e.target.files[0], setImageUrl, process.env.REACT_APP_UPLOAD_PRESET_TOUR);
+        await handleUploadImage(e.target.files[0], setImageUrl, process.env.REACT_APP_UPLOAD_PRESET_FISH);
     }
 
     const handleCancelForm = (e) => {
@@ -37,15 +39,20 @@ const AddNewProd = ({setStatus}) => {
 
     useEffect(() => {
         handleGetAllProd('http://localhost:8080/api/v1/manager/farm/get-all-farm', sessionStorage.getItem('token'), setFarmData, setChooseOne);
-        handleGetAllProd('http://localhost:8080/api/v1/manager/fish/get-all-fishes', sessionStorage.getItem('token'), setData, setChooseOne);
+        handleGetAllProd('http://localhost:8080/api/v1/manager/fish-types/get-all-fish-types', sessionStorage.getItem('token'), setTypeData, null);
     }, []);
+
+    useEffect(() => {
+        console.log(farmData)
+    }, [farmData]);
 
     return (
         <div className={'form-container'}>
             <div className={'form-content'}>
-                <h3>Thêm chuyến đi mới</h3>
+                <h3>Thêm sản phẩm mới</h3>
                 <form className={'form-field'}
-                      onSubmit={(e) => handleSubmit(e, formData, "http://localhost:8080/api/v1/manager/tour/create-tour", sessionStorage.getItem('token'), setStatus, '/admin/tours')}>
+                      onSubmit={(e) => handleSubmit(e, formData, "http://localhost:8080/api/v1/manager/fish/create-fish", sessionStorage.getItem('token'), setStatus, '/admin/products')}
+                      style={{flexDirection: 'column'}}>
                     <div style={{
                         display: 'flex',
                         justifyContent: 'center',
@@ -61,19 +68,19 @@ const AddNewProd = ({setStatus}) => {
                             width: '35%'
                         }}>
                             <fieldset className={'fieldset'}>
-                                <legend>Tên chuyến đi</legend>
-                                <input className={'textInput'} type={'text'} name={'tourName'}
-                                       onChange={(e) => handleGetElement(e, setFormData, formData)}/>
+                                <legend>Tên sản phẩm</legend>
+                                <input className={'textInput'} type={'text'} name={'name'}
+                                       onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}/>
                             </fieldset>
                             <fieldset className={'fieldset'}>
-                                <legend>Mô tả</legend>
-                                <input className={'textInput'} type={'text'} name={'tourDescription'}
-                                       onChange={(e) => handleGetElement(e, setFormData, formData)}/>
+                                <legend>Mức giá</legend>
+                                <input className={'textInput'} type={'text'} name={'price'}
+                                       onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}/>
                             </fieldset>
                             <fieldset className={'fieldset'}>
-                                <legend>Giá</legend>
-                                <input className={'textInput'} type={'number'} name={'tourPrice'}
-                                       onChange={(e) => handleGetElement(e, setFormData, formData)}/>
+                                <legend>Số lượng tồn</legend>
+                                <input className={'textInput'} type={'text'} name={'quantity'}
+                                       onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}/>
                             </fieldset>
                         </div>
                         <div style={{
@@ -84,19 +91,34 @@ const AddNewProd = ({setStatus}) => {
                             width: '35%'
                         }}>
                             <fieldset className={'fieldset'}>
-                                <legend>Số lượng tham gia</legend>
-                                <input className={'textInput'} type={'text'} name={'tourCapacity'}
-                                       onChange={(e) => handleGetElement(e, setFormData, formData)}/>
+                                <legend>Kích thước sản phẩm (cm)</legend>
+                                <input className={'textInput'} type={'number'} name={'size'}
+                                       onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}/>
                             </fieldset>
                             <fieldset className={'fieldset'}>
-                                <legend>Ngày khởi hành</legend>
-                                <input className={'textInput'} type={'date'} name={'tourStartDate'}
-                                       onChange={(e) => handleGetElement(e, setFormData, formData)}/>
+                                <legend>Mô tả</legend>
+                                <input className={'textInput'} type={'text'} name={'description'}
+                                       onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}/>
                             </fieldset>
                             <fieldset className={'fieldset'}>
-                                <legend>Ngày kết thúc</legend>
-                                <input className={'textInput'} type={'date'} name={'tourEndDate'}
-                                       onChange={(e) => handleGetElement(e, setFormData, formData)}/>
+                                <legend>Trang trại</legend>
+                                <select className={'selectInput'} name={'farmId'}
+                                        onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}>
+                                    <option defaultValue={-1}>Không</option>
+                                    {farmData.map((item, index) => (
+                                        <option key={index} value={item.farmId}>{item.name}</option>
+                                    ))}
+                                </select>
+                            </fieldset>
+                            <fieldset className={'fieldset'}>
+                                <legend>Phân loại</legend>
+                                <select className={'selectInput'} name={'fishTypeId'}
+                                        onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}>
+                                    <option defaultValue={-1}>Không</option>
+                                    {typeData.map((item, index) => (
+                                        <option key={index} value={item.fishTypeId}>{item.name}</option>
+                                    ))}
+                                </select>
                             </fieldset>
                         </div>
                         <div style={{
@@ -106,16 +128,6 @@ const AddNewProd = ({setStatus}) => {
                             flexDirection: 'column',
                             width: '30%'
                         }}>
-                            <fieldset className={'fieldset'}>
-                                <legend>Thuộc nông trại</legend>
-                                <select className={'selectInput'} name={'farmId'}
-                                        onChange={(e) => handleGetElement(e, setFormData, formData)}>
-                                    <option defaultValue={-1}>Không</option>
-                                    {farmData.map((item, index) => (
-                                        <option key={index} value={item.farmId}>{item.farmName}</option>
-                                    ))}
-                                </select>
-                            </fieldset>
                             <fieldset className={'fieldset'}>
                                 <legend>Hình ảnh sản phẩm</legend>
                                 <input className={'textInput'} type={'file'} onChange={handleGetFile}/>
@@ -129,8 +141,7 @@ const AddNewProd = ({setStatus}) => {
                 </form>
             </div>
             <div className={'bg-close-dialog'}
-                 onClick={handleCancelForm}>
-            </div>
+                 onClick={handleCancelForm}></div>
         </div>
     )
 }
