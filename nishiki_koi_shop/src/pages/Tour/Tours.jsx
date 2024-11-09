@@ -7,8 +7,8 @@ import warningPNG from '../../assets/img/warning.png'
 
 const Tours = () => {
 
-    const [farmFilter0, setFarmFilter] = useState([]);
-    const [isActive, setIsActive] = useState(Array.from({length: farmFilter0.length}, (_, i) => false));
+    const [farmFilter, setFarmFilter] = useState([]);
+    const [isActive, setIsActive] = useState(Array.from({length: farmFilter.length}, (_, i) => false));
     const [currIndex, setCurrIndex] = useState(-1);
     const [lastIndex, setLastIndex] = useState(-1);
     const [summary, setSummary] = useState([]);
@@ -100,8 +100,8 @@ const Tours = () => {
     }, []);
 
     useEffect(() => {
-        setIsActive(Array.from({length: farmFilter0.length}, () => false));
-    }, [farmFilter0]);
+        setIsActive(Array.from({length: farmFilter.length}, () => false));
+    }, [farmFilter]);
 
     useEffect(() => {
         handleShowSummary();
@@ -153,7 +153,7 @@ const Tours = () => {
                     </div>
                 </div>
                 <div className={'show-tours'}>
-                    {farmFilter0.length !== 0 ? farmFilter0.map((item, index) => (
+                    {farmFilter.length !== 0 ? farmFilter.map((item, index) => (
                         <div key={index} className={'tour-card'} onClick={() => handleSetIndexs(item, index)}>
                             <img className={'thumbnail-tour'} src={item.imageUrl} alt={'thumbnailTour'}/>
                             <p>{item.id}</p> {/*title*/}
