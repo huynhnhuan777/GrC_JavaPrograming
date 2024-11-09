@@ -10,7 +10,7 @@ import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 import {handleRenderSelectCard} from "../../../utils/handleRenderFuncs";
 
-const DetailProduct = ({fishData, farmsData, typeData}) => {
+const DetailProduct = ({farmData}) => {
     const {formData, setFormData} = useHookProdForm();
     const [imageUrl, setImageUrl] = useState('');
     const navigate = useNavigate();
@@ -20,13 +20,13 @@ const DetailProduct = ({fishData, farmsData, typeData}) => {
     }
 
     useEffect(() => {
-        if (fishData && Object.keys(fishData).length > 0) {
-            setFormData(fishData);  // Set formData only if data is not empty
+        if (farmData && Object.keys(farmData).length > 0) {
+            setFormData(farmData);  // Set formData only if data is not empty
         }
-    }, [fishData, setFormData]);
+    }, [farmData, setFormData]);
 
     useEffect(() => {
-        // console.log('data: ', fishData);
+        // console.log('data: ', farmData);
         // console.log('farm: ', farmsData);
         // console.log('type: ', typeData);
         console.log(formData);
@@ -52,15 +52,15 @@ const DetailProduct = ({fishData, farmsData, typeData}) => {
 
     return (
         <>
-            <h3>Thông tin về giống cá {fishData.name}</h3>
+            <h3>Thông tin về nông trại {farmData.name}</h3>
             <form className={'form-field'}
-                  onSubmit={(e) => handleSubmit(e, formData, `http://localhost:8080/api/v1/manager/fish/update/${fishData.fishId}`, sessionStorage.getItem('token'), 'PUT', null, '/admin/products')}
+                  onSubmit={(e) => handleSubmit(e, formData, `http://localhost:8080/api/v1/manager/farm/update/${farmData.id}`, sessionStorage.getItem('token'), 'PUT', null, '/admin/farms')}
                   style={{boxShadow: 'none'}}>
                 <div className={'form-content'} style={{flexDirection: 'row', boxShadow: 'none', margin: '10px 0'}}>
                     <fieldset className={'fieldset'} style={{marginRight: '5px'}}>
                         <legend>ID</legend>
                         <input className={'textInput'}
-                               value={fishData.fishId}
+                               value={farmData.id}
                                disabled={true}
                                readOnly={true}
                                onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}/>
@@ -86,47 +86,37 @@ const DetailProduct = ({fishData, farmsData, typeData}) => {
                     </fieldset>
                 </div>
                 <div className={'form-content'} style={{flexDirection: 'row', boxShadow: 'none', margin: '10px 0'}}>
-                    <fieldset className={'fieldset'} style={{margin: '0 5px 0 0'}}>
-                        <legend>Kích thước (cm)</legend>
+                    <fieldset className={'fieldset'}>
+                        <legend>Địa chỉ</legend>
                         <input className={'textInput'}
-                               type={'number'}
-                               name={'size'}
-                               value={formData.size}
+                               type={'text'}
+                               name={'location'}
+                               value={formData.location}
                                required={true}
                                onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}/>
-                    </fieldset>
-                    <fieldset className={'fieldset'} style={{margin: '0 0 0 5px'}}>
-                        <legend>Số lượng</legend>
-                        <input className={'textInput'}
-                               type={'number'}
-                               name={'quantity'}
-                               value={formData.quantity}
-                               required={true}
-                               onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}/>
-                    </fieldset>
-                </div>
-                <div className={'form-content'}
-                     style={{flexDirection: 'row', boxShadow: 'none', margin: '10px 0'}}>
-                    <fieldset className={'fieldset'} style={{margin: '0 5px 0 0'}}>
-                        <legend>Thuộc nông trại</legend>
-                        {handleRenderSelectCard('farmId', formData.farmId, farmsData, false, {formData, setFormData})}
-                    </fieldset>
-                    <fieldset className={'fieldset'} style={{margin: '0 0 0 5px'}}>
-                        <legend>Phân loại</legend>
-                        {handleRenderSelectCard('type', formData.fishTypeId, typeData, false, {formData, setFormData})}
                     </fieldset>
                 </div>
                 <div className={'form-content'} style={{flexDirection: 'row', boxShadow: 'none', margin: '10px 0'}}>
-                    <fieldset className={'fieldset'}>
-                        <legend>Giá</legend>
+                    <fieldset className={'fieldset'} style={{margin: '0 5px 0 0'}}>
+                        <legend>Thông tin liên hệ</legend>
                         <input className={'textInput'}
-                               type={'number'}
-                               name={'price'}
-                               value={formData.price}
+                               type={'text'}
+                               name={'contactInfo'}
+                               value={formData.contactInfo}
                                required={true}
                                onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}/>
                     </fieldset>
+                    <fieldset className={'fieldset'} style={{margin: '0 0 0 5px'}}>
+                        <legend>Ngày tạo</legend>
+                        <input className={'textInput'}
+                               type={'date'}
+                               name={'createdDate'}
+                               value={formData.createdDate}
+                               disabled={true}
+                        />
+                    </fieldset>
                 </div>
+
                 <div className={'form-content'}
                      style={{flexDirection: 'row', alignItems: 'flex-end', boxShadow: 'none', margin: '10px 0'}}>
                     <fieldset className={'fieldset'} style={{margin: '0 5px 0 0'}}>

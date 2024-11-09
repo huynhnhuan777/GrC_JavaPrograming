@@ -36,7 +36,13 @@ const AddNewFarm = ({setStatus}) => {
             <div className={'form-content'}>
                 <h3>Thêm sản phẩm mới</h3>
                 <form className={'form-field'}
-                      onSubmit={(e) => handleSubmit(e, formData, 'http://localhost:8080/api/v1/manager/farm/create-farm', sessionStorage.getItem('token'), setStatus, 'farms')}>
+                      onSubmit={(e) => handleSubmit(e,
+                          formData,
+                          'http://localhost:8080/api/v1/manager/farm/create-farm',
+                          sessionStorage.getItem('token'),
+                          'POST',
+                          setStatus,
+                          'farms')}>
                     <div style={{
                         display: 'flex',
                         justifyContent: 'center',
@@ -49,7 +55,8 @@ const AddNewFarm = ({setStatus}) => {
                             justifyContent: 'center',
                             alignItems: 'center',
                             flexDirection: 'column',
-                            width: '35%'
+                            width: '35%',
+                            margin: '0 5px 0 0'
                         }}>
                             <fieldset className={'fieldset'}>
                                 <legend>Tên trang trại</legend>
@@ -59,7 +66,7 @@ const AddNewFarm = ({setStatus}) => {
                             <fieldset className={'fieldset'}>
                                 <legend>Địa chỉ trang trại</legend>
                                 <input className={'textInput'} type={'text'} name={'location'}
-                                       onChange={(e) => handleGetElementFromInp(e, {formData,setFormData})}/>
+                                       onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}/>
                             </fieldset>
 
                         </div>
@@ -68,17 +75,18 @@ const AddNewFarm = ({setStatus}) => {
                             justifyContent: 'center',
                             alignItems: 'center',
                             flexDirection: 'column',
-                            width: '35%'
+                            width: '35%',
+                            margin: '0 5px 0 5px'
                         }}>
                             <fieldset className={'fieldset'}>
                                 <legend>Thông tin liên hệ</legend>
                                 <input className={'textInput'} type={'text'} name={'contactInfo'}
-                                       onChange={(e) => handleGetElementFromInp(e, {formData,setFormData})}/>
+                                       onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}/>
                             </fieldset>
                             <fieldset className={'fieldset'}>
                                 <legend>Mô tả</legend>
                                 <input className={'textInput'} type={'text'} name={'description'}
-                                       onChange={(e) => handleGetElementFromInp(e, {formData,setFormData})}/>
+                                       onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}/>
                             </fieldset>
                         </div>
 
@@ -87,7 +95,8 @@ const AddNewFarm = ({setStatus}) => {
                             justifyContent: 'center',
                             alignItems: 'center',
                             flexDirection: 'column',
-                            width: '30%'
+                            width: '30%',
+                            margin: '0 0 0 5px'
                         }}>
                             <fieldset className={'fieldset'}>
                                 <legend>Hình ảnh trang trại</legend>

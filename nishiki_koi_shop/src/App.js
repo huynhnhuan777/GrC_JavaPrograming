@@ -141,6 +141,7 @@ const App = () => {
                                    title={'Chi tiết đối tượng'}>
                                </AdminLayout>}
                         />
+                        <Route path={'/*'} element={<Page404/>}/>
                     </Routes>
                 )}
             </BrowserRouter>

@@ -9,6 +9,7 @@ import {
 } from "../../../../utils/handleFuncs";
 import axios from "axios";
 import {toast} from "react-toastify";
+import {handleRenderSelectCard} from "../../../../utils/handleRenderFuncs";
 
 const AddNewProd = ({setStatus}) => {
     const {formData, setFormData} = useHookProdForm();
@@ -22,9 +23,22 @@ const AddNewProd = ({setStatus}) => {
         await handleUploadImage(e.target.files[0], setImageUrl, process.env.REACT_APP_UPLOAD_PRESET_FISH);
     }
 
-    const handleCancelForm = (e) => {
+    const handleCancelForm = async (e) => {
         e.preventDefault();
         setStatus(false);
+        try {
+            const response = await fetch(`http://localhost:8080/api/v1/manager/delete-image/${sessionStorage.getItem("publicId")}`, {
+                headers: {
+                    'Authorization': `Bearer ${sessionStorage.getItem("token")}`,
+                },
+                method: "DELETE"
+            })
+            if (!response.ok) {
+                console.log('Can not delete this, please contact to technical to resolve!');
+            }
+        } catch (e) {
+            console.log('error: ', e.message);
+        }
     }
 
     useEffect(() => {
@@ -43,15 +57,21 @@ const AddNewProd = ({setStatus}) => {
     }, []);
 
     useEffect(() => {
-        console.log(farmData)
-    }, [farmData]);
+        console.log(typeData)
+    }, [typeData]);
 
     return (
         <div className={'form-container'}>
             <div className={'form-content'}>
                 <h3>Thêm sản phẩm mới</h3>
                 <form className={'form-field'}
-                      onSubmit={(e) => handleSubmit(e, formData, "http://localhost:8080/api/v1/manager/fish/create-fish", sessionStorage.getItem('token'), setStatus, '/admin/products')}
+                      onSubmit={(e) => handleSubmit(e,
+                          formData,
+                          "http://localhost:8080/api/v1/manager/fish/create-fish",
+                          sessionStorage.getItem('token'),
+                          'POST',
+                          setStatus,
+                          '/admin/products')}
                       style={{flexDirection: 'column'}}>
                     <div style={{
                         display: 'flex',
@@ -65,21 +85,31 @@ const AddNewProd = ({setStatus}) => {
                             justifyContent: 'center',
                             alignItems: 'center',
                             flexDirection: 'column',
-                            width: '35%'
+                            width: '35%',
+                            margin:'0 5px 0 0'
                         }}>
                             <fieldset className={'fieldset'}>
                                 <legend>Tên sản phẩm</legend>
-                                <input className={'textInput'} type={'text'} name={'name'}
+                                <input className={'textInput'}
+                                       type={'text'}
+                                       name={'name'}
+                                       required={true}
                                        onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}/>
                             </fieldset>
                             <fieldset className={'fieldset'}>
                                 <legend>Mức giá</legend>
-                                <input className={'textInput'} type={'text'} name={'price'}
+                                <input className={'textInput'}
+                                       type={'text'}
+                                       name={'price'}
+                                       required={true}
                                        onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}/>
                             </fieldset>
                             <fieldset className={'fieldset'}>
                                 <legend>Số lượng tồn</legend>
-                                <input className={'textInput'} type={'text'} name={'quantity'}
+                                <input className={'textInput'}
+                                       type={'text'}
+                                       name={'quantity'}
+                                       required={true}
                                        onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}/>
                             </fieldset>
                         </div>
@@ -88,11 +118,14 @@ const AddNewProd = ({setStatus}) => {
                             justifyContent: 'center',
                             alignItems: 'center',
                             flexDirection: 'column',
-                            width: '35%'
+                            width: '35%',
+                            margin:'0 5px 0 5px'
                         }}>
                             <fieldset className={'fieldset'}>
                                 <legend>Kích thước sản phẩm (cm)</legend>
-                                <input className={'textInput'} type={'number'} name={'size'}
+                                <input className={'textInput'}
+                                       type={'number'} name={'size'}
+                                       required={true}
                                        onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}/>
                             </fieldset>
                             <fieldset className={'fieldset'}>
@@ -102,23 +135,12 @@ const AddNewProd = ({setStatus}) => {
                             </fieldset>
                             <fieldset className={'fieldset'}>
                                 <legend>Trang trại</legend>
-                                <select className={'selectInput'} name={'farmId'}
-                                        onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}>
-                                    <option defaultValue={-1}>Không</option>
-                                    {farmData.map((item, index) => (
-                                        <option key={index} value={item.farmId}>{item.name}</option>
-                                    ))}
-                                </select>
+                                {handleRenderSelectCard('farmId', -1, farmData, false, {formData, setFormData})}
+
                             </fieldset>
                             <fieldset className={'fieldset'}>
                                 <legend>Phân loại</legend>
-                                <select className={'selectInput'} name={'fishTypeId'}
-                                        onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}>
-                                    <option defaultValue={-1}>Không</option>
-                                    {typeData.map((item, index) => (
-                                        <option key={index} value={item.fishTypeId}>{item.name}</option>
-                                    ))}
-                                </select>
+                                {handleRenderSelectCard('fishTypeId', -1, typeData, false, {formData, setFormData})}
                             </fieldset>
                         </div>
                         <div style={{
@@ -126,7 +148,8 @@ const AddNewProd = ({setStatus}) => {
                             justifyContent: 'center',
                             alignItems: 'center',
                             flexDirection: 'column',
-                            width: '30%'
+                            width: '30%',
+                            margin:'0 0 0 5px'
                         }}>
                             <fieldset className={'fieldset'}>
                                 <legend>Hình ảnh sản phẩm</legend>

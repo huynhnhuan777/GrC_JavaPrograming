@@ -16,14 +16,14 @@ const AdminProducts = () => {
 
     const handleGetFarmName = (id) => {
         if (id) {
-            const farm = farmData.find(f => f.farmId === id);
+            const farm = farmData.find(f => f.id === id);
             return farm ? farm.name : 'unknown';
         } else return null;
     }
 
     const handleGetTypeName = (id) => {
         if (id) {
-            const type = typeData.find(t => t.fishTypeId === id);
+            const type = typeData.find(t => t.id=== id);
             return type ? type.name : 'unknown';
         } else return null;
     }
@@ -34,17 +34,22 @@ const AdminProducts = () => {
         handleGetAllProd('http://localhost:8080/api/v1/manager/fish-types/get-all-fish-types', sessionStorage.getItem('token'), setTypeData, null);
     }, []);
 
+    useEffect(()=>{
+        console.log(fishData);
+    },[fishData])
+
     return (
         <div className={'ad-prod-container'}>
             <div className={'ad-prod-content'}>
                 <ToolManager setStatus={setStatus} itemLength={fishData.length}
                              useHook={{chooseAll, chooseOne, handleChooseAll, setChooseOne, setChooseAll}}
                              idItem={id}
+                             nameItem={'fish'}
                              baseUrl={'products'}
                 />
                 {status && <AddNewProd setStatus={setStatus}/>}
                 <div className={'list-prod'}>
-                    <div className={'item-prod'}>
+                    <div className={'item-prod'} style={{minHeight:'30px'}}>
                         <div className={'prod-id'} style={{fontWeight: 'bold'}}>ID</div>
                         <div className={'prod-name'} style={{fontWeight: 'bold'}}>Tên</div>
                         <div className={'prod-desc'} style={{fontWeight: 'bold'}}>Mô tả</div>
