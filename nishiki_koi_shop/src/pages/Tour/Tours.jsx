@@ -1,89 +1,65 @@
-import React, {createContext, useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import '../../assets/css/Tour/tours.css';
-import {Link} from "react-router-dom";
-import {toast, ToastContainer} from "react-toastify";
-import {tempTour, tempFarm} from "../../store/sampleTest";
-import warningPNG from '../../assets/img/warning.png'
+import { Link } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import warningPNG from '../../assets/img/warning.png';
+import {handleGetAllProd, handleGetData, useHookTourForm} from "../../utils/handleFuncs";
+import Farms from "../Farm/Farms";
+import Tour from "./Tour";
 
 const Tours = () => {
+    // Sử dụng hooks để quản lý dữ liệu form
+    const tourForm = useHookTourForm();
 
     const [farmFilter, setFarmFilter] = useState([]);
-    const [isActive, setIsActive] = useState(Array.from({length: farmFilter.length}, (_, i) => false));
+    const [isActive, setIsActive] = useState([]);
     const [currIndex, setCurrIndex] = useState(-1);
     const [lastIndex, setLastIndex] = useState(-1);
-    const [summary, setSummary] = useState([]);
-
-    const handleSetIndexs = (info, index) => {
-        if (currIndex === -1) {
-            setCurrIndex(index);
-            setLastIndex(index);
-        } else {
-            setLastIndex(currIndex);
-            setCurrIndex(index);
-        }
-        setSummary(info);
-        sessionStorage.setItem('infoTour', JSON.stringify(info));
-    }
-
-    const handleShowSummary = () => {
-        const update = [...isActive];
-        if (currIndex === lastIndex) update[currIndex] = true;
-        else {
-            update[currIndex] = true;
-            update[lastIndex] = false;
-        }
-        setIsActive(update);
-    }
-
-    const handleCloseSummary = (index) => {
-        const update = [...isActive];
-        update[currIndex] = false;
-        setIsActive(update);
-        setCurrIndex(-1);
-    }
-
+    const [summary, setSummary] = useState({});
     const [nameFarm, setNameFarm] = useState('Tất cả');
-    const [priceTour, setPriceTour] = useState([]);
-    const handleChooseFarm = (e) => {
-        setNameFarm(e.target.value);
-    }
+    const [priceTour, setPriceTour] = useState([0, Infinity]);
+    const [farmData, setFarmData] = useState([]);
+    const [chooseOne, setChooseOne] = useState(null);
+    const [tourData, setTourData] = useState([]);
 
-    const handleChoosePrice = (range) => {
-        setPriceTour(range);
-    }
+
+    console.log(`farmFilter ${farmFilter}`)
+
+    // Thêm các state bị thiếu
+
 
     const handleFilterResult = () => {
-        setFarmFilter([]);
+        setFarmFilter(tourData);
         let check = false;
-        const temp = [];
+        const temp = [setFarmData()];
 
-        for (let i = 0; i < tempTour.length; i++) {
+        for (let i = 0; i < useHookTourForm.length; i++) {
             if (priceTour[0] >= 0) {
                 check = true;
                 if (nameFarm !== 'Tất cả') {
-                    if (tempTour[i].name === nameFarm && priceTour[0] <= tempTour[i].price && tempTour[i].price <= priceTour[1]) {
-                        temp.push(tempTour[i]);
+                    if (useHookTourForm[i].name === nameFarm && priceTour[0] <= useHookTourForm[i].price && useHookTourForm[i].price <= priceTour[1]) {
+                        temp.push(useHookTourForm[i]);
                     }
                 } else {
-                    if (priceTour[0] <= tempTour[i].price && tempTour[i].price <= priceTour[1]) {
-                        temp.push(tempTour[i]);
+                    if (priceTour[0] <= useHookTourForm[i].price && useHookTourForm[i].price <= priceTour[1]) {
+                        temp.push(useHookTourForm[i]);
                     }
                 }
             } else if (nameFarm !== 'Tất cả') {
                 check = true;
-                if (tempTour[i].name === nameFarm) {
-                    temp.push(tempTour[i]);
+                if (useHookTourForm[i].name === nameFarm) {
+                    temp.push(useHookTourForm[i]);
                 }
             } else if (priceTour[0] >= 0) {
-                if (priceTour[0] <= tempTour[i].price && tempTour[i].price <= priceTour[1]) {
-                    temp.push(tempTour[i]);
+                if (priceTour[0] <= useHookTourForm[i].price && useHookTourForm[i].price <= priceTour[1]) {
+                    temp.push(useHookTourForm[i]);
                 }
             }
         }
 
         if (check === false) {
             if (nameFarm === 'Tất cả') {
-                setFarmFilter(tempTour);
+                setFarmFilter(Tours);
                 setCurrIndex(-1);
                 setLastIndex(-1);
             } else
@@ -91,21 +67,51 @@ const Tours = () => {
         } else setFarmFilter(temp);
     }
 
+
+    useEffect(() => {
+        handleGetAllProd('http://localhost:8080/api/v1/farms/get-all-farm', sessionStorage.getItem('token'), setFarmData, setChooseOne);
+        handleGetAllProd('http://localhost:8080/api/v1/tours/get-all-tours', sessionStorage.getItem('token'), setTourData, null);
+        }, []);
+
+    const handleSetIndexs = (info, index) => {
+        setLastIndex(currIndex);
+        setCurrIndex(index);
+        setSummary(info);
+        sessionStorage.setItem('infoTour', JSON.stringify(info));
+    };
+
+    const handleShowSummary = () => {
+        const update = isActive.map((_, i) => i === currIndex);
+        setIsActive(update);
+    };
+
+    const handleCloseSummary = () => {
+        const update = isActive.map(() => false);
+        setIsActive(update);
+        setCurrIndex(-1);
+    };
+
+    const handleChooseFarm = (e) => setNameFarm(e.target.value);
+
+    const handleChoosePrice = (range) => setPriceTour(range);
+
     const handleSaveFarmObj = () => {
         sessionStorage.setItem('farm', JSON.stringify(summary));
-    }
+    };
 
     useEffect(() => {
-        setFarmFilter(tempTour);
-    }, []);
-
-    useEffect(() => {
-        setIsActive(Array.from({length: farmFilter.length}, () => false));
+        setIsActive(Array(farmFilter.length).fill(false));
     }, [farmFilter]);
 
     useEffect(() => {
-        handleShowSummary();
+        if (currIndex >= 0) handleShowSummary();
     }, [currIndex, lastIndex]);
+
+    useEffect(() => {
+        console.log(tourData);
+        setFarmFilter(tourData);
+    }, [tourData]);
+
 
     return (
         <div className={'tours-container'}>
@@ -144,31 +150,38 @@ const Tours = () => {
                             <legend>Trang trại</legend>
                             <select className={'selectInput'} onChange={handleChooseFarm}>
                                 <option defaultValue={'default'}>Tất cả</option>
-                                {(tempFarm.map((item, index) => (
+                                {(farmData.map((item, index) => (
                                     <option key={index}>{item.name}</option>
                                 )))}
-                            </select>
-                        </fieldset>
+                            </select></fieldset>
                         <button className={'featureBtn'} onClick={handleFilterResult}>Tìm kiếm</button>
                     </div>
+
                 </div>
                 <div className={'show-tours'}>
-                    {farmFilter.length !== 0 ? farmFilter.map((item, index) => (
-                        <div key={index} className={'tour-card'} onClick={() => handleSetIndexs(item, index)}>
-                            <img className={'thumbnail-tour'} src={item.imageUrl} alt={'thumbnailTour'}/>
-                            <p>{item.id}</p> {/*title*/}
-                            <p>{item.name}</p> {/*summary*/}
-                            <Link to={'/tours/' + summary.id}
-                                  className={isActive[index] === true ? 'show-more effect-show' : 'hidden'}
-                                  onClick={handleSaveFarmObj}>Xem thêm</Link>
-                        </div>
-                    )) : (
-                        <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-                            <img width={"50%"} src={warningPNG} alt={'warningPNG'}/>
+                    {farmFilter.length !== 0 ? (
+                        farmFilter.map((item, index) => (
+                            <div key={index} className={'tour-card'} onClick={() => handleSetIndexs(item, index)}>
+                                <img className={'thumbnail-tour'} src={item.imageUrl} alt={'thumbnailTour'}/>
+                                <p>{item.id}</p> {/* title */}
+                                <p>{item.name}</p> {/* summary */}
+                                <Link
+                                    to={'/tours/' + item.id}
+                                    className={isActive[index] === true ? 'show-more effect-show' : 'hidden'}
+                                    onClick={handleSaveFarmObj}
+                                >
+                                    Xem thêm
+                                </Link>
+                            </div>
+                        ))
+                    ) : (
+                        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                            <img width={'50%'} src={warningPNG} alt={'warningPNG'}/>
                         </div>
                     )}
                 </div>
-                <div className={'show-summary-tour'}>
+
+                <div className='show-summary-tour'>
                     {currIndex === -1 ? (
                         <p>Vui lòng chọn 1 chuyến đi để xem tóm tắt</p>
                     ) : (
@@ -193,9 +206,11 @@ const Tours = () => {
                                     hành:</strong> {summary.dateStart}</p>{/*day-start*/}
                                 <p><strong style={{color: 'var(--text-color)'}}>Ngày kết
                                     thúc:</strong> {summary.dateEnd}</p>{/*day-end*/}
-                                <p><strong
-                                    style={{color: 'var(--text-color)'}}>Giá:</strong> {(summary.price).toLocaleString('vi-VN')}
-                                </p>{/*price*/}
+                                <p>
+                                    <strong style={{color: 'var(--text-color)'}}>Giá:</strong>
+                                    {summary.price && !isNaN(summary.price) ? summary.price.toLocaleString('vi-VN') : 'N/A'}
+                                </p>
+
                             </div>
                         </>
                     )}
@@ -203,7 +218,7 @@ const Tours = () => {
             </div>
             <ToastContainer/>
         </div>
-    )
-}
+    );
+};
 
 export default Tours;

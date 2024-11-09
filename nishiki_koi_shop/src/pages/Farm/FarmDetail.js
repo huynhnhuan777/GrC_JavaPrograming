@@ -9,21 +9,27 @@ import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 const Tour = () => {
     // Khởi tạo dữ liệu mẫu nếu chưa có trong sessionStorage
     const sampleData = {
-        id: "001",
-        name: "Trang trại X",
-        imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKu0rCyN3dSitjRGK0eOfYKAmtav2OzNrrZQ&s",
-        dateStart: "2024-01-01",
-        dateEnd: "2024-01-10",
-        price: 5000000,
-        description: "Khám phá trải nghiệm đáng nhớ tại Trang trại X",
-        longDescription: "Hãy tạm rời xa nhịp sống hối hả để hòa mình vào khung cảnh thanh bình của Trang trại X! Bạn sẽ được tham gia các hoạt động thú vị từ việc trồng rau củ đến trải nghiệm thu hoạch và nấu ăn từ nguyên liệu tại vườn.",
-        galleryImages: [
-        ],
-        itinerary: [
-            { day: 1, activities: "Tham quan vườn cây ăn trái và tìm hiểu về cách trồng rau sạch." },
-            { day: 2, activities: "Trải nghiệm thu hoạch rau củ và học cách nấu ăn từ nguyên liệu tại vườn." },
-            { day: 3, activities: "Tham gia các hoạt động giải trí và nghỉ ngơi tại nông trại." }
-        ]
+            id: "T001",
+            name: "Tour khám phá nông trại xanh",
+            dateStart: "2024-12-01",
+            dateEnd: "2024-12-05",
+            price: 1500000, // Giá tour
+            imageUrl: "https://via.placeholder.com/400x300", // URL ảnh thumbnail
+            description: "Một chuyến đi tuyệt vời khám phá nông trại xanh.",
+            longDescription: "Tour nông trại xanh mang lại trải nghiệm thú vị với nhiều hoạt động bổ ích và thư giãn tại nông thôn.",
+            itinerary: [
+                { day: 1, activities: "Tham quan khu vực chăn nuôi và vườn cây." },
+                { day: 2, activities: "Trải nghiệm thu hoạch rau quả." },
+                { day: 3, activities: "Tham gia hội thảo nông nghiệp bền vững." },
+                { day: 4, activities: "Tham gia các hoạt động dã ngoại và giao lưu văn hóa." },
+                { day: 5, activities: "Tự do mua sắm và kết thúc hành trình." },
+            ],
+            galleryImages: [
+                "https://via.placeholder.com/800x600?text=Image+1",
+                "https://via.placeholder.com/800x600?text=Image+2",
+                "https://via.placeholder.com/800x600?text=Image+3",
+            ],
+
     };
 
     // Lưu dữ liệu mẫu vào sessionStorage nếu chưa có
@@ -123,13 +129,13 @@ const Tour = () => {
                             <p>Chưa có ảnh bổ sung cho chuyến đi này.</p>
                         )}
                     </div>
-
                     <button className="slide-button prev" onClick={prevSlide}>
                         <FontAwesomeIcon icon={faArrowLeft}/>
                     </button>
                     <button className="slide-button next" onClick={nextSlide}>
                         <FontAwesomeIcon icon={faArrowRight}/>
                     </button>
+
                 </div>
 
                 {/* Phần cảm ơn */}

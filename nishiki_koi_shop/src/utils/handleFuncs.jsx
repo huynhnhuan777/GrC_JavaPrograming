@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {toast} from "react-toastify";
-import {type} from "@testing-library/user-event/dist/type";
+import {useFormik} from 'formik';
 
 export const useHookDetailTitle = () => {
     const [title, setTitle] = useState("");
@@ -17,7 +17,6 @@ export const useChooseAll = (itemLength) => {
             setChooseAll(false);
             const temp = Array(itemLength).fill(false);
             setChooseOne(temp);
-
             let checkInput = document.getElementsByClassName('check-box');
             for (let i = 0; i < checkInput.length; i++) {
                 checkInput[i].checked = false;
@@ -82,31 +81,35 @@ export const useHookProdForm = () => {
     return {formData, setFormData}
 }
 
+// Custom hook sử dụng Formik
 export const useHookFarmForm = () => {
-    const [formData, setFormData] = useState({
-        name: '',
-        description: '',
-        location: '',
-        image: '',
-        contactInfo: '',
-    })
-    return {formData, setFormData}
-}
-
+    return  useFormik({
+        initialValues: {
+            name: '',
+            description: '',
+            location: '',
+            image: '',
+            contactInfo: '',
+        },
+    });
+};
+// ------------------------------
 export const useHookTourForm = () => {
-    const [formData, setFormData] = useState({
-        tourName: '',
-        tourDescription: '',
-        tourPrice: '',
-        tourImage: '',
-        tourStartDate: '',
-        tourEndDate: '',
-        tourCapacity: 0,
-        farmId: 0,
+    return useFormik({
+        initialValues: {
+            tourName: '',
+            tourDescription: '',
+            tourPrice: '',
+            tourImage: '',
+            tourStartDate: '',
+            tourEndDate: '',
+            tourCapacity: 0,
+            farmId: 0,
+        },
     })
-    return {formData, setFormData}
-}
+};
 
+/*----------------------------*/
 export const handleGetElementFromInp = (e, useHook) => {
     const {formData, setFormData} = useHook;
     const {name, value} = e.target;
@@ -124,7 +127,7 @@ export async function handleGetAllProd(urlAPI, token, setData, setChooseOne) {
             }
         })
         if (!response.ok) {
-            console.log('can not fetch data');
+            toast.warning('Lấy dữ liệu thất bại. Hãy kiểm tra lại đường truyền và thử lại!')
             return;
         }
 
@@ -133,10 +136,46 @@ export async function handleGetAllProd(urlAPI, token, setData, setChooseOne) {
         if (setChooseOne !== null)
             setChooseOne(Array(data.length).fill(false));
     } catch (e) {
+        toast.error('Kết nối đến server thất bại. Vui lòng liên hệ bộ phận kỹ thuật!');
         console.error("error: ", e.message);
     }
 }
+//-------------------------------------------
+/**
+ * Hàm gọi API GET để lấy dữ liệu.
+ * @param {string} urlAPI - Đường dẫn của API.
+ * @param {string} token - Token xác thực.
+ * @param {function} setData - Hàm để lưu dữ liệu nhận được.
+ * @param {function} [setChooseOne] - Hàm để đặt trạng thái chọn nếu có.
+ */
+// export async function handleGetData(urlAPI, token, setData, setChooseOne) {
+//     try {
+//         const response = await fetch(urlAPI, {
+//             method: 'GET',
+//             headers: {
+//                 'Authorization': `Bearer ${token}`,
+//                 'Content-Type': 'application/json'
+//             }
+//         });
+//
+//         if (!response.ok) {
+//             console.log('Cannot fetch data, status:', response.status);
+//             return;
+//         }
+//
+//         const data = await response.json();
+//         setData(data); // Cập nhật dữ liệu bằng hàm setData
+//
+//         if (setChooseOne) {
+//             // Nếu có hàm setChooseOne, khởi tạo giá trị ban đầu cho nó
+//             setChooseOne(Array(data.length).fill(false));
+//         }
+//     } catch (error) {
+//         console.error("Error fetching data:", error.message);
+//     }
+// }
 
+// ---------------------------------------
 export const handleUploadImage = async (file, setImageUrl, upload_preset) => {
     const fData = new FormData();
     fData.append('file', file);

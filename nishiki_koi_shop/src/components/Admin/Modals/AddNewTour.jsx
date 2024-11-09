@@ -111,8 +111,8 @@ const AddNewProd = ({setStatus}) => {
                                 <select className={'selectInput'} name={'farmId'}
                                         onChange={(e) => handleGetElement(e, setFormData, formData)}>
                                     <option defaultValue={-1}>Không</option>
-                                    {farmData.map((item, index) => (
-                                        <option key={index} value={item.farmId}>{item.farmName}</option>
+                                    {farmData.map(({farmId, farmName}, index) => (
+                                        <option key={index} value={farmId}>{farmName}</option>
                                     ))}
                                 </select>
                             </fieldset>

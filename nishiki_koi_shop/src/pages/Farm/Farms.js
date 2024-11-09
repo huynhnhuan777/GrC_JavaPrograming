@@ -1,11 +1,11 @@
 import React, {createContext, useEffect, useState} from "react";
-import '../assets/css/Tour/tours.css';
+import '../../assets/css/Tour/tours.css';
 import {Link} from "react-router-dom";
 import {toast, ToastContainer} from "react-toastify";
-import {tempTour, tempFarm} from "../store/sampleTest";
-import warningPNG from '../assets/img/warning.png'
+import {tempTour, tempFarm} from "../../store/sampleTest";
+import warningPNG from '../../assets/img/warning.png'
 
-const Farms = () => {
+const Tours = () => {
 
     const [farmFilter, setFarmFilter] = useState([]);
     const [isActive, setIsActive] = useState(Array.from({length: farmFilter.length}, (_, i) => false));
@@ -158,7 +158,7 @@ const Farms = () => {
                             <img className={'thumbnail-tour'} src={item.imageUrl} alt={'thumbnailTour'}/>
                             <p>{item.id}</p> {/*title*/}
                             <p>{item.name}</p> {/*summary*/}
-                            <Link to={'/tours/' + summary.id}
+                            <Link to={'/Farms/' + summary.id}
                                   className={isActive[index] === true ? 'show-more effect-show' : 'hidden'}
                                   onClick={handleSaveFarmObj}>Xem thêm</Link>
                         </div>
@@ -168,7 +168,7 @@ const Farms = () => {
                         </div>
                     )}
                 </div>
-                <div className={'show-summary-tour'}>
+                <div className='show-summary-tour'>
                     {currIndex === -1 ? (
                         <p>Vui lòng chọn 1 chuyến đi để xem tóm tắt</p>
                     ) : (
@@ -205,4 +205,4 @@ const Farms = () => {
         </div>
     )
 }
-export default Farms;
+export default Tours;
