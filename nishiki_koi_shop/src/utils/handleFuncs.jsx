@@ -167,6 +167,7 @@ export const handleUploadImage = async (file, setImageUrl, upload_preset) => {
         });
         const data = await response.json();
         const imageUrl = data.secure_url;
+        sessionStorage.setItem('publicId', data.public_id);
         if (imageUrl !== null || imageUrl !== '')
             setImageUrl(data.secure_url);
         else throw new Error('Can not upload image');
@@ -175,9 +176,24 @@ export const handleUploadImage = async (file, setImageUrl, upload_preset) => {
     }
 }
 
-export const handleSubmit = async (e, formData, urlAPI, token, setStatus, urlCurrPage) => {
+/**
+ * handleSubmit is a function that will send data (from form in front-end) to server (to back-end).
+ *
+ * @since 0.1.0
+ * @param {HTMLFormElement} e : catch the change event of any element in form (enter the text,...)
+ * @param {Object} formData : store all property to apply and send to sever (if you want to know the structure,
+ * see the database and logic in handles)
+ * @param {String} urlAPI : API for your activity
+ * @param {String} token : the authenticate token when user log in (it is provided by server - security)
+ * @param {String} method : any method (GET,DELETE,...)
+ * @param {useState} setStatus : this is set the new value to status (hook useState in parent component), using for effect (if needed)
+ * @param {String} urlCurrPage :the name of current page. For example, you are in farm page, turn on the pop-up to add ne farm and send,
+ * them you will return to the last current page you stay (farm).
+ * @return none
+ * **/
+export const handleSubmit = async (e, formData, urlAPI, token, method, setStatus, urlCurrPage) => {
     e.preventDefault();
-
+    console.log(formData);
     try {
         const formDataToSend = new FormData();
         Object.keys(formData).forEach(key => {
@@ -189,7 +205,7 @@ export const handleSubmit = async (e, formData, urlAPI, token, setStatus, urlCur
                 'Authorization': `Bearer ${token}`,
                 ContentType: "application/json"
             },
-            method: 'POST',
+            method: method,
             body: formDataToSend,
         });
 
@@ -199,17 +215,51 @@ export const handleSubmit = async (e, formData, urlAPI, token, setStatus, urlCur
                 setStatus(false);
             window.location.assign(urlCurrPage)
         } else {
-            console.log('False');
+            toast.error('Lỗi không xác định: Vui lòng kiểm tra các trường dữ liệu!');
         }
     } catch (e) {
         console.error("ERROR: ", e.message);
     }
 }
 
-// export const handleGetElement = (e, setFormData, formData) => {
-//     const {name, value} = e.target;
-//     setFormData({
-//         ...formData,
-//         [name]: value
-//     })
-// }
+/**
+ * handleDeleteObj is a function that delete an object in database. Example: in our database, we have fish, tour and farm,
+ * so we can delete (remove from database) any object (only one with this function) - in database is remove one record.
+ *
+ * @since 0.1.0
+ * @param {String} item : name of object, example: fish, farm,... (optional follow your define)
+ * @param {Int} idItem : id of object (id property of any record that you want to remove it.
+ * @param {String} token : the authenticate token when user log in (it is provided by server - security)
+ * In this function, we defined APIs in it, so you can not change it easily. We will update later to resolve this.
+ * */
+export const handleDeleteObj = async (item, idItem, token) => {
+    let urlAPI = '';
+    switch (item) {
+        case 'fish': {
+            urlAPI = `http://localhost:8080/api/v1/manager/fish/delete/${idItem}`;
+            break;
+        }
+        case 'farm': {
+            urlAPI = `http://localhost:8080/api/v1/manager/farm/delete/${idItem}`;
+            break;
+        }
+    }
+    try {
+        const response = await fetch(urlAPI, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                ContentType: "application/json"
+            },
+            method: 'DELETE',
+        })
+
+        if (!response.ok) {
+            toast.error('Xóa không thành công: đã có lỗi xảy ra!');
+        } else {
+            toast.success('Xóa thành công');
+            window.location.reload();
+        }
+    } catch (e) {
+        console.error('error: ', e.message);
+    }
+}

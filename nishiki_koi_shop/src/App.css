@@ -34,6 +34,15 @@ input:disabled {
     cursor: not-allowed;
 }
 
+select:focus-visible{
+    outline: 2px solid #007BFF;
+    border-color: #007BFF;
+}
+
+button:disabled {
+    cursor: not-allowed !important;
+}
+
 html {
     scrollbar-color: rgb(255, 0, 0) transparent !important;
     scrollbar-width: thin;

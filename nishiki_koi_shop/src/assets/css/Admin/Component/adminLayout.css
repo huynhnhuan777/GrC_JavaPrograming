@@ -86,4 +86,5 @@ ul.controller-navbar li:hover ul.controller-sub-navbar {
     top: 60px;
     left: 10%;
     padding: 10px 0 0 0;
+    height: calc(100vh - 70px);
 }
