@@ -16,6 +16,7 @@ import Cart from "./pages/Account/shoppingCart";
 import Payment from "./pages/Account/payment";
 import RegisterForm from './pages/Account/RegisterForm';
 import Account from "./pages/Account/Account";
+import AccountDetailsChange from './pages/Account/AccountDetailsChange';
 import Tours from "./pages/Tour/Tours";
 import Tour from "./pages/Tour/Tour";
 import FishDetail from "./pages/Fish/FishDetail";
@@ -77,6 +78,7 @@ const App = () => {
                             <Route path={'/cart'} element={<Cart/>}/>
                             <Route path={'/payment'} element={<Payment/>}/>
                             <Route path={'/account'} element={<Account/>}/>
+                            <Route path={'/account-change'} element={< AccountDetailsChange/>} />
                             <Route path={'/tours'} element={<Tours/>}/>
                             <Route path={'/tours/:id'} element={<Tour/>}/>
                             <Route path={'/sign-up'} element={<RegisterForm/>}/>

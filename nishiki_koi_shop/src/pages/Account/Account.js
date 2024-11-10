@@ -19,12 +19,14 @@ const Account = () => {
     const handleUpdate = () => {
         // Thực hiện cập nhật API sau này
         console.log("Thông tin khách hàng đã được cập nhật", customer);
+        navigate('/account-change')
     };
 
     // Xử lý quên mật khẩu
     const handleForgotPassword = () => {
         // Thực hiện gửi yêu cầu quên mật khẩu sau này
         console.log("Yêu cầu quên mật khẩu đã được gửi");
+        navigate('/account-change')
     };
 
     // Nút xem lịch sử mua hàng
