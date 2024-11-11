@@ -28,10 +28,26 @@ ul {
 .mg-x-m {
     margin: 10px 0;
 }
+
+input:disabled {
+    background-color: transparent;
+    cursor: not-allowed;
+}
+
+select:focus-visible{
+    outline: 2px solid #007BFF;
+    border-color: #007BFF;
+}
+
+button:disabled {
+    cursor: not-allowed !important;
+}
+
 html {
     scrollbar-color: rgb(255, 0, 0) transparent !important;
     scrollbar-width: thin;
 }
+
 @keyframes App-logo-spin {
     from {
         transform: rotate(0deg);

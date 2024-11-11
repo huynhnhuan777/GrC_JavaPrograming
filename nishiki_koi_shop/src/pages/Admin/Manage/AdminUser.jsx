@@ -1,8 +1,8 @@
-import {ToolManager} from "../../../components/ToolManager";
+import {ToolManager} from "../../../components/Admin/ToolManager";
 import {useEffect, useState} from "react";
-import AddNewUser from "../../../components/Admin/Modals/AddNewUser";
+import AddNewUser from "../../../components/Admin/Modals/New/AddNewUser";
 import '../../../assets/css/Admin/Page/Manage/AdminUser.css'
-import {handleChooseOne, useChooseAll} from "../../../utils/handleFuncs";
+import {handleChooseOne, useChooseAll, useHookDetailTitle} from "../../../utils/handleFuncs";
 import {toast, ToastContainer} from "react-toastify";
 import {handleRenderSelectCard} from "../../../utils/handleRenderFuncs";
 
@@ -12,6 +12,7 @@ const AdminUser = () => {
     const roleName = ['ROLE_CUSTOMER', 'ROLE_MANAGER', 'ROLE_SALE_STAFF', 'ROLE_DELIVERY_STAFF', 'ROLE_CONSULTING_STAFF'];
     const {chooseAll, chooseOne, handleChooseAll, setChooseOne, setChooseAll} = useChooseAll(data.length);
     const [id, setId] = useState(-1);
+    const {title, setTitle} = useHookDetailTitle();
 
     async function handleGetAllUser() {
         try {
@@ -26,7 +27,6 @@ const AdminUser = () => {
             }
             const data = await response.json();
             setData(data);
-            console.log(data);
             setChooseOne(Array(data.length).fill(false));
         } catch (e) {
             console.error("error: ", e.message);
@@ -35,6 +35,7 @@ const AdminUser = () => {
 
     useEffect(() => {
         handleGetAllUser();//please don't care this warning
+        setTitle(' người dùng');
     }, []);
 
     return (
@@ -43,6 +44,7 @@ const AdminUser = () => {
                 <ToolManager setStatus={setStatus} itemLength={data.length}
                              useHook={{chooseAll, chooseOne, handleChooseAll, setChooseOne, setChooseAll}}
                              idItem={id}
+                             baseUrl={'users'}
                 />
 
                 {status && <AddNewUser setStatus={setStatus}/>}

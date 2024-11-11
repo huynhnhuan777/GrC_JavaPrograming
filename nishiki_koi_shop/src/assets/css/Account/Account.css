@@ -45,10 +45,6 @@ input.inputEmail[type="email"] {
     font-size: 16px;
 }
 
-input[disabled] {
-    background-color: #e9ecef;
-}
-
 .button-group {
     display: flex;
     justify-content: space-between;

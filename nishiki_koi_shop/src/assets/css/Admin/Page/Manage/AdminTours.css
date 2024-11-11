@@ -28,9 +28,9 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 10px;
-    background-image: linear-gradient(90deg, #ff5555, #ffba53);
-    border-radius:100px;
+    padding: 5px;
+    background-image: linear-gradient(90deg, #d7aae1, #ff4c4c);
+    border-radius:10px;
     margin-bottom: 15px;
     width: 100%;
 }
@@ -68,16 +68,16 @@
 }
 
 .tour-capacity{
-    width: 3%;
+    width: 5%;
     padding: 0 5px;
 }
 
 .tour-price{
-    width: 17%;
+    width: 20%;
     padding: 0 5px;
 }
 
 .tour-tool{
-    width: 10%;
+    width: 5%;
     padding: 0 5px;
 }

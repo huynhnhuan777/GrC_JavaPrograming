@@ -1,6 +1,11 @@
-import '../../../assets/css/Admin/Component/addNewProd.css'
+import '../../../../assets/css/Admin/Component/CreateNew/addNewProd.css'
 import {useEffect, useState} from "react";
-import {handleGetElement, handleSubmit, handleUploadImage, useHookFarmForm} from "../../../utils/handleFuncs";
+import {
+    handleGetElementFromInp,
+    handleSubmit,
+    handleUploadImage,
+    useHookFarmForm
+} from "../../../../utils/handleFuncs";
 import {toast, ToastContainer} from "react-toastify";
 
 const AddNewFarm = ({setStatus}) => {
@@ -8,7 +13,7 @@ const AddNewFarm = ({setStatus}) => {
     const [imageUrl, setImageUrl] = useState('');
 
     const handleGetFile = async (e) => {
-        await handleUploadImage(e.target.files[0], setImageUrl,process.env.REACT_APP_UPLOAD_PRESET_FARM);
+        await handleUploadImage(e.target.files[0], setImageUrl, process.env.REACT_APP_UPLOAD_PRESET_FARM);
     }
 
     const handleCancelForm = (e) => {
@@ -31,7 +36,13 @@ const AddNewFarm = ({setStatus}) => {
             <div className={'form-content'}>
                 <h3>Thêm sản phẩm mới</h3>
                 <form className={'form-field'}
-                      onSubmit={(e) => handleSubmit(e, formData, "http://localhost:8080/api/v1/manager/farm/create-farm", sessionStorage.getItem('token'), setStatus)}>
+                      onSubmit={(e) => handleSubmit(e,
+                          formData,
+                          'http://localhost:8080/api/v1/manager/farm/create-farm',
+                          sessionStorage.getItem('token'),
+                          'POST',
+                          setStatus,
+                          'farms')}>
                     <div style={{
                         display: 'flex',
                         justifyContent: 'center',
@@ -44,17 +55,18 @@ const AddNewFarm = ({setStatus}) => {
                             justifyContent: 'center',
                             alignItems: 'center',
                             flexDirection: 'column',
-                            width: '35%'
+                            width: '35%',
+                            margin: '0 5px 0 0'
                         }}>
                             <fieldset className={'fieldset'}>
                                 <legend>Tên trang trại</legend>
                                 <input className={'textInput'} type={'text'} name={'name'}
-                                       onChange={(e) => handleGetElement(e, setFormData, formData)}/>
+                                       onChange={(e) => handleGetElementFromInp(e, setFormData, formData)}/>
                             </fieldset>
                             <fieldset className={'fieldset'}>
                                 <legend>Địa chỉ trang trại</legend>
                                 <input className={'textInput'} type={'text'} name={'location'}
-                                       onChange={(e) => handleGetElement(e, setFormData, formData)}/>
+                                       onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}/>
                             </fieldset>
 
                         </div>
@@ -63,17 +75,18 @@ const AddNewFarm = ({setStatus}) => {
                             justifyContent: 'center',
                             alignItems: 'center',
                             flexDirection: 'column',
-                            width: '35%'
+                            width: '35%',
+                            margin: '0 5px 0 5px'
                         }}>
                             <fieldset className={'fieldset'}>
                                 <legend>Thông tin liên hệ</legend>
                                 <input className={'textInput'} type={'text'} name={'contactInfo'}
-                                       onChange={(e) => handleGetElement(e, setFormData, formData)}/>
+                                       onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}/>
                             </fieldset>
                             <fieldset className={'fieldset'}>
                                 <legend>Mô tả</legend>
                                 <input className={'textInput'} type={'text'} name={'description'}
-                                       onChange={(e) => handleGetElement(e, setFormData, formData)}/>
+                                       onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}/>
                             </fieldset>
                         </div>
 
@@ -82,7 +95,8 @@ const AddNewFarm = ({setStatus}) => {
                             justifyContent: 'center',
                             alignItems: 'center',
                             flexDirection: 'column',
-                            width: '30%'
+                            width: '30%',
+                            margin: '0 0 0 5px'
                         }}>
                             <fieldset className={'fieldset'}>
                                 <legend>Hình ảnh trang trại</legend>
@@ -98,8 +112,7 @@ const AddNewFarm = ({setStatus}) => {
                     </div>
                 </form>
             </div>
-            <div style={{width: "inherit", height: 'inherit', position: 'absolute', zIndex: '1'}}
-                 className={'bg-close-dialog'}
+            <div className={'bg-close-dialog'}
                  onClick={handleCancelForm}></div>
             <ToastContainer/>
         </div>

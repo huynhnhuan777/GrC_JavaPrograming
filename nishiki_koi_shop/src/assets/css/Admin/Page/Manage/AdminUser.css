@@ -28,9 +28,9 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    padding: 10px;
-    background-image: linear-gradient(90deg, #ff5555, #ffba53);
-    border-radius: 50px;
+    padding: 5px;
+    background-image: linear-gradient(90deg, #d7aae1, #ff4c4c);
+    border-radius:10px;
     margin-bottom: 15px;
     width: 100%;
 }

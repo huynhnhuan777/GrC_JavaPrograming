@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
-import AddNewTour from "../../../components/Admin/Modals/AddNewTour";
+import AddNewTour from "../../../components/Admin/Modals/New/AddNewTour";
 import '../../../assets/css/Admin/Page/Manage/AdminTours.css'
-import {handleGetAllProd, useChooseAll} from "../../../utils/handleFuncs";
-import {ToolManager} from "../../../components/ToolManager";
+import {handleChooseOne, handleGetAllProd, useChooseAll} from "../../../utils/handleFuncs";
+import {ToolManager} from "../../../components/Admin/ToolManager";
 import {ToastContainer} from "react-toastify";
 
 const AdminTours = () => {
@@ -40,6 +40,25 @@ const AdminTours = () => {
                         <div className={'tour-farm'} style={{fontWeight: 'bold'}}>Thuộc trang trại</div>
                         <div className={'tour-tool'} style={{fontWeight: 'bold'}}></div>
                     </div>
+
+                    {data.map((item, index) => (
+                        <div className={'item-tour'}>
+                            <div className={'tour-id'}>{data.tourId}</div>
+                            <div className={'tour-name'}>{data.tourName}</div>
+                            <div className={'tour-desc'}>{data.tourDescription}</div>
+                            <div className={'tour-start-date'}>{data.tourStartDate}</div>
+                            <div className={'tour-end-date'}>{data.tourEndDate}</div>
+                            <div className={'tour-capacity'}>{data.tourCapacity}</div>
+                            <div className={'tour-price'}>{data.tourPrice}</div>
+                            <div className={'tour-farm'}>handle</div>
+                            <div className={'tour-tool'}>
+                                <input className={'check-box'} type={'checkbox'}
+                                       style={{width: '20px', height: '20px', borderRadius: '100%'}}
+                                       onClick={() => handleChooseOne(chooseOne, setChooseOne, index, Number(item.proId), setId)}
+                                />
+                            </div>
+                        </div>
+                    ))}
 
                 </div>
             </div>

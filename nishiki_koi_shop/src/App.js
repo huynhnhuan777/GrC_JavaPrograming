@@ -20,8 +20,6 @@ import Tours from "./pages/Tour/Tours";
 import Tour from "./pages/Tour/Tour";
 import FishDetail from "./pages/Fish/FishDetail";
 
-import {tempUsers} from "./store/sampleTest";
-
 import AdminLayout from "./components/Admin/AdminLayout";
 import AdminHome from "./pages/Admin/AdminHome";
 import OrdersAdmin from "./pages/Admin/Order/OrdersAdmin";
@@ -34,6 +32,7 @@ import AdminUser from "./pages/Admin/Manage/AdminUser";
 import AdminReports from "./components/Admin/AdminReports";
 import Policy from "./pages/Contact/Policy";
 import {jwtDecode} from "jwt-decode";
+import AdminShowDetail from "./pages/Admin/Detail/AdminShowDetail";
 
 
 const AutoScrollToTop = () => {
@@ -136,6 +135,13 @@ const App = () => {
                                    title={'Quản lí tài khoản người dùng'}>
                                </AdminLayout>}
                         />
+                        <Route path={'/:obj/detail/:id'}
+                               element={<AdminLayout
+                                   childCompo={<AdminShowDetail/>}
+                                   title={'Chi tiết đối tượng'}>
+                               </AdminLayout>}
+                        />
+                        <Route path={'/*'} element={<Page404/>}/>
                     </Routes>
                 )}
             </BrowserRouter>

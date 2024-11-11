@@ -67,3 +67,73 @@ ul.show-info-tour {
     display: flex;
     flex-direction: row;
 }
+.tour-details {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+.gallery-tour {
+    margin-top: 20px;
+}
+
+.image-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.gallery-image {
+    width: 500px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 5px;
+}
+.thank-you-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+}
+
+.thank-you-image {
+    width: 400px;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+.thank-you-section p {
+    color: #333;
+    font-size: 16px;
+    text-align: center;
+    font-weight: 250;
+}
+.itinerary-tour {
+    margin-top: 20px;
+}
+
+.itinerary-tour h4 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.itinerary-tour ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.itinerary-tour li {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+.itinerary-tour li strong {
+    color: #4CAF50;
+}

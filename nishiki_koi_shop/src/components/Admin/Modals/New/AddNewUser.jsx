@@ -1,6 +1,6 @@
-import '../../../assets/css/Admin/Component/addNewProd.css'
+import '../../../../assets/css/Admin/Component/CreateNew/addNewProd.css'
 import {useState} from "react";
-import {handleGetElementFromInp, useHookUserForm} from "../../../utils/handleFuncs";
+import {handleGetElementFromInp, useHookUserForm} from "../../../../utils/handleFuncs";
 
 const AddNewUser = ({setStatus}) => {
     const {formData, setFormData} = useHookUserForm();
