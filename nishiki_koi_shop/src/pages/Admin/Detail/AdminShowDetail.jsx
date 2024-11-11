@@ -2,7 +2,6 @@ import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {handleGetObjById} from "../../../utils/handleFuncs";
 import '../../../assets/css/Admin/Page/AdminDetail.css'
-import UpdateFarm from "../../../components/Admin/Modals/Update/UpdateFarm";
 import DetailProduct from "../../../components/Admin/Details/DetailProduct";
 import DetailFarm from "../../../components/Admin/Details/DetailFarm";
 
@@ -27,9 +26,9 @@ const AdminShowDetail = () => {
             <div className={'ad-show-detail-content'}>
                 <div className={'show-detail-obj'}>
                     {obj === 'products' ?
-                        <DetailProduct fishData={fishData}
-                                       farmsData={farmData}
-                                       typeData={typeData}
+                        <DetailProduct fish={fishData}
+                                       farms={farmData}
+                                       types={typeData}
                         />
                         :
                         (obj === 'farms' ?

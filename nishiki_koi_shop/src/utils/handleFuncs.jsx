@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {toast} from "react-toastify";
-import {type} from "@testing-library/user-event/dist/type";
+import {useFormik} from 'formik'
 
 export const useHookDetailTitle = () => {
     const [title, setTitle] = useState("");
@@ -69,51 +69,51 @@ export const useHookUserForm = () => {
 }
 
 export const useHookProdForm = () => {
-    const [formData, setFormData] = useState({
-        name: '',
-        price: '',
-        description: '',
-        image: '',
-        size: '',
-        quantity: '',
-        fishTypeId: '',
-        farmId: ''
+    return useFormik({
+        initialValues: {
+            name: '',
+            price: '',
+            description: '',
+            image: null,
+            size: '',
+            quantity: '',
+            fishTypeId: '',
+            farmId: ''
+        },
     })
-    return {formData, setFormData}
 }
 
 export const useHookFarmForm = () => {
-    const [formData, setFormData] = useState({
-        name: '',
-        description: '',
-        location: '',
-        image: '',
-        contactInfo: '',
+    return useFormik({
+        initialValues: {
+            name: '',
+            description: '',
+            location: '',
+            image: null,
+            contactInfo: ''
+        }
     })
-    return {formData, setFormData}
 }
 
 export const useHookTourForm = () => {
-    const [formData, setFormData] = useState({
-        tourName: '',
-        tourDescription: '',
-        tourPrice: '',
-        tourImage: '',
-        tourStartDate: '',
-        tourEndDate: '',
-        tourCapacity: 0,
-        farmId: 0,
+    return useFormik({
+        initialValues: {
+            name: '',
+            description: '',
+            price: '',
+            image: null,
+            startDate: '',
+            endDate: '',
+            capacity: 0,
+            farmId: 0,
+        }
     })
-    return {formData, setFormData}
 }
 
 export const handleGetElementFromInp = (e, useHook) => {
-    const {formData, setFormData} = useHook;
+    const formData = useHook;
     const {name, value} = e.target;
-    setFormData({
-        ...formData,
-        [name]: value
-    })
+    formData.setFieldValue(name, value);
 }
 
 export async function handleGetAllProd(urlAPI, token, setData, setChooseOne) {
@@ -124,7 +124,7 @@ export async function handleGetAllProd(urlAPI, token, setData, setChooseOne) {
             }
         })
         if (!response.ok) {
-            console.log('can not fetch data');
+            toast.warning('Lấy dữ liệu thất bại. Hãy kiểm tra lại đường truyền và thử lại!')
             return;
         }
 
@@ -133,6 +133,7 @@ export async function handleGetAllProd(urlAPI, token, setData, setChooseOne) {
         if (setChooseOne !== null)
             setChooseOne(Array(data.length).fill(false));
     } catch (e) {
+        toast.error('Kết nối đến server thất bại. Vui lòng liên hệ bộ phận kỹ thuật!');
         console.error("error: ", e.message);
     }
 }
@@ -168,11 +169,13 @@ export const handleUploadImage = async (file, setImageUrl, upload_preset) => {
         const data = await response.json();
         const imageUrl = data.secure_url;
         sessionStorage.setItem('publicId', data.public_id);
-        if (imageUrl !== null || imageUrl !== '')
+        if (imageUrl !== null || imageUrl !== '') {
             setImageUrl(data.secure_url);
-        else throw new Error('Can not upload image');
+            toast.success('Tải ảnh thành công!');
+        } else toast.error('Tải ảnh thất bại...');
     } catch (e) {
         console.error('error: ', e.message);
+        toast.error('Không thể kết nối đến server!');
     }
 }
 
@@ -180,39 +183,41 @@ export const handleUploadImage = async (file, setImageUrl, upload_preset) => {
  * handleSubmit is a function that will send data (from form in front-end) to server (to back-end).
  *
  * @since 0.1.0
- * @param {HTMLFormElement} e : catch the change event of any element in form (enter the text,...)
- * @param {Object} formData : store all property to apply and send to sever (if you want to know the structure,
+ * @param {HTMLFormElement} e  catch the change event of any element in form (enter the text,...)
+ * @param {Object} formData  store all property to apply and send to sever (if you want to know the structure,
  * see the database and logic in handles)
- * @param {String} urlAPI : API for your activity
- * @param {String} token : the authenticate token when user log in (it is provided by server - security)
- * @param {String} method : any method (GET,DELETE,...)
- * @param {useState} setStatus : this is set the new value to status (hook useState in parent component), using for effect (if needed)
- * @param {String} urlCurrPage :the name of current page. For example, you are in farm page, turn on the pop-up to add ne farm and send,
- * them you will return to the last current page you stay (farm).
+ * @param {String} urlAPI  API for your activity
+ * @param {String} token  the authenticate token when user log in (it is provided by server - security)
+ * @param {String} method  any method (GET,DELETE,...)
+ * @param {useState} setStatus  this is set the new value to status (hook useState in parent component), using for effect (if needed)
+ * @param {String} urlCurrPage the name of current page.
+ * @example About urlCurrPage: you are in farm page, turn on the pop-up to add new farm and send, them you will return to the last current page you stay (farm).
+ * urlCurrPage = 'farm'
  * @return none
  * **/
 export const handleSubmit = async (e, formData, urlAPI, token, method, setStatus, urlCurrPage) => {
     e.preventDefault();
-    console.log(formData);
     try {
         const formDataToSend = new FormData();
-        Object.keys(formData).forEach(key => {
-            formDataToSend.append(key, formData[key]);
+        Object.keys(formData.values).forEach(key => {
+            // console.log(formData.values[key])
+            formDataToSend.append(key, formData.values[key]);
+            console.log(key + ':' + formData.values[key]);
         });
 
         const response = await fetch(urlAPI, {
             headers: {
                 'Authorization': `Bearer ${token}`,
-                ContentType: "application/json"
             },
             method: method,
             body: formDataToSend,
         });
 
         if (response.ok) {
-            console.log('successfully!');
-            if (setStatus !== null)
+            if (setStatus !== null) {
                 setStatus(false);
+            }
+            toast.success('Đã tải thành công, vui lòng chờ trong giây lát...')
             window.location.assign(urlCurrPage)
         } else {
             toast.error('Lỗi không xác định: Vui lòng kiểm tra các trường dữ liệu!');

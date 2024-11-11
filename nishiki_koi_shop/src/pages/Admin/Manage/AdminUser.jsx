@@ -2,7 +2,7 @@ import {ToolManager} from "../../../components/Admin/ToolManager";
 import {useEffect, useState} from "react";
 import AddNewUser from "../../../components/Admin/Modals/New/AddNewUser";
 import '../../../assets/css/Admin/Page/Manage/AdminUser.css'
-import {handleChooseOne, useChooseAll, useHookDetailTitle} from "../../../utils/handleFuncs";
+import {handleChooseOne, handleGetAllProd, useChooseAll, useHookDetailTitle} from "../../../utils/handleFuncs";
 import {toast, ToastContainer} from "react-toastify";
 import {handleRenderSelectCard} from "../../../utils/handleRenderFuncs";
 
@@ -14,27 +14,28 @@ const AdminUser = () => {
     const [id, setId] = useState(-1);
     const {title, setTitle} = useHookDetailTitle();
 
-    async function handleGetAllUser() {
-        try {
-            const response = await fetch('http://localhost:8080/api/v1/manager/users', {
-                headers: {
-                    'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-                }
-            });
-            if (!response.ok) {
-                console.log('cannot fetch data !');
-                return;
-            }
-            const data = await response.json();
-            setData(data);
-            setChooseOne(Array(data.length).fill(false));
-        } catch (e) {
-            console.error("error: ", e.message);
-        }
-    }
+    // async function handleGetAllUser() {
+    //     try {
+    //         const response = await fetch('http://localhost:8080/api/v1/manager/users', {
+    //             headers: {
+    //                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+    //             }
+    //         });
+    //         if (!response.ok) {
+    //             console.log('cannot fetch data !');
+    //             return;
+    //         }
+    //         const data = await response.json();
+    //         console.log(data);
+    //         setData(data);
+    //         setChooseOne(Array(data.length).fill(false));
+    //     } catch (e) {
+    //         console.error("error: ", e.message);
+    //     }
+    // }
 
     useEffect(() => {
-        handleGetAllUser();//please don't care this warning
+        handleGetAllProd('http://localhost:8080/api/v1/manager/users', sessionStorage.getItem('token'), setData, setChooseOne);
         setTitle(' người dùng');
     }, []);
 
@@ -64,9 +65,7 @@ const AdminUser = () => {
                             <div className={'user-id'}>{item.id}</div>
                             <div className={'user-username'}>{item.username}</div>
                             <div className={'user-fullName'}>{item.fullName === null ? 'Empty' : item.fullName}</div>
-                            <div
-                                className={'user-roleName'}>{handleRenderSelectCard(item.roleName, roleName, false)}
-                            </div>
+                            <div className={'user-roleName'}>{item.roleName}</div>
                             <div className={'user-address'}>{item.address === null ? 'Empty' : item.address}</div>
                             <div className={'user-email'}>{item.email}</div>
                             <div
