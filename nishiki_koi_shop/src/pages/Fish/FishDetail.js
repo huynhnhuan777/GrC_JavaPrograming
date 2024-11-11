@@ -12,7 +12,6 @@ function FishDetail() {
     const {id} = useParams(); // Lấy id sản phẩm từ URL
     const [fishDetail, setFishDetail] = useState(JSON.parse(sessionStorage.getItem('infoFish')));
     const [relatedProducts, setRelatedProducts] = useState(relatedProductsData);
-
     const handleAddToCart = () => {
         // Thêm sản phẩm vào giỏ hàng (giả sử có cơ chế lưu trữ giỏ hàng trong localStorage/sessionStorage)
         const cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -30,6 +29,8 @@ function FishDetail() {
                         <h1>{fishDetail.name}</h1>
                         <p>{fishDetail.description}</p>
                         <p className="fish-price">Giá: {fishDetail.price}</p>
+                        <p><strong>Kích thước:</strong> {fishDetail.size}</p>
+                        <p><strong>Màu sắc:</strong> {fishDetail.color}</p>
                         <button onClick={handleAddToCart} className="add-to-cart-button">Thêm vào giỏ hàng</button>
                     </div>
                 </div>
