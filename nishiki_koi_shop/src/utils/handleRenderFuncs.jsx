@@ -6,12 +6,21 @@ export const handleChangeOption = () => {
     toast.success('Thay đổi trạng thái thành công');
 }
 
+/**
+ *
+ * @param {String} name  set name for input card (select card)
+ * @param {String} currChoice  current value of object
+ * @param {Array} arrayData  an array of object (for example: farm in farms)
+ * @param {boolean} isDisabled  decide about block or unblock selection
+ * @param useHook custom hook
+ * @returns {JSX.Element}
+ */
 export const handleRenderSelectCard = (name, currChoice, arrayData, isDisabled, useHook) => {
     let temp;
     if (isDisabled) temp = Array(arrayData.length).fill(false);
     else temp = Array(arrayData.length).fill(true);
 
-    const {formData, setFormData} = useHook;
+    const formData = useHook;
 
     let checkCurr = false;
     for (let i = 0; i < arrayData.length; i++) {
@@ -23,22 +32,15 @@ export const handleRenderSelectCard = (name, currChoice, arrayData, isDisabled, 
         }
     }
 
-    if (currChoice !== -1) {
-        setFormData({
-            ...formData,
-            [name]: currChoice
-        })
-    }
-
     return (
         <select className={'select-status'}
                 name={name}
-                onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}
+                value={formData.values[currChoice]}
+                onChange={formData.handleChange}
                 style={{textAlign: 'center', width: '100%', borderRadius: '5px'}}>
-            <option defaultValue={-1} value={-1} selected={true}>Không</option>
+            <option value={''}>---</option>
             {arrayData.map((item, index) => (
-                <option key={index} value={item.id} disabled={!temp[index]}
-                        selected={item === currChoice}>{item.name}</option>
+                <option key={index} value={item.id} disabled={!temp[index]}>{item}</option>
             ))}
         </select>
     )

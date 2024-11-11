@@ -34,9 +34,9 @@ const AdminProducts = () => {
         handleGetAllProd('http://localhost:8080/api/v1/manager/fish-types/get-all-fish-types', sessionStorage.getItem('token'), setTypeData, null);
     }, []);
 
-    useEffect(()=>{
-        console.log(fishData);
-    },[fishData])
+    // useEffect(()=>{
+    //     console.log(fishData);
+    // },[fishData])
 
     return (
         <div className={'ad-prod-container'}>
@@ -62,7 +62,7 @@ const AdminProducts = () => {
                     </div>
                     {fishData && fishData.map((item, index) => (
                         <div key={index} className={'item-prod'}>
-                            <div className={'prod-id'}>{item.fishId}</div>
+                            <div className={'prod-id'}>{item.id}</div>
                             <div className={'prod-name'}>{item.name === null ? 'empty' : item.name}</div>
                             <div className={'prod-desc'}
                                  style={{minHeight: '10px'}}>{item.description === null ? 'empty' : item.description}</div>
@@ -74,7 +74,7 @@ const AdminProducts = () => {
                             <div className={'prod-tool'}>
                                 <input className={'check-box'} type={'checkbox'}
                                        style={{width: '20px', height: '20px', borderRadius: '100%'}}
-                                       onClick={() => handleChooseOne(chooseOne, setChooseOne, index, Number(item.fishId), setId)}
+                                       onClick={() => handleChooseOne(chooseOne, setChooseOne, index, Number(item.id), setId)}
                                 />
                             </div>
                         </div>

@@ -9,7 +9,7 @@ import {
 import {toast, ToastContainer} from "react-toastify";
 
 const AddNewFarm = ({setStatus}) => {
-    const {formData, setFormData} = useHookFarmForm();
+    const formData = useHookFarmForm();
     const [imageUrl, setImageUrl] = useState('');
 
     const handleGetFile = async (e) => {
@@ -22,20 +22,17 @@ const AddNewFarm = ({setStatus}) => {
     }
 
     useEffect(() => {
-        if (imageUrl !== '') {
-            toast.success('Cacthed this file!')
-            setFormData({
-                ...formData,
-                image: imageUrl
-            })
+        if (formData.values.image !== null) {
+            toast.success('Getting file successfully!')
         }
-    }, [imageUrl]);
+    }, [formData.values.image]);
 
     return (
         <div className={'form-container'}>
             <div className={'form-content'}>
                 <h3>Thêm sản phẩm mới</h3>
                 <form className={'form-field'}
+                      encType="multipart/form-data"
                       onSubmit={(e) => handleSubmit(e,
                           formData,
                           'http://localhost:8080/api/v1/manager/farm/create-farm',
@@ -61,12 +58,12 @@ const AddNewFarm = ({setStatus}) => {
                             <fieldset className={'fieldset'}>
                                 <legend>Tên trang trại</legend>
                                 <input className={'textInput'} type={'text'} name={'name'}
-                                       onChange={(e) => handleGetElementFromInp(e, setFormData, formData)}/>
+                                       onChange={formData.handleChange}/>
                             </fieldset>
                             <fieldset className={'fieldset'}>
                                 <legend>Địa chỉ trang trại</legend>
                                 <input className={'textInput'} type={'text'} name={'location'}
-                                       onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}/>
+                                       onChange={formData.handleChange}/>
                             </fieldset>
 
                         </div>
@@ -81,12 +78,12 @@ const AddNewFarm = ({setStatus}) => {
                             <fieldset className={'fieldset'}>
                                 <legend>Thông tin liên hệ</legend>
                                 <input className={'textInput'} type={'text'} name={'contactInfo'}
-                                       onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}/>
+                                       onChange={formData.handleChange}/>
                             </fieldset>
                             <fieldset className={'fieldset'}>
                                 <legend>Mô tả</legend>
                                 <input className={'textInput'} type={'text'} name={'description'}
-                                       onChange={(e) => handleGetElementFromInp(e, {formData, setFormData})}/>
+                                       onChange={formData.handleChange}/>
                             </fieldset>
                         </div>
 
@@ -100,13 +97,14 @@ const AddNewFarm = ({setStatus}) => {
                         }}>
                             <fieldset className={'fieldset'}>
                                 <legend>Hình ảnh trang trại</legend>
-                                <input className={'textInput'} type={'file'} onChange={handleGetFile}/>
+                                <input className={'textInput'} type={'file'}
+                                       onChange={(e) => formData.setFieldValue('image', e.target.files[0])}/>
                             </fieldset>
                         </div>
                     </div>
                     <div className={'optionBtns'}>
                         <button className={'featureBtn'} type={'submit'}
-                                disabled={imageUrl === ''}>Xác nhận
+                                disabled={formData.values.image === ''}>Xác nhận
                         </button>
                         <button className={'featureBtn'} onClick={handleCancelForm}>Hủy bỏ</button>
                     </div>

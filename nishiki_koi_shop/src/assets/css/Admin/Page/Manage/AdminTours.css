@@ -46,7 +46,7 @@
 }
 
 .tour-desc {
-    width: 30%;
+    width: 25%;
     padding: 0 5px;
     overflow-x: hidden;
     overflow-y: auto;
@@ -74,6 +74,11 @@
 
 .tour-price{
     width: 20%;
+    padding: 0 5px;
+}
+
+.tour-farm{
+    width: 5%;
     padding: 0 5px;
 }
 
