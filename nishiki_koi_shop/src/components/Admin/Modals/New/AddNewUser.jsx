@@ -1,29 +1,10 @@
-import '../../../assets/css/Admin/Component/addNewProd.css'
+import '../../../../assets/css/Admin/Component/CreateNew/addNewProd.css'
 import {useState} from "react";
+import {handleGetElementFromInp, useHookUserForm} from "../../../../utils/handleFuncs";
 
-const AddNewProd = ({setStatus}) => {
-
-    const [formData, setFormData] = useState({
-        contact: '',
-        description: '',
-        location: '',
-        name: '',
-        image: null,
-    })
-
-    const handleGetElement = (e) => {
-        const {name, value} = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        })
-    }
-    const handleGetFile = (e) => {
-        setFormData({
-            ...formData,
-            image: e.target.files[0]
-        })
-    }
+const AddNewUser = ({setStatus}) => {
+    const {formData, setFormData} = useHookUserForm();
+    const roleName = ['ROLE_CUSTOMER', 'ROLE_MANAGER','ROLE_SALE_STAFF','ROLE_DELIVERY_STAFF','ROLE_CONSULTING_STAFF'];
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -33,7 +14,7 @@ const AddNewProd = ({setStatus}) => {
                 formDataToSend.append(key, formData[key]);
             });
 
-            const response = await fetch("http://localhost:8080/api/v1/farm", {
+            const response = await fetch("http://localhost:8080/api/v1/fish", {
                 method: 'POST',
                 body: formDataToSend
             });
@@ -55,7 +36,7 @@ const AddNewProd = ({setStatus}) => {
     return (
         <div className={'form-container'}>
             <div className={'form-content'}>
-                <h3>Thêm sản phẩm mới</h3>
+                <h3>Thêm tài khoản mới</h3>
                 <form className={'form-field'} onSubmit={handleSubmit}>
                     <div style={{
                         display: 'flex',
@@ -72,14 +53,14 @@ const AddNewProd = ({setStatus}) => {
                             width: '35%'
                         }}>
                             <fieldset className={'fieldset'}>
-                                <legend>Thông tin liên hệ</legend>
-                                <input className={'textInput'} type={'text'} name={'contact'}
-                                       onChange={handleGetElement}/>
+                                <legend>Tên tài khoản</legend>
+                                <input className={'textInput'} type={'text'} name={'description'}
+                                       onChange={(e)=>handleGetElementFromInp(e,{formData,setFormData})}/>
                             </fieldset>
                             <fieldset className={'fieldset'}>
-                                <legend>Mô tả</legend>
-                                <input className={'textInput'} type={'text'} name={'description'}
-                                       onChange={handleGetElement}/>
+                                <legend>Tên người dùng</legend>
+                                <input className={'textInput'} type={'text'} name={'startDate'}
+                                       onChange={(e)=>handleGetElementFromInp(e,{formData,setFormData})}/>
                             </fieldset>
                         </div>
                         <div style={{
@@ -90,14 +71,17 @@ const AddNewProd = ({setStatus}) => {
                             width: '35%'
                         }}>
                             <fieldset className={'fieldset'}>
-                                <legend>Địa chỉ trang trại</legend>
-                                <input className={'textInput'} type={'text'} name={'location'}
-                                       onChange={handleGetElement}/>
+                                <legend>Email</legend>
+                                <input className={'textInput'} type={'text'} name={'size'}
+                                       onChange={(e)=>handleGetElementFromInp(e,{formData,setFormData})}/>
                             </fieldset>
                             <fieldset className={'fieldset'}>
-                                <legend>Tên trang trại</legend>
-                                <input className={'textInput'} type={'text'} name={'name'}
-                                       onChange={handleGetElement}/>
+                                <legend>Vai trò</legend>
+                                <select className={'selectInput'} name={'roleName'} onChange={(e)=>handleGetElementFromInp(e,formData,setFormData)}>
+                                    {roleName.map((item,index)=>(
+                                        <option key={index} name={'roleName'} value={item}>{item}</option>
+                                    ))}
+                                </select>
                             </fieldset>
                         </div>
                         <div style={{
@@ -108,8 +92,9 @@ const AddNewProd = ({setStatus}) => {
                             width: '30%'
                         }}>
                             <fieldset className={'fieldset'}>
-                                <legend>Hình ảnh trang trại</legend>
-                                <input className={'textInput'} type={'file'} onChange={handleGetFile}/>
+                                <legend>Mật khẩu</legend>
+                                <input className={'textInput'} type={'text'} name={'name'}
+                                       onChange={handleGetElementFromInp}/>
                             </fieldset>
                         </div>
                     </div>
@@ -119,10 +104,9 @@ const AddNewProd = ({setStatus}) => {
                     </div>
                 </form>
             </div>
-            <div style={{width: "inherit", height: 'inherit', position: 'absolute', zIndex: '1'}}
-                 className={'bg-close-dialog'}
+            <div style={{width: "inherit", height: 'inherit', position: 'absolute'}} className={'bg-close-dialog'}
                  onClick={handleCancelForm}></div>
         </div>
     )
 }
-export default AddNewProd
+export default AddNewUser

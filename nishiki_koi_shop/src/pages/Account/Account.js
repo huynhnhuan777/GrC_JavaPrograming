@@ -43,63 +43,69 @@ const Account = () => {
 
     return (
         <div className="customer-info-container">
-            <h2>Thông tin khách hàng</h2>
-            <form className="customer-info-form">
-                <div className="form-group">
-                    <label>Họ và tên : </label>
-                    <input
-                        type="text"
-                        name="fullName"
-                        value={customer.fullName}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Sinh nhật : </label>
-                    <input
-                        type="text"
-                        name="birthdate"
-                        value={customer.birthdate}
-                        onChange={handleInputChange}
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Địa chỉ : </label>
-                    <input className={'inputText'}
-                        type="text"
-                        name="address"
-                        value={customer.address}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Email : </label>
-                    <input className={'inputEmail'}
-                        type="email"
-                        name="email"
-                        value={customer.email}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Điện thoại : </label>
-                    <input
-                        type="text"
-                        name="phone"
-                        value={customer.phone}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </div>
-                <div className="button-group">
-                    <button className={'UpdateBtn'} type="button" onClick={handleUpdate}>Cập nhật thông tin</button>
-                    <button className={'ResetBtn'} type="button" onClick={handleForgotPassword}>Thay đổi mật khẩu mật khẩu</button>
-                    <button className={'ViewBtn'} type="button" onClick={handleViewOrderHistory}>Xem lịch sử mua hàng</button>
-                </div>
-            </form>
+            <div className={'customer-info-content'}>
+                <h2>Thông tin khách hàng</h2>
+                <form className="customer-info-form">
+                    <div className="form-group">
+                        <label>Họ và tên : </label>
+                        <input
+                            type="text"
+                            name="fullName"
+                            value={customer.fullName}
+                            onChange={handleInputChange}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Sinh nhật : </label>
+                        <input
+                            type="text"
+                            name="birthdate"
+                            value={customer.birthdate}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Địa chỉ : </label>
+                        <input className={'inputText'}
+                               type="text"
+                               name="address"
+                               value={customer.address}
+                               onChange={handleInputChange}
+                               required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Email : </label>
+                        <input className={'inputEmail'}
+                               type="email"
+                               name="email"
+                               value={customer.email}
+                               onChange={handleInputChange}
+                               required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Điện thoại : </label>
+                        <input
+                            type="text"
+                            name="phone"
+                            value={customer.phone}
+                            onChange={handleInputChange}
+                            required
+                        />
+                    </div>
+                    <div className="button-group">
+                        <button className={'UpdateBtn'} type="button" onClick={handleUpdate}>Cập nhật thông tin</button>
+                        <button className={'ResetBtn'} type="button" onClick={handleForgotPassword}>Thay đổi mật khẩu
+                            mật khẩu
+                        </button>
+                        <button className={'ViewBtn'} type="button" onClick={handleViewOrderHistory}>Xem lịch sử mua
+                            hàng
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 }

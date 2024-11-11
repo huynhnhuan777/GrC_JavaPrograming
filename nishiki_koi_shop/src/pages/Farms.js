@@ -1,11 +1,11 @@
 import React, {createContext, useEffect, useState} from "react";
-import '../../assets/css/Tour/tours.css';
+import '../assets/css/Tour/tours.css';
 import {Link} from "react-router-dom";
 import {toast, ToastContainer} from "react-toastify";
-import {tempTour, tempFarm} from "../../store/sampleTest";
-import warningPNG from '../../assets/img/warning.png'
+import {tempTour, tempFarm} from "../store/sampleTest";
+import warningPNG from '../assets/img/warning.png'
 
-const Tours = () => {
+const Farms = () => {
 
     const [farmFilter, setFarmFilter] = useState([]);
     const [isActive, setIsActive] = useState(Array.from({length: farmFilter.length}, (_, i) => false));
@@ -205,4 +205,4 @@ const Tours = () => {
         </div>
     )
 }
-export default Tours;
+export default Farms;

@@ -1,0 +1,31 @@
+.fieldset {
+    width: calc(100% - 5px) !important;
+}
+
+.textInput {
+    width: calc(100% - 20px) !important;
+}
+
+.textareaInput {
+    width: calc(100% - 20px);
+    height: 140px;
+    padding: 2px 10px;
+    border: none;
+    margin: 0;
+    resize: none;
+}
+
+textarea.textareaInput:focus-visible {
+    outline: #007BFF auto 1px;
+}
+
+.fileInput {
+    border-width: 2px;
+    border-style: groove;
+    border-image: initial;
+    box-shadow: none;
+    border-color: rgba(108, 108, 108, 0.6);
+    height: 100%;
+    padding: 10px;
+    border-radius: 5px;
+}

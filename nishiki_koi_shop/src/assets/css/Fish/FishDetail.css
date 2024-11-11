@@ -36,9 +36,10 @@
     background-color: #f9f9f9;
 }
 
-.fish-detail-content{
+.fish-detail-content {
     width: 80%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin-top: 100px;
@@ -46,18 +47,24 @@
 
 .fish-detail {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start; /* Căn về phía bên trái */
     margin-bottom: 40px;
+    width: 100%;
 }
 
 .fish-image {
-    width: 50%;
+    width: 30%; /* Tăng kích thước hình ảnh để thông tin gần hơn */
+    height: auto; /* Giữ tỷ lệ hình ảnh */
+    object-fit: cover;
     border-radius: 10px;
+    margin-right: 20px;
 }
 
 .fish-info {
-    width: 45%;
+    width: 65%;
     padding-left: 20px;
+    text-align: left;
+    margin-left: 10px;
 }
 
 .fish-info h1 {
@@ -123,6 +130,7 @@
 
 .related-products {
     margin-top: 40px;
+    width: 100%;
 }
 
 .related-products h2 {
@@ -144,6 +152,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     transition: transform 0.3s ease;
+    margin-bottom: 20px;
 }
 
 .related-product-card:hover {
@@ -152,6 +161,8 @@
 
 .related-product-image {
     width: 100%;
+    height: 150px;
+    object-fit: cover;
     border-radius: 10px;
     margin-bottom: 10px;
 }
@@ -164,4 +175,40 @@
 .related-product-card p {
     font-size: 16px;
     color: #d9534f;
+}
+
+/* Responsive - Đảm bảo giao diện hoạt động tốt trên các màn hình nhỏ */
+@media (max-width: 768px) {
+    .fish-detail-content {
+        width: 90%;
+    }
+
+    .fish-detail {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .fish-info {
+        width: 100%;
+        padding-left: 0;
+    }
+
+    .related-product-card {
+        width: 48%;
+    }
+}
+
+@media (max-width: 480px) {
+    .related-product-card {
+        width: 100%;
+    }
+
+    .fish-price {
+        font-size: 18px;
+    }
+
+    .add-to-cart-button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
 }
