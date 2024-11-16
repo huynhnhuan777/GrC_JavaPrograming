@@ -3,12 +3,14 @@ import {useEffect, useState} from "react";
 import {ToolManager} from "../../../components/Admin/ToolManager";
 import '../../../assets/css/Admin/Page/Manage/AdminProducts.css'
 import {handleChooseOne, handleGetAllProd, useChooseAll} from "../../../utils/handleFuncs";
-import {ToastContainer} from "react-toastify";
+import {toast, ToastContainer} from "react-toastify";
 
 const AdminProducts = () => {
     const [fishData, setFishData] = useState([]);
-    const [farmData, setFarmData] = useState([]);
-    const [typeData, setTypeData] = useState([]);
+    const [farmData, setFarmData] = useState(null);
+    const [typeData, setTypeData] = useState(null);
+
+    const [isFetching, setIsFetching] = useState(false);
 
     const [status, setStatus] = useState(false);
     const {chooseAll, chooseOne, handleChooseAll, setChooseOne, setChooseAll} = useChooseAll(fishData.length);
@@ -23,7 +25,7 @@ const AdminProducts = () => {
 
     const handleGetTypeName = (id) => {
         if (id) {
-            const type = typeData.find(t => t.id=== id);
+            const type = typeData.find(t => t.id === id);
             return type ? type.name : 'unknown';
         } else return null;
     }
@@ -32,11 +34,25 @@ const AdminProducts = () => {
         handleGetAllProd('http://localhost:8080/api/v1/manager/fish/get-all-fishes', sessionStorage.getItem('token'), setFishData, setChooseOne);
         handleGetAllProd('http://localhost:8080/api/v1/manager/farm/get-all-farm', sessionStorage.getItem('token'), setFarmData, null);
         handleGetAllProd('http://localhost:8080/api/v1/manager/fish-types/get-all-fish-types', sessionStorage.getItem('token'), setTypeData, null);
+        setIsFetching(true);
     }, []);
 
-    // useEffect(()=>{
-    //     console.log(fishData);
-    // },[fishData])
+    useEffect(() => {
+        if (Array.isArray(farmData) && farmData.length === 0 && isFetching === true) {
+            toast.error('Dữ liệu cần thiết về trang trại không tồn tại!')
+        }
+    }, [isFetching]);
+
+    useEffect(() => {
+        if (Array.isArray(typeData) && typeData.length === 0 && isFetching) {
+            toast.error('Dữ liệu cần thiết về phân loại không tồn tại!')
+        }
+    }, [isFetching])
+
+    // useEffect(() => {
+    //     console.log(farmData);
+    //     console.log(isFetching);
+    // }, [farmData]);
 
     return (
         <div className={'ad-prod-container'}>
@@ -49,7 +65,7 @@ const AdminProducts = () => {
                 />
                 {status && <AddNewProd setStatus={setStatus}/>}
                 <div className={'list-prod'}>
-                    <div className={'item-prod'} style={{minHeight:'30px'}}>
+                    <div className={'item-prod'} style={{minHeight: '30px'}}>
                         <div className={'prod-id'} style={{fontWeight: 'bold'}}>ID</div>
                         <div className={'prod-name'} style={{fontWeight: 'bold'}}>Tên</div>
                         <div className={'prod-desc'} style={{fontWeight: 'bold'}}>Mô tả</div>

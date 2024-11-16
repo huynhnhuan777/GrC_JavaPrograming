@@ -106,11 +106,13 @@ const AddNewTour = ({setStatus}) => {
                         }}>
                             <fieldset className={'fieldset'}>
                                 <legend>Thuộc nông trại</legend>
-                                {handleRenderSelectCard('farmId',
-                                    '-1',
-                                    farmData,
-                                    false,
-                                    formData)}
+                                {handleRenderSelectCard({
+                                    name: 'farmId',
+                                    currChoice: '-1',
+                                    arrayData: farmData,
+                                    isDisabled: false,
+                                    useHook: formData
+                                })}
                             </fieldset>
                             <fieldset className={'fieldset'}>
                                 <legend>Hình ảnh sản phẩm</legend>
