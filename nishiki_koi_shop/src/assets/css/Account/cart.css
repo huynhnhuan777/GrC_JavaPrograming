@@ -2,30 +2,47 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 40px 0;
+    margin: 50px 0;
     width: 100%;
+    padding: 30px;
 }
 
 .cart-content {
-    width: 80%;
+    width: 90%;
+    overflow-x: auto;
 }
 
 .cart-content table {
     width: 100%;
+    border-collapse: collapse;
 }
 
-.infoProd{
+.cart-content th,
+.cart-content td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.cart-content tr:hover {
+    background-color: var(--btn-bg-color-hover);
+}
+
+.infoProd {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     flex-direction: row;
+}
+
+.infoProd img {
+    width: 50px;
+    margin-right: 10px;
 }
 
 .changeAmountBtns {
     display: flex;
     align-items: center;
-    justify-content: center;
-    flex-direction: row;
+    gap: 10px;
 }
 
 .optionBtns {
@@ -38,7 +55,7 @@
 .featureBtn {
     background-color: var(--btn-bg-color);
     border: none;
-    padding: 5px 15px;
+    padding: 5px 10px;
     border-radius: 50px;
     margin: 5px;
     font-weight: bold;
@@ -50,16 +67,47 @@
     box-shadow: 0 1px 10px 3px var(--box-shadow-btn);
 }
 
-tr{
-    border-bottom:1px solid gray;
+tr {
+    border-bottom: 1px solid gray;
 }
-tr:hover{
+
+tr:hover {
     background-color: rgba(128, 128, 128, 0.22);
 }
 
-.disable{
+.disable {
     background-color: transparent;
 }
-.disable:hover{
+
+.disable:hover {
     background-color: transparent;
+}
+
+@media (max-width: 768px) {
+    .cart-container {
+        margin: 20px 0;
+    }
+
+    .cart-content {
+        width: 100%;
+    }
+
+    .cart-content th,
+    .cart-content td {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .infoProd img {
+        width: 40px;
+    }
+
+    .featureBtn {
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+
+    .changeAmountBtns {
+        align-items: flex-start;
+    }
 }

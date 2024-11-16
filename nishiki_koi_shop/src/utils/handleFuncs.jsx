@@ -252,6 +252,10 @@ export const handleDeleteObj = async (item, idItem, token) => {
             urlAPI = `http://localhost:8080/api/v1/manager/farm/delete/${idItem}`;
             break;
         }
+        case 'cart': {
+            urlAPI = `http://localhost:8080/api/v1/cart/items/delete/${idItem}`;
+            break;
+        }
     }
     if (idItem < 0) {
         toast.error('Có cái dell gì đâu đây mà xóa?')
