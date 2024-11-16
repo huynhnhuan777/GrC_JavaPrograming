@@ -24,8 +24,9 @@ const AdminLayout = ({childCompo, title}) => {
                             <li><Link to={'/feedback'}>Phản hồi</Link></li>
                             <li style={{padding: "15px", color: "white"}}>Quản lí
                                 <ul className={'controller-sub-navbar'}>
-                                    <li><Link to={'/products'}>Sản phẩm</Link></li>
-                                    <li><Link to={'/farms'}>Trang trại</Link></li>
+                                    <li><Link to={'/products'}>Giống cá</Link></li>
+                                    <li><Link to={'/farms'}>Nông trại</Link></li>
+                                    <li><Link to={'/types'}>Phân loại cá</Link></li>
                                     <li><Link to={'/tours'}>Chuyến đi</Link></li>
                                     <li><Link to={'/users'}>Người dùng</Link></li>
                                 </ul>

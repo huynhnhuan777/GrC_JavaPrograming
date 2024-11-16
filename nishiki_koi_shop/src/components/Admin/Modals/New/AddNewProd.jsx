@@ -2,12 +2,10 @@ import '../../../../assets/css/Admin/Component/CreateNew/addNewProd.css'
 import {useEffect, useState} from "react";
 import {
     handleGetAllProd,
-    handleGetElementFromInp,
     handleSubmit,
-    handleUploadImage, useChooseAll,
+    useChooseAll,
     useHookProdForm
 } from "../../../../utils/handleFuncs";
-import axios from "axios";
 import {toast} from "react-toastify";
 import {handleRenderSelectCard} from "../../../../utils/handleRenderFuncs";
 
@@ -24,7 +22,7 @@ const AddNewProd = ({setStatus}) => {
     }
 
     useEffect(() => {
-        if (formData.values.image !== null) {
+        if (formData.values.image.name !== "") {
             toast.success('Getting file successfully.');
         }
     }, [formData.values.image]);
@@ -33,10 +31,6 @@ const AddNewProd = ({setStatus}) => {
         handleGetAllProd('http://localhost:8080/api/v1/manager/farm/get-all-farm', sessionStorage.getItem('token'), setFarmData, setChooseOne);
         handleGetAllProd('http://localhost:8080/api/v1/manager/fish-types/get-all-fish-types', sessionStorage.getItem('token'), setTypeData, null);
     }, []);
-
-    // useEffect(() => {
-    //     console.log(typeData)
-    // }, [typeData]);
 
     return (
         <div className={'form-container'}>
@@ -115,20 +109,24 @@ const AddNewProd = ({setStatus}) => {
                             </fieldset>
                             <fieldset className={'fieldset'}>
                                 <legend>Trang trại</legend>
-                                {handleRenderSelectCard('farmId',
-                                    '-1',
-                                    farmData,
-                                    false,
-                                    formData
+                                {formData && handleRenderSelectCard({
+                                        name: 'farmId',
+                                        currChoice: '-1',
+                                        arrayData: farmData,
+                                        isDisabled: false,
+                                        useHook: formData
+                                    }
                                 )}
                             </fieldset>
                             <fieldset className={'fieldset'}>
                                 <legend>Phân loại</legend>
-                                {handleRenderSelectCard('fishTypeId',
-                                    '-1',
-                                    typeData,
-                                    false,
-                                    formData
+                                {handleRenderSelectCard({
+                                        name: 'fishTypeId',
+                                        currChoice: '-1',
+                                        arrayData: typeData,
+                                        isDisabled: false,
+                                        useHook: formData
+                                    }
                                 )}
                             </fieldset>
                         </div>

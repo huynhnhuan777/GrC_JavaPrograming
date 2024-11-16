@@ -1,3 +1,40 @@
+.show-detail-obj .form-field {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.show-detail-obj .form-field .form-part {
+    width: 49%;
+}
+
+.show-detail-obj .form-field .form-part .form-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: initial;
+    box-shadow: 0 4px 14px var(--box-shadow-dialog);
+    border-radius: 5px;
+    z-index: 10;
+    background-color: white;
+    height: max-content;
+}
+
+.show-detail-obj .form-field .form-part .form-content .form-content {
+    width: auto;
+    padding: 0;
+    margin: 10px 0;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 .fieldset {
     width: calc(100% - 5px) !important;
 }

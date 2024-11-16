@@ -17,10 +17,6 @@ const AdminFarms = () => {
         handleGetAllProd('http://localhost:8080/api/v1/manager/farm/get-all-farm', sessionStorage.getItem('token'), setData, setChooseOne);
     }, []);
 
-    useEffect(() => {
-        console.log(data);
-    }, [data])
-
     return (
         <div className={'ad-farm-container'}>
             <div className={'ad-farm-content'}>
@@ -32,7 +28,7 @@ const AdminFarms = () => {
                 />
                 {status && <AddNewFarm setStatus={setStatus}/>}
                 <div className={'list-farm'}>
-                    <div className={'item-farm'} style={{minHeight:'30px'}}>
+                    <div className={'item-farm'} style={{minHeight: '30px'}}>
                         <div className={'farm-id'} style={{fontWeight: 'bold'}}>ID</div>
                         <div className={'farm-name'} style={{fontWeight: 'bold'}}>Tên trang trại</div>
                         <div className={'farm-desc'} style={{fontWeight: 'bold'}}>Mô tả</div>
@@ -56,7 +52,7 @@ const AdminFarms = () => {
                             </div>
                             <div className={'farm-tool'}>
                                 <input className={'check-box'} type={'checkbox'}
-                                       style={{width: '15px', height: '15px'}}
+                                       style={{width: '20px', height: '20px'}}
                                        onClick={() => handleChooseOne(chooseOne, setChooseOne, index, Number(item.id), setId)}
                                 />
                             </div>

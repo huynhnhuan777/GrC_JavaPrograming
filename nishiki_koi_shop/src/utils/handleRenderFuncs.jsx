@@ -1,6 +1,7 @@
 import {toast} from "react-toastify";
 import '../assets/css/Admin/Page/Manage/AdminUser.css'
 import {handleGetElementFromInp} from "./handleFuncs";
+import {useEffect} from "react";
 
 export const handleChangeOption = () => {
     toast.success('Thay đổi trạng thái thành công');
@@ -10,17 +11,15 @@ export const handleChangeOption = () => {
  *
  * @param {String} name  set name for input card (select card)
  * @param {String} currChoice  current value of object
- * @param {Array} arrayData  an array of object (for example: farm in farms)
+ * @param {Array} arrayData an array of object (for example: farm in farms)
  * @param {boolean} isDisabled  decide about block or unblock selection
  * @param useHook custom hook
  * @returns {JSX.Element}
  */
-export const handleRenderSelectCard = (name, currChoice, arrayData, isDisabled, useHook) => {
+export const handleRenderSelectCard = ({name, currChoice, arrayData, isDisabled, useHook}) => {
     let temp;
     if (isDisabled) temp = Array(arrayData.length).fill(false);
     else temp = Array(arrayData.length).fill(true);
-
-    const formData = useHook;
 
     let checkCurr = false;
     for (let i = 0; i < arrayData.length; i++) {
@@ -31,16 +30,15 @@ export const handleRenderSelectCard = (name, currChoice, arrayData, isDisabled, 
             temp[i] = true;
         }
     }
-
     return (
         <select className={'select-status'}
                 name={name}
-                value={formData.values[currChoice]}
-                onChange={formData.handleChange}
+                onChange={useHook.handleChange}
+                value={currChoice !== '-1' ? currChoice : undefined}
                 style={{textAlign: 'center', width: '100%', borderRadius: '5px'}}>
-            <option value={''}>---</option>
+            <option value={'-1'}>---</option>
             {arrayData.map((item, index) => (
-                <option key={index} value={item.id} disabled={!temp[index]}>{item}</option>
+                <option key={index} value={item.id} disabled={!temp[index]}>{item.name}</option>
             ))}
         </select>
     )
