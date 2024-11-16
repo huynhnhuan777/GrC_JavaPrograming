@@ -88,3 +88,7 @@ ul.controller-navbar li:hover ul.controller-sub-navbar {
     padding: 10px 0 0 0;
     height: calc(100vh - 70px);
 }
+
+.check-box:hover {
+    cursor: pointer;
+}

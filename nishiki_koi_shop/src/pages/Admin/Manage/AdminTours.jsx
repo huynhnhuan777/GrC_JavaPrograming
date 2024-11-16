@@ -3,14 +3,15 @@ import AddNewTour from "../../../components/Admin/Modals/New/AddNewTour";
 import '../../../assets/css/Admin/Page/Manage/AdminTours.css'
 import {handleChooseOne, handleGetAllProd, useChooseAll} from "../../../utils/handleFuncs";
 import {ToolManager} from "../../../components/Admin/ToolManager";
-import {ToastContainer} from "react-toastify";
+import {toast, ToastContainer} from "react-toastify";
 
 const AdminTours = () => {
     const [status, setStatus] = useState(false);
     const [data, setData] = useState([]);
-    const [farmData, setFarmData] = useState([]);
+    const [farmData, setFarmData] = useState(null);
     const [id, setId] = useState(-1);
     const {chooseAll, chooseOne, handleChooseAll, setChooseOne, setChooseAll} = useChooseAll(data.length);
+    const [isFetching, setIsFetching] = useState(false);
 
     const handleGetFarmName = (id) => {
         if (id) {
@@ -25,8 +26,10 @@ const AdminTours = () => {
     }, [])
 
     useEffect(() => {
-        console.log(data);
-    }, [data])
+        if (Array.isArray(farmData) && farmData.length === 0 && isFetching === true) {
+            toast.error('Dữ liệu cần thiết về trang trại không tồn tại!')
+        }
+    }, [isFetching]);
 
     return (
         <div className={'ad-tour-container'}>
@@ -34,6 +37,8 @@ const AdminTours = () => {
                 <ToolManager setStatus={setStatus} itemLength={data.length}
                              useHook={{chooseAll, chooseOne, handleChooseAll, setChooseOne, setChooseAll}}
                              idItem={id}
+                             nameItem={'tour'}
+                             baseUrl={'tours'}
                 />
                 {status && <AddNewTour setStatus={setStatus}/>}
                 <div className={'list-tour'}>

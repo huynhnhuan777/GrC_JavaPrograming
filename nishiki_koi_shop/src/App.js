@@ -33,6 +33,7 @@ import AdminReports from "./components/Admin/AdminReports";
 import Policy from "./pages/Contact/Policy";
 import {jwtDecode} from "jwt-decode";
 import AdminShowDetail from "./pages/Admin/Detail/AdminShowDetail";
+import AdminTypeProd from "./pages/Admin/Manage/AdminTypeProd";
 
 
 const AutoScrollToTop = () => {
@@ -139,6 +140,12 @@ const App = () => {
                                element={<AdminLayout
                                    childCompo={<AdminShowDetail/>}
                                    title={'Chi tiết đối tượng'}>
+                               </AdminLayout>}
+                        />
+                        <Route path={'/types'}
+                               element={<AdminLayout
+                                   childCompo={<AdminTypeProd/>}
+                                   title={'Quản lí các câp phân loại giống cá'}>
                                </AdminLayout>}
                         />
                         <Route path={'/*'} element={<Page404/>}/>

@@ -58,12 +58,7 @@ export const handleChooseOne = (chooseOne, setChooseOne, index, idItem, setId) =
 
 export const useHookUserForm = () => {
     const [formData, setFormData] = useState({
-        username: '',
-        fullName: '',
-        email: '',
-        roleName: '',
-        createdDate: '',
-        password: '',
+        username: '', fullName: '', email: '', roleName: '', createdDate: '', password: '',
     })
     return {formData, setFormData};
 }
@@ -74,7 +69,7 @@ export const useHookProdForm = () => {
             name: '',
             price: '',
             description: '',
-            image: null,
+            image: new File([], ""),
             size: '',
             quantity: '',
             fishTypeId: '',
@@ -86,11 +81,7 @@ export const useHookProdForm = () => {
 export const useHookFarmForm = () => {
     return useFormik({
         initialValues: {
-            name: '',
-            description: '',
-            location: '',
-            image: null,
-            contactInfo: ''
+            name: '', description: '', location: '', image: new File([], ""), contactInfo: ''
         }
     })
 }
@@ -98,14 +89,15 @@ export const useHookFarmForm = () => {
 export const useHookTourForm = () => {
     return useFormik({
         initialValues: {
-            name: '',
-            description: '',
-            price: '',
-            image: null,
-            startDate: '',
-            endDate: '',
-            capacity: 0,
-            farmId: 0,
+            name: '', description: '', price: '', image: null, startDate: '', endDate: '', capacity: 0, farmId: 0,
+        }
+    })
+}
+
+export const useHookTypeForm = () => {
+    return useFormik({
+        initialValues: {
+            name: '', description: '',
         }
     })
 }
@@ -130,8 +122,7 @@ export async function handleGetAllProd(urlAPI, token, setData, setChooseOne) {
 
         const data = await response.json();
         setData(data);
-        if (setChooseOne !== null)
-            setChooseOne(Array(data.length).fill(false));
+        if (setChooseOne !== null) setChooseOne(Array(data.length).fill(false));
     } catch (e) {
         toast.error('Kết nối đến server thất bại. Vui lòng liên hệ bộ phận kỹ thuật!');
         console.error("error: ", e.message);
@@ -141,11 +132,10 @@ export async function handleGetAllProd(urlAPI, token, setData, setChooseOne) {
 export async function handleGetObjById(urlAPI, token, setData) {
     try {
         const response = await fetch(urlAPI, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-        ;
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
         if (!response.ok) {
             console.log('can not fetch data');
             return;
@@ -157,20 +147,27 @@ export async function handleGetObjById(urlAPI, token, setData) {
     }
 }
 
+/**
+ * handleUploadImage is using cloudinary service (will be handle in server), so the parameters below are using to catch and send data
+ * @since 0.0.1
+ * @param {Object} file
+ * @param {function} setImageUrl set new value for ImageUrl (can be null)
+ * @param {String} upload_preset A string ID in your cloudinary account (normally, it's a upload_present_id for any folder)
+ * @returns {Promise<void>}
+ */
 export const handleUploadImage = async (file, setImageUrl, upload_preset) => {
     const fData = new FormData();
     fData.append('file', file);
     fData.append('upload_preset', upload_preset);
     try {
         const response = await fetch(`https://api.cloudinary.com/v1_1/dxda6158s/image/upload`, {
-            method: 'POST',
-            body: fData,
+            method: 'POST', body: fData,
         });
         const data = await response.json();
         const imageUrl = data.secure_url;
         sessionStorage.setItem('publicId', data.public_id);
         if (imageUrl !== null || imageUrl !== '') {
-            setImageUrl(data.secure_url);
+            if (setImageUrl) setImageUrl(data.secure_url);
             toast.success('Tải ảnh thành công!');
         } else toast.error('Tải ảnh thất bại...');
     } catch (e) {
@@ -197,28 +194,35 @@ export const handleUploadImage = async (file, setImageUrl, upload_preset) => {
  * **/
 export const handleSubmit = async (e, formData, urlAPI, token, method, setStatus, urlCurrPage) => {
     e.preventDefault();
+    console.log(formData.values);
     try {
         const formDataToSend = new FormData();
         Object.keys(formData.values).forEach(key => {
-            // console.log(formData.values[key])
+            if (key === 'image') {
+                if (formData.values.image.name !== "")
+                    formDataToSend.append(key, formData.values[key]);
+                else
+                    formDataToSend.append(key, new File([], ""));
+            }
             formDataToSend.append(key, formData.values[key]);
-            console.log(key + ':' + formData.values[key]);
         });
 
         const response = await fetch(urlAPI, {
             headers: {
                 'Authorization': `Bearer ${token}`,
-            },
-            method: method,
-            body: formDataToSend,
+            }, method: method, body: formDataToSend,
         });
 
         if (response.ok) {
-            if (setStatus !== null) {
-                setStatus(false);
-            }
-            toast.success('Đã tải thành công, vui lòng chờ trong giây lát...')
-            window.location.assign(urlCurrPage)
+            toast.success('Đã tải thành công, vui lòng chờ trong giây lát...', {
+                onClose: () => {
+                    if (setStatus !== null) {
+                        setStatus(false);
+                    }
+                    window.location.assign(urlCurrPage)
+                },
+                autoClose: 1500,
+            })
         } else {
             toast.error('Lỗi không xác định: Vui lòng kiểm tra các trường dữ liệu!');
         }
@@ -249,13 +253,15 @@ export const handleDeleteObj = async (item, idItem, token) => {
             break;
         }
     }
+    if (idItem < 0) {
+        toast.error('Có cái dell gì đâu đây mà xóa?')
+        return;
+    }
     try {
         const response = await fetch(urlAPI, {
             headers: {
-                'Authorization': `Bearer ${token}`,
-                ContentType: "application/json"
-            },
-            method: 'DELETE',
+                'Authorization': `Bearer ${token}`, ContentType: "application/json"
+            }, method: 'DELETE',
         })
 
         if (!response.ok) {

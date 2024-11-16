@@ -86,32 +86,38 @@ const SignInForm = () => {
                 {success && <p className="success-text">{success}</p>}
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label htmlFor="email">Email</label>
-                        <input
-                            type="email"
-                            id="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
+                        <fieldset className="fieldset">
+                            <legend>Email</legend>
+                            <input
+                                className="textInput"
+                                type="email"
+                                id="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
+                        </fieldset>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="password">Mật khẩu</label>
-                        <input
-                            type="password"
-                            id="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
+                        <fieldset className="fieldset">
+                            <legend>Mật khẩu</legend>
+                            <input
+                                className="textInput"
+                                type="password"
+                                id="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            />
+                        </fieldset>
                     </div>
 
                     {/*{error && <p className="error-text">{error}</p>}*/}
-                    <button className={'submit-Form'} type="submit">Đăng nhập</button>
+                    <button className={'submit-form'} type="submit">Đăng nhập</button>
                 </form>
 
-                {/* Liên kết Quay lại */}
-                <Link to="/" className="back-link">Quay lại trang trước</Link>
+                {/* Liên kết ra đăng ký */}
+                <Link to="/sign-up" className="back-link">Chưa có tài khoản ? Đăng ký</Link>
             </div>
             <ToastContainer/>
         </div>
