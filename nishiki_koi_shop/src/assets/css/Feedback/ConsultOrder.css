@@ -1,0 +1,88 @@
+/* ConsultOrder.css */
+
+/* Container chính */
+.consult-order-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* Tiêu đề trang */
+.consult-order-container h1 {
+    text-align: center;
+    color: #333;
+}
+
+/* Phần tạo đơn hàng */
+.order-actions {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.order-actions h2 {
+    color: #333;
+}
+
+.order-actions input,
+.order-actions textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.order-actions button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.order-actions button:hover {
+    background-color: #45a049;
+}
+
+/* Danh sách đơn hàng */
+.order-list {
+    margin-top: 20px;
+}
+
+.order-list h2 {
+    color: #333;
+}
+
+.order-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.order-list li {
+    background-color: #f9f9f9;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.order-list li p {
+    margin: 5px 0;
+    color: #555;
+}
+
+/* Nút chuyển trang */
+.switch-page-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #4CAF50;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.switch-page-link:hover {
+    text-decoration: underline;
+}

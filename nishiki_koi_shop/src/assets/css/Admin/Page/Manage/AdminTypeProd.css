@@ -1,4 +1,4 @@
-.ad-tour-container {
+.ad-prod-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,7 +8,7 @@
     height: 100%;
 }
 
-.ad-tour-content {
+.ad-prod-content {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -18,35 +18,36 @@
     height: 100%;
 }
 
-.list-tour {
-    width: 100%;
-    margin: 20px;
-}
-
-.item-tour {
+.item-prod {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     padding: 5px;
     background-image: linear-gradient(90deg, #d7aae1, #ff4c4c);
-    border-radius:10px;
+    border-radius: 10px;
     margin-bottom: 15px;
     width: 100%;
+    min-height: 60px;
 }
 
-.tour-id{
+.list-prod {
+    width: 100%;
+    margin: 20px;
+}
+
+.type-id {
     width: 5%;
     padding: 0 5px;
 }
 
-.tour-name {
+.type-name {
     width: 15%;
     padding: 0 5px;
 }
 
-.tour-desc {
-    width: 25%;
+.type-desc {
+    width: 75%;
     padding: 0 5px;
     overflow-x: hidden;
     overflow-y: auto;
@@ -57,32 +58,7 @@
     flex-direction: row;
 }
 
-.tour-start-date{
-    width: 10%;
-    padding: 0 5px;
-}
-
-.tour-end-date{
-    width: 10%;
-    padding: 0 5px;
-}
-
-.tour-capacity{
-    width: 5%;
-    padding: 0 5px;
-}
-
-.tour-price{
-    width: 20%;
-    padding: 0 5px;
-}
-
-.tour-farm{
-    width: 5%;
-    padding: 0 5px;
-}
-
-.tour-tool{
+.type-tool {
     width: 5%;
     padding: 0 5px;
 }

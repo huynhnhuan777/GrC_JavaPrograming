@@ -1,53 +1,49 @@
 import '../../../../assets/css/Admin/Component/CreateNew/addNewProd.css'
 import {useEffect, useState} from "react";
 import {
-    handleGetAllProd, handleGetElement, handleGetElementFromInp,
-    handleSubmit,
-    handleUploadImage, useChooseAll,
-    useHookFarmForm,
+    handleGetAllProd, handleSubmit,
     useHookTourForm
 } from "../../../../utils/handleFuncs";
 import {toast} from "react-toastify";
+import {handleRenderSelectCard} from "../../../../utils/handleRenderFuncs";
 
-const AddNewProd = ({setStatus}) => {
-    const {formData, setFormData} = useHookTourForm();
-    const [imageUrl, setImageUrl] = useState('');
+const AddNewTour = ({setStatus}) => {
+    const formData = useHookTourForm();
     const [farmData, setFarmData] = useState([]);
-    const [data, setData] = useState([]);
-
-    const handleGetFile = async (e) => {
-        await handleUploadImage(e.target.files[0], setImageUrl, process.env.REACT_APP_UPLOAD_PRESET_TOUR);
-    }
-
     const handleCancelForm = (e) => {
         e.preventDefault();
+        formData.resetForm();
         setStatus(false);
     }
 
     useEffect(() => {
-        if (imageUrl !== '') {
-            toast.success('Cacthed this file!')
-            setFormData({
-                ...formData,
-                image: imageUrl
-            })
+        if (formData.values.image !== null) {
+            toast.success('Getting file successfully.');
         }
-    }, [imageUrl]);
+    }, [formData.values.image]);
 
     useEffect(() => {
         handleGetAllProd('http://localhost:8080/api/v1/manager/farm/get-all-farm', sessionStorage.getItem('token'), setFarmData, null);
     }, []);
 
-    useEffect(() => {
-        console.log(farmData);
-    }, [])
+    // useEffect(() => {
+    //     console.log(farmData);
+    // }, [])
 
     return (
         <div className={'form-container'}>
             <div className={'form-content'}>
                 <h3>Thêm chuyến đi mới</h3>
                 <form className={'form-field'}
-                      onSubmit={(e) => handleSubmit(e, formData, "http://localhost:8080/api/v1/manager/tour/create-tour", sessionStorage.getItem('token'), setStatus, '/admin/tours')}>
+                      encType={'multipart/form-data'}
+                      onSubmit={(e) => handleSubmit(e,
+                          formData,
+                          "http://localhost:8080/api/v1/manager/tour/create-tour",
+                          sessionStorage.getItem('token'),
+                          "POST",
+                          setStatus,
+                          '/admin/tours'
+                      )}>
                     <div style={{
                         display: 'flex',
                         justifyContent: 'center',
@@ -64,18 +60,18 @@ const AddNewProd = ({setStatus}) => {
                         }}>
                             <fieldset className={'fieldset'}>
                                 <legend>Tên chuyến đi</legend>
-                                <input className={'textInput'} type={'text'} name={'tourName'}
-                                       onChange={(e) => handleGetElementFromInp(e, {formData,setFormData})}/>
+                                <input className={'textInput'} type={'text'} name={'name'}
+                                       onChange={formData.handleChange}/>
                             </fieldset>
                             <fieldset className={'fieldset'}>
                                 <legend>Mô tả</legend>
-                                <input className={'textInput'} type={'text'} name={'tourDescription'}
-                                       onChange={(e) => handleGetElementFromInp(e, {formData,setFormData})}/>
+                                <input className={'textInput'} type={'text'} name={'description'}
+                                       onChange={formData.handleChange}/>
                             </fieldset>
                             <fieldset className={'fieldset'}>
                                 <legend>Giá</legend>
-                                <input className={'textInput'} type={'number'} name={'tourPrice'}
-                                       onChange={(e) => handleGetElementFromInp(e, {formData,setFormData})}/>
+                                <input className={'textInput'} type={'number'} name={'price'}
+                                       onChange={formData.handleChange}/>
                             </fieldset>
                         </div>
                         <div style={{
@@ -87,18 +83,18 @@ const AddNewProd = ({setStatus}) => {
                         }}>
                             <fieldset className={'fieldset'}>
                                 <legend>Số lượng tham gia</legend>
-                                <input className={'textInput'} type={'text'} name={'tourCapacity'}
-                                       onChange={(e) => handleGetElementFromInp(e, {formData,setFormData})}/>
+                                <input className={'textInput'} type={'text'} name={'capacity'}
+                                       onChange={formData.handleChange}/>
                             </fieldset>
                             <fieldset className={'fieldset'}>
                                 <legend>Ngày khởi hành</legend>
-                                <input className={'textInput'} type={'date'} name={'tourStartDate'}
-                                       onChange={(e) => handleGetElementFromInp(e, {formData,setFormData})}/>
+                                <input className={'textInput'} type={'date'} name={'startDate'}
+                                       onChange={formData.handleChange}/>
                             </fieldset>
                             <fieldset className={'fieldset'}>
                                 <legend>Ngày kết thúc</legend>
-                                <input className={'textInput'} type={'date'} name={'tourEndDate'}
-                                       onChange={(e) => handleGetElementFromInp(e, {formData,setFormData})}/>
+                                <input className={'textInput'} type={'date'} name={'endDate'}
+                                       onChange={formData.handleChange}/>
                             </fieldset>
                         </div>
                         <div style={{
@@ -110,22 +106,28 @@ const AddNewProd = ({setStatus}) => {
                         }}>
                             <fieldset className={'fieldset'}>
                                 <legend>Thuộc nông trại</legend>
-                                <select className={'selectInput'} name={'farmId'}
-                                        onChange={(e) => handleGetElementFromInp(e, {formData,setFormData})}>
-                                    <option defaultValue={-1}>Không</option>
-                                    {farmData.map((item, index) => (
-                                        <option key={index} value={item.farmId}>{item.name}</option>
-                                    ))}
-                                </select>
+                                {handleRenderSelectCard({
+                                    name: 'farmId',
+                                    currChoice: '-1',
+                                    arrayData: farmData,
+                                    isDisabled: false,
+                                    useHook: formData
+                                })}
                             </fieldset>
                             <fieldset className={'fieldset'}>
                                 <legend>Hình ảnh sản phẩm</legend>
-                                <input className={'textInput'} type={'file'} onChange={handleGetFile}/>
+                                <input className={'textInput'}
+                                       name={'image'}
+                                       type={'file'}
+                                       onChange={(e) => formData.setFieldValue('image', e.target.files[0])}/>
                             </fieldset>
                         </div>
                     </div>
                     <div className={'optionBtns'}>
-                        <button className={'featureBtn'} type={'submit'} disabled={imageUrl === ''}>Xác nhận</button>
+                        <button className={'featureBtn'}
+                                type={'submit'}
+                                disabled={formData.values.image === null}>Xác nhận
+                        </button>
                         <button className={'featureBtn'} onClick={handleCancelForm}>Hủy bỏ</button>
                     </div>
                 </form>
@@ -136,4 +138,4 @@ const AddNewProd = ({setStatus}) => {
         </div>
     )
 }
-export default AddNewProd
+export default AddNewTour
