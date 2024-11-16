@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {ToastContainer, toast} from "react-toastify";
+import React, { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import '../../assets/css/Account/payment.css';
 import admin from '../../utils/xml/api_full_administration.json'
@@ -12,7 +12,7 @@ const Payment = () => {
     /*Du lieu mau ve customer*/
 
     const [tempUser, setTempUser] = useState([
-        {id: 'user_1101_1121', name: 'CaoNhatHao', address: ''}
+        { id: 'user_1101_1121', name: 'CaoNhatHao', address: '' }
     ])
 
     const handleSetPayment = (event) => {
@@ -69,7 +69,7 @@ const Payment = () => {
     }, []);
 
     useEffect(() => {
-        const total = listPayment.reduce((acc, item) => acc + (item.amount * item.price), 0);
+        const total = listPayment.reduce((acc, item) => acc + (item.quantity * item.price), 0);
         setTotalCost(total);
     }, [listPayment]);
 
@@ -96,22 +96,22 @@ const Payment = () => {
                 */}
                 <div className={'chooseAddress'}>
                     {tempUser[0].address ? (
-                            <div className={'availableAddress'}>
-                                <h3>Vui lòng chọn địa chỉ giao hàng: </h3>
-                                <form className={'form-address'}>
-                                    <select className={'listAddress'}>
-                                        <option>---</option>
-                                        {tempUser[0].address.map((item, index) => (
-                                            <option key={index} value={index}>{item}</option>
-                                        ))}
-                                    </select>
-                                </form>
-                            </div>
-                        )
+                        <div className={'availableAddress'}>
+                            <h3>Vui lòng chọn địa chỉ giao hàng: </h3>
+                            <form className={'form-address'}>
+                                <select className={'listAddress'}>
+                                    <option>---</option>
+                                    {tempUser[0].address.map((item, index) => (
+                                        <option key={index} value={index}>{item}</option>
+                                    ))}
+                                </select>
+                            </form>
+                        </div>
+                    )
                         :
                         (
                             <div className={'newAddress'}>
-                                <h3 style={{padding: "10px"}}>Vui lòng ghi địa chỉ giao hàng mới:</h3>
+                                <h3 style={{ padding: "10px" }}>Vui lòng ghi địa chỉ giao hàng mới:</h3>
                                 <form className={'form-address'}>
                                     <fieldset className={'fieldset'}>
                                         <legend>Tỉnh/Thành phố</legend>
@@ -152,11 +152,11 @@ const Payment = () => {
                                     </fieldset>
                                     <fieldset className={'fieldset'}>
                                         <legend>Số nhà + đường</legend>
-                                        <input className={'textInput'} type={'text'}/>
+                                        <input className={'textInput'} type={'text'} />
                                     </fieldset>
                                     <fieldset className={'fieldset'}>
                                         <legend>Ghi chú cho shipper</legend>
-                                        <input className={'textInput'} type={'text'}/>
+                                        <input className={'textInput'} type={'text'} />
                                     </fieldset>
                                 </form>
                             </div>
@@ -166,27 +166,27 @@ const Payment = () => {
                 <div className={'showProdList'}>
                     <table className={'listProd'}>
                         <tbody>
-                        <tr>
-                            <th>STT</th>
-                            <th>Thông tin sản phẩm</th>
-                            <th>Số lượng</th>
-                            <th>Giá</th>
-                            <th>Tổng</th>
-                        </tr>
-                        {listPayment.map((item, index) => (
-                            <tr key={index}>
-                                <td>{index + 1}</td>
-                                <td>
-                                    <div className={'infoProd'}>
-                                        <img className={'thumbnailProd'} src={''} alt={'prod'}/>
-                                        <p>{item.name}</p>
-                                    </div>
-                                </td>
-                                <td>{item.amount}</td>
-                                <td>{item.price.toLocaleString('vi-VN')}</td>
-                                <td>{(item.amount * item.price).toLocaleString('vi-VN')}</td>
+                            <tr>
+                                <th>STT</th>
+                                <th>Thông tin sản phẩm</th>
+                                <th>Số lượng</th>
+                                <th>Giá</th>
+                                <th>Tổng</th>
                             </tr>
-                        ))}
+                            {listPayment.map((item, index) => (
+                                <tr key={index}>
+                                    <td>{index + 1}</td>
+                                    <td>
+                                        <div className={'infoProd'}>
+                                            <img className={'thumbnailProd'} src={''} alt={'prod'} />
+                                            <p>{item.name}</p>
+                                        </div>
+                                    </td>
+                                    <td>{item.quantity}</td>
+                                    <td>{item.price.toLocaleString('vi-VN')}</td>
+                                    <td>{(item.quantity * item.price).toLocaleString('vi-VN')}</td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>
@@ -206,7 +206,7 @@ const Payment = () => {
                             </form>
                             {payment === 2 ? (
                                 <div className={'ShowQR'}>
-                                    <img className={'QRImg'} src={''} alt={'QRCode'}/>
+                                    <img className={'QRImg'} src={''} alt={'QRCode'} />
                                 </div>
                             ) : ''}
                         </div>
@@ -230,7 +230,7 @@ const Payment = () => {
                     </div>
                 </div>
             </div>
-            <ToastContainer/>
+            <ToastContainer />
         </div>
     )
 }

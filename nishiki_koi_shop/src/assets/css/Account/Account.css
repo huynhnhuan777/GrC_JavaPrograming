@@ -1,71 +1,100 @@
-.customer-info-container {
+.customer-info-change-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
-.customer-info-content {
-    max-width: 600px;
-    margin: 100px 0;
+.customer-info-change-content {
+    width: 45%;
+    margin: 100px auto 50px auto;
     padding: 20px;
     border: 1px solid #007BFF;
     border-radius: 10px;
     background-color: #f9f9f9;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    min-height: 300px;
 }
 
-h2 {
-    text-align: center;
+.customer-info-change-container h2 {
     color: #007BFF;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-.customer-info-form {
+.customer-info-change-form {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
-.form-group {
+.customer-form-group {
+    width: calc(100% - 20px);
     margin-bottom: 15px;
-    text-align: left;
 }
 
-label {
+.customer-form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.customer-form-group input:disabled {
+    background-color: #e9ecef;
+    color: #6c757d;
+    cursor: not-allowed;
+}
+
+.customer-form-group label {
+    display: block;
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     color: #333;
     text-align: left;
 }
 
-input.inputText[type="text"],
-input.inputEmail[type="email"] {
-    width: 90%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-.button-group {
+.customer-button-group {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    width: 100%;
 }
 
-.UpdateBtn, .ResetBtn, .ViewBtn {
-    padding: 10px 15px;
+.customer-button-group > button {
+    margin: 0 10px;
+    padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 50px;
     color: #fff;
-    background-color: #007BFF;
+    background-color: var(--btn-bg-color);
     cursor: pointer;
     font-size: 16px;
+    font-weight: bold;
     transition: background-color 0.3s;
 }
 
-.UpdateBtn:hover, .ResetBtn:hover, .ViewBtn:hover {
-    background-color: #0056b3;
+.customer-button-group > button:hover {
+    box-shadow: 0 3px 30px 3px var(--box-shadow-btn);
+    z-index: 100;
+    background-color: var(--btn-bg-color-hover);
 }
 
-.UpdateBtn:disabled, .ResetBtn:disabled, .ViewBtn:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+.customer-button-group > .cancel-update-button {
+    background-color: grey;
+}
+
+.customer-button-group > .cancel-update-button:hover {
+    background-color: #c82333;
+}
+
+@media (max-width: 768px) {
+    .customer-info-change-content {
+        width: 90%;
+        margin: 10px auto;
+    }
+    .customer-form-group input {
+        width: calc(100% - 10px);
+    }
 }

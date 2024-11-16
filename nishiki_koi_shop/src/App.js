@@ -16,6 +16,9 @@ import Cart from "./pages/Account/shoppingCart";
 import Payment from "./pages/Account/payment";
 import RegisterForm from './pages/Account/RegisterForm';
 import Account from "./pages/Account/Account";
+import CustomerOrder from './pages/Account/CustomerOrder';
+import CustomerOrderFishDetail from './pages/Account/CustomerOrderFishDetail';
+import CustomerOrderTourDetail from './pages/Account/CustomerOrderTourDetail';
 import Tours from "./pages/Tour/Tours";
 import Tour from "./pages/Tour/Tour";
 import FishDetail from "./pages/Fish/FishDetail";
@@ -78,6 +81,9 @@ const App = () => {
                             <Route path={'/cart'} element={<Cart/>}/>
                             <Route path={'/payment'} element={<Payment/>}/>
                             <Route path={'/account'} element={<Account/>}/>
+                            <Route path={'/orders'} element={<CustomerOrder/>}/>
+                            <Route path={'/order-fish/:id'} element={<CustomerOrderFishDetail/>}/>
+                            <Route path={'/order-tour/:id'} element={<CustomerOrderTourDetail/>}/>
                             <Route path={'/tours'} element={<Tours/>}/>
                             <Route path={'/tours/:id'} element={<Tour/>}/>
                             <Route path={'/sign-up'} element={<RegisterForm/>}/>
