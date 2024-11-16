@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import {Link, useNavigate} from 'react-router-dom'; // Nhập Link và useNavigate
 import '../../assets/css/Account/Register.css';
+import {handleRenderSelectCard} from "../../utils/handleRenderFuncs";
 
 const RegisterForm = () => {
     const [username, setUsername] = useState('');
@@ -57,52 +58,65 @@ const RegisterForm = () => {
 
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label htmlFor="username">Tên người dùng</label>
-                        <input
-                            type="text"
-                            id="username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            required
-                        />
+                        <fieldset className="fieldset">
+                            <legend>Tên người dùng</legend>
+                            <input
+                                className="textInput"
+                                type="text"
+                                id="username"
+                                name="username"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                required
+                            />
+                        </fieldset>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="email">Email</label>
-                        <input
-                            type="email"
-                            id="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
+                        <fieldset className="fieldset">
+                            <legend>Email</legend>
+                            <input
+                                className="textInput"
+                                type="email"
+                                id="email"
+                                name="email"
+                                value={email}
+                                required
+                            />
+                        </fieldset>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="password">Mật khẩu</label>
-                        <input
-                            type="password"
-                            id="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
+                        <fieldset className="fieldset">
+                            <legend >Mật khẩu</legend>
+                            <input
+                                className="textInput"
+                                type="password"
+                                id="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            />
+                        </fieldset>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="confirm-password">Xác nhận mật khẩu</label>
-                        <input
-                            type="password"
-                            id="confirm-password"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            required
-                        />
+                        <fieldset className="fieldset">
+                            <legend>Xác nhận mật khẩu</legend>
+                            <input
+                                className="textInput"
+                                type="password"
+                                id="confirm-password"
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                required
+                            />
+                        </fieldset>
                     </div>
 
                     {error && <p className="error-text">{error}</p>}
-                    <button className={'submit-Form'} type="submit">Đăng Ký</button>
+                    <button className={'submit-form'} type="submit">Đăng Ký</button>
                 </form>
 
-                {/* Liên kết Quay lại */}
-                <Link to="/" className="back-link">Quay lại trang trước</Link>
+                {/* Liên kết ra đăng nhập */}
+                <Link to="/sign-in" className="back-link">Đã có tài khoản ? Đăng nhập</Link>
             </div>
         </div>
     );
