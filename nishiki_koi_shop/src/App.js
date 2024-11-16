@@ -9,6 +9,8 @@ import Header from './components/Header';
 import Page404 from "./pages/Page404";
 import Farms from "./pages/Farms";
 import Contact from "./pages/Contact/Contact";
+import ConsultOrder from "./pages/Feedback/ConsultOrder";
+import ConsultTrip from "./pages/Feedback/ConsultTrip";
 import Fish from "./pages/Fish/ListFish";
 import Footer from "./components/Footer";
 import AboutUs from "./pages/Feedback/AboutUs";
@@ -35,7 +37,6 @@ import {jwtDecode} from "jwt-decode";
 import AdminShowDetail from "./pages/Admin/Detail/AdminShowDetail";
 import AdminTypeProd from "./pages/Admin/Manage/AdminTypeProd";
 
-
 const AutoScrollToTop = () => {
     const {pathname} = useLocation();
     useEffect(() => {
@@ -55,14 +56,9 @@ const App = () => {
         }
     }, []);
 
-    let basename = '/';
-    if (role !== null && role !== '') {
-        if (role === 'ROLE_MANAGER') basename = '/admin';
-    } else basename = '/';
-
     return (
         <div className="App">
-            <BrowserRouter basename={role === 'ROLE_MANAGER' ? '/admin' : '/'}>
+            <BrowserRouter>
                 {(role === 'ROLE_CUSTOMER' || role === null || role === '') ? (
                     <>
                         <AutoScrollToTop/>
@@ -75,6 +71,8 @@ const App = () => {
                             <Route path={'/contact'} element={<Contact/>}/>
                             <Route path={'/policy'} element={<Policy/>}/>
                             <Route path={'/about-us'} element={<AboutUs/>}/>
+                            <Route path={'/consult-order'} element={<ConsultOrder />} />
+                            <Route path={'/consult-trip'} element={<ConsultTrip />} />
                             <Route path={'/cart'} element={<Cart/>}/>
                             <Route path={'/payment'} element={<Payment/>}/>
                             <Route path={'/account'} element={<Account/>}/>
@@ -142,6 +140,7 @@ const App = () => {
                                    title={'Chi tiết đối tượng'}>
                                </AdminLayout>}
                         />
+
                         <Route path={'/types'}
                                element={<AdminLayout
                                    childCompo={<AdminTypeProd/>}
@@ -149,12 +148,14 @@ const App = () => {
                                </AdminLayout>}
                         />
                         <Route path={'/*'} element={<Page404/>}/>
+
+                        <Route path={'/*'} element={<Page404 />} />
+
                     </Routes>
                 )}
             </BrowserRouter>
         </div>
     );
 };
-
 
 export default App;

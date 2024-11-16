@@ -20,7 +20,7 @@ const Header = () => {
     const navigate = useNavigate();
 
     const [linkMenu, setLinkMenu] = useState([
-        ['customer-support', 'policy'],
+        ['consult-order', 'consult-trip', 'policy'],
         ['account', 'orders', 'cart', 'booking'],
         ['sign-in', 'sign-up'],
     ])
@@ -140,7 +140,7 @@ const Header = () => {
                         <li><Link to={'/farms'} onClick={handleCloseNavBar}>Trang trại</Link></li>
                         <li><Link to={'/tours'}>Chuyến đi</Link></li>
                         <li
-                            onMouseEnter={() => HandleMouseEnter(['CSKH', 'Chính sách'])}
+                            onMouseEnter={() => HandleMouseEnter(['Tư vấn đơn hàng','Tư vấn chuyến đi', 'Chính sách'])}
                             onMouseLeave={() => HandleMouseLeave()}
                         ><Link to={'/contact'} onClick={handleCloseNavBar}>Liên hệ</Link>
                             <ul className={'sub-nav'}>
