@@ -23,7 +23,7 @@ const Tours = () => {
     const [tourData, setTourData] = useState([]);
 
 
-    console.log(`farmFilter ${farmFilter}`)
+
 
     // Thêm các state bị thiếu
 
@@ -31,31 +31,33 @@ const Tours = () => {
     const handleFilterResult = () => {
         setFarmFilter(tourData);
         let check = false;
-        const temp = [setFarmData()];
+        const temp = [];
 
-        for (let i = 0; i < useHookTourForm.length; i++) {
+        for (let i = 0; i < farmFilter.length; i++) {
             if (priceTour[0] >= 0) {
                 check = true;
                 if (nameFarm !== 'Tất cả') {
-                    if (useHookTourForm[i].name === nameFarm && priceTour[0] <= useHookTourForm[i].price && useHookTourForm[i].price <= priceTour[1]) {
-                        temp.push(useHookTourForm[i]);
+                    if (farmFilter[i].tourName === nameFarm && priceTour[0] <= farmFilter[i].tourPrice && farmFilter[i].tourPrice <= priceTour[1]) {
+                        temp.push(farmFilter[i]);
                     }
                 } else {
-                    if (priceTour[0] <= useHookTourForm[i].price && useHookTourForm[i].price <= priceTour[1]) {
-                        temp.push(useHookTourForm[i]);
+                    if (priceTour[0] <= farmFilter[i].tourPrice && farmFilter[i].tourPrice <= priceTour[1]) {
+                        temp.push(farmFilter[i]);
                     }
                 }
             } else if (nameFarm !== 'Tất cả') {
                 check = true;
-                if (useHookTourForm[i].name === nameFarm) {
-                    temp.push(useHookTourForm[i]);
+                if (farmFilter[i].tourName === nameFarm) {
+                    temp.push(farmFilter[i]);
                 }
             } else if (priceTour[0] >= 0) {
-                if (priceTour[0] <= useHookTourForm[i].price && useHookTourForm[i].price <= priceTour[1]) {
-                    temp.push(useHookTourForm[i]);
+                if (priceTour[0] <= farmFilter[i].tourPrice && farmFilter[i].tourPrice <= priceTour[1]) {
+                    temp.push(farmFilter[i]);
                 }
             }
+
         }
+
 
         if (check === false) {
             if (nameFarm === 'Tất cả') {
@@ -77,8 +79,9 @@ const Tours = () => {
         setLastIndex(currIndex);
         setCurrIndex(index);
         setSummary(info);
-        sessionStorage.setItem('infoTour', JSON.stringify(info));
+        sessionStorage.setItem('info', JSON.stringify(info));
     };
+
 
     const handleShowSummary = () => {
         const update = isActive.map((_, i) => i === currIndex);
@@ -110,8 +113,8 @@ const Tours = () => {
     useEffect(() => {
         console.log(tourData);
         setFarmFilter(tourData);
+        console.log(farmFilter)
     }, [tourData]);
-
 
     return (
         <div className={'tours-container'}>
@@ -162,17 +165,18 @@ const Tours = () => {
                     {farmFilter.length !== 0 ? (
                         farmFilter.map((item, index) => (
                             <div key={index} className={'tour-card'} onClick={() => handleSetIndexs(item, index)}>
-                                <img className={'thumbnail-tour'} src={item.imageUrl} alt={'thumbnailTour'}/>
-                                <p>{item.id}</p> {/* title */}
-                                <p>{item.name}</p> {/* summary */}
+                                <img className={'thumbnail-tour'} src={item.image} alt={'thumbnailTour'}/>
+                                <p>{item.farmId}</p> {/* title */}
+                                <p>{item.tourName}</p> {/* summary */}
                                 <Link
-                                    to={'/tours/' + item.id}
+                                    to={'/tours/' + item.farmId}
                                     className={isActive[index] === true ? 'show-more effect-show' : 'hidden'}
                                     onClick={handleSaveFarmObj}
                                 >
                                     Xem thêm
                                 </Link>
                             </div>
+
                         ))
                     ) : (
                         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
@@ -196,19 +200,19 @@ const Tours = () => {
                                             d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
                                     </svg>
                                 </div>
-                                <img className={'thumbnail-tour'} src={summary.imageUrl} alt={'thumbnailTour'}/>
-                                <p><strong style={{color: 'var(--text-color)'}}>Tên:</strong> {summary.name}
+                                <img className={'thumbnail-tour'} src={summary.image} alt={'thumbnailTour'}/>
+                                <p><strong style={{color: 'var(--text-color)'}}>Tên:</strong> {summary.tourName}
                                 </p> {/*title*/}
-                                <p><strong style={{color: 'var(--text-color)'}}>Giới thiệu:</strong> {summary.summary}
+                                <p><strong style={{color: 'var(--text-color)'}}>Giới thiệu:</strong> {summary.tourDescription}
 
                                 </p> {/*summary*/}
                                 <p><strong style={{color: 'var(--text-color)'}}>Ngày khởi
-                                    hành:</strong> {summary.dateStart}</p>{/*day-start*/}
+                                    hành:</strong> {summary.tourStartDate}</p>{/*day-start*/}
                                 <p><strong style={{color: 'var(--text-color)'}}>Ngày kết
-                                    thúc:</strong> {summary.dateEnd}</p>{/*day-end*/}
+                                    thúc:</strong> {summary.tourEndDate}</p>{/*day-end*/}
                                 <p>
                                     <strong style={{color: 'var(--text-color)'}}>Giá:</strong>
-                                    {summary.price && !isNaN(summary.price) ? summary.price.toLocaleString('vi-VN') : 'N/A'}
+                                    {summary.tourPrice && !isNaN(summary.tourPrice) ? summary.tourPrice.toLocaleString('vi-VN') : 'N/A'}
                                 </p>
 
                             </div>

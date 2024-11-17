@@ -13,7 +13,6 @@ const AddNewUser = ({setStatus}) => {
             Object.keys(formData).forEach(key => {
                 formDataToSend.append(key, formData[key]);
             });
-
             const response = await fetch("http://localhost:8080/api/v1/fish", {
                 method: 'POST',
                 body: formDataToSend

@@ -91,7 +91,7 @@ export const tempTour = [
         dateEnd: '2024-10-15',
         description: 'Owner is Natalya',
         price: 25000000,
-        imageUrl: 'https://res.cloudinary.com/dxda6158s/image/upload/Farm_3_xmqjca.jpg'
+        imageUrl: 'https://storage.googleapis.com/digital-platform/hinh_anh_goi_y_15_mau_thiet_ke_ho_ca_Koi_dep_ai_nhin_cung_me_so_11_7d7b326ed1/hinh_anh_goi_y_15_mau_thiet_ke_ho_ca_Koi_dep_ai_nhin_cung_me_so_11_7d7b326ed1.jpg'
     },
     {
         id: 'KOI-E-3306-00-01',
@@ -102,7 +102,7 @@ export const tempTour = [
         dateEnd: '2024-10-15',
         description: 'Owner is Natalya',
         price: 159900000,
-        imageUrl: 'https://res.cloudinary.com/dxda6158s/image/upload/Farm_9_kqlhmq.jpg'
+        imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIu80ZqXL-EoyTCpytxCoaWpoovk6-R3GMRwttR1sA6egE30ZLdxGFOI3xni4s8O9_R64&usqp=CAU'
     },
 ]
 

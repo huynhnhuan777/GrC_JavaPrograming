@@ -4,8 +4,6 @@ import '../../assets/css/Tour/tour.css';
 import {handleGetAllProd, useHookTourForm} from "../../utils/handleFuncs";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
-
-
 const Tour = () => {
     // Khởi tạo dữ liệu mẫu nếu chưa có trong sessionStorage
     const sampleData = {
@@ -66,14 +64,11 @@ const Tour = () => {
                         <div className="summary-content">
                             <h4>Thông tin cơ bản</h4>
                             <ul className="show-info-tour">
-                                <li><strong>Mã chuyến đi: </strong>{infoTour.id}</li>
-                                <li><strong>Tên trang trại: </strong>{infoTour.name}</li>
-                                <li><strong>Ngày khởi hành: </strong>{infoTour.dateStart}</li>
-                                <li><strong>Ngày trở về: </strong>{infoTour.dateEnd}</li>
-                                <li><strong>Giá: </strong>{infoTour.price.toLocaleString('vi-VN', {
-                                    style: 'currency',
-                                    currency: 'VND'
-                                })}</li>
+                                <li><strong>Mã chuyến đi: </strong>{infoTour.farmId}</li>
+                                <li><strong>Tên trang trại: </strong>{infoTour.tourName}</li>
+                                <li><strong>Ngày khởi hành: </strong>{infoTour.tourStartDate}</li>
+                                <li><strong>Ngày trở về: </strong>{infoTour.tourEndDate}</li>
+                                <li><strong>Giá: </strong>{infoTour.tourPrice}</li>
                             </ul>
                         </div>
                         <div className="optionBtns">
@@ -85,7 +80,7 @@ const Tour = () => {
 
                 {/* Mô tả chi tiết của tour */}
                 <div className="description-tour">
-                    <p>{infoTour.description}</p>
+                    <p>{infoTour.tourDescription}</p>
                 </div>
 
                 {/* Phần giới thiệu chi tiết */}
