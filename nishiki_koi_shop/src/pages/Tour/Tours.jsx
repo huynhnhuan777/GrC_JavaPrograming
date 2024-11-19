@@ -61,7 +61,7 @@ import {handleGetAllProd, useHookTourForm} from "../../utils/handleFuncs";const 
     useEffect(() => {
         handleGetAllProd('http://localhost:8080/api/v1/farms/get-all-farm', sessionStorage.getItem('token'), setFarmData, setChooseOne);
         handleGetAllProd('http://localhost:8080/api/v1/tours/get-all-tours', sessionStorage.getItem('token'), setTourData, null);
-        }, []);
+    }, []);
 
     const handleSetIndexs = (info, index) => {
         setLastIndex(currIndex);
