@@ -31,6 +31,7 @@
 
 .summary-content ul {
     list-style-type: none;
+    width: 200px;
 }
 
 ul.show-info-tour {
@@ -42,6 +43,7 @@ ul.show-info-tour {
     box-shadow: 0 4px 14px var(--box-shadow-dialog);
     margin:10px;
     background-color: #f0f0f0;
+
 }
 
 .image-tour{
@@ -81,18 +83,12 @@ ul.show-info-tour {
 .gallery-tour {
     position: relative;
     width: 100%;
-    max-width: 600px;
+    max-width: 1000px;
     margin: auto;
 }
 
 .image-gallery {
     text-align: center;
-    overflow: hidden;
-}
-
-.gallery-image {
-    width: 100%;
-    height: auto;
 }
 
 /* Nút chuyển ảnh */
