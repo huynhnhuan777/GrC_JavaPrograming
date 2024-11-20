@@ -24,7 +24,6 @@
     "react-toastify": "^10.0.5",
     "recharts": "^2.13.0",
     "slick-carousel": "^1.8.1",
-    "web-vitals": "^2.1.4",
     "yup": "^1.4.0"
   },
   "scripts": {
