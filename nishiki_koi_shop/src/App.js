@@ -7,7 +7,7 @@ import {useEffect, useState} from "react";
 import Home from './pages/Home/Home';
 import Header from './components/Header';
 import Page404 from "./pages/Page404";
-import Farms from "./pages/Farms";
+import Farms from "./pages/Farm/Farms";
 import Contact from "./pages/Contact/Contact";
 import ConsultOrder from "./pages/Feedback/ConsultOrder";
 import ConsultTrip from "./pages/Feedback/ConsultTrip";
@@ -24,6 +24,7 @@ import CustomerOrderTourDetail from './pages/Account/CustomerOrderTourDetail';
 import Tours from "./pages/Tour/Tours";
 import Tour from "./pages/Tour/Tour";
 import FishDetail from "./pages/Fish/FishDetail";
+import FarmDetail from './pages/Farm/FarmDetail';  // trang chi tiết của từng trang trại
 
 import AdminLayout from "./components/Admin/AdminLayout";
 import AdminHome from "./pages/Admin/AdminHome";
@@ -84,6 +85,8 @@ const App = () => {
                             <Route path={'/order-tour/:id'} element={<CustomerOrderTourDetail/>}/>
                             <Route path={'/tours'} element={<Tours/>}/>
                             <Route path={'/tours/:id'} element={<Tour/>}/>
+                            <Route path={'/farms'} element={<Farms/>}/>
+                            <Route path={'/farms/:id'} element={<FarmDetail/>} />
                             <Route path={'/sign-up'} element={<RegisterForm/>}/>
                             <Route path={'/sign-in'} element={<SIgnInForm/>}/>
                             <Route path={'/*'} element={<Page404/>}/>

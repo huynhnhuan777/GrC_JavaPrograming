@@ -78,21 +78,33 @@ export const useHookProdForm = () => {
     })
 }
 
+// Custom hook sử dụng Formik
 export const useHookFarmForm = () => {
-    return useFormik({
+    return  useFormik({
         initialValues: {
-            name: '', description: '', location: '', image: new File([], ""), contactInfo: ''
-        }
-    })
-}
-
+            name: '',
+            description: '',
+            location: '',
+            image: '',
+            contactInfo: '',
+        },
+    });
+};
+// ------------------------------
 export const useHookTourForm = () => {
     return useFormik({
         initialValues: {
-            name: '', description: '', price: '', image: null, startDate: '', endDate: '', capacity: 0, farmId: 0,
-        }
+            tourName: '',
+            tourDescription: '',
+            tourPrice: '',
+            tourImage: '',
+            tourStartDate: '',
+            tourEndDate: '',
+            tourCapacity: 0,
+            farmId: 0,
+        },
     })
-}
+};
 
 export const useHookTypeForm = () => {
     return useFormik({

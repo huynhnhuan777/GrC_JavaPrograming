@@ -1,3 +1,53 @@
+
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+// Các mảng temp để chứa dữ liệu từ API
+/*export const tempTour = [];
+export const tempFarm = [];
+
+// Hàm lấy dữ liệu từ server hiện có của bạn
+const fetchData = async () => {
+    try {
+        // Lấy dữ liệu từ API tours
+        const tourResponse = await axios.get('http://localhost:8080/api/v1/tours/get-all-tours');
+        tempTour.push(...tourResponse.data);
+
+        // Lấy dữ liệu từ API farms
+        const farmResponse = await axios.get('http://localhost:8080/api/v1/farms/get-all-farm');
+        tempFarm.push(...farmResponse.data);
+    } catch (error) {
+        console.error("Error fetching data:", error);
+    }
+};
+
+const App = () => {
+    const [linkedData, setLinkedData] = useState([]);
+
+    useEffect(() => {
+        const loadData = async () => {
+            await fetchData();
+
+            // Kết hợp dữ liệu từ tour và farm dựa trên farm_id
+            const combinedData = tempTour.map(tour => {
+                const farm = tempFarm.find(f => f.farm_id === tour.farm_id);
+                return { ...tour, farmDetails: farm };
+            });
+
+            setLinkedData(combinedData);
+        };
+
+        loadData();
+    }, []);
+
+    return (
+        <div>
+            <h1>Tour and Farm Data</h1>
+            <pre>{JSON.stringify(linkedData, null, 2)}</pre>
+        </div>
+    );
+};
+export default App;*/
 export const tempTour = [
     {
         id: 'KOI-E-3306-11-01',
@@ -8,7 +58,7 @@ export const tempTour = [
         dateEnd: '2024-10-15',
         description: 'Owner is Natalya',
         price: 15000000,
-        imageUrl: 'https://res.cloudinary.com/dxda6158s/image/upload/Farm_8_f8toks.jpg'
+        imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVJPckVC7idMmRmmhA2MYQmXWleLw_yZx8_w&s'
     },
     {
         id: 'KOI-E-3306-22-11',
@@ -19,7 +69,7 @@ export const tempTour = [
         dateEnd: '2024-10-15',
         description: 'Owner is Vanhein',
         price: 45000000,
-        imageUrl: 'https://res.cloudinary.com/dxda6158s/image/upload/Farm_10_o0cz15.jpg'
+        imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJSfdIPNwHF-zNrjBfdr2g-cJmvpK9DWCoAw&s'
     },
     {
         id: 'KOI-E-3306-32-01',
@@ -30,7 +80,7 @@ export const tempTour = [
         dateEnd: '2024-10-15',
         description: 'Owner is Natalya',
         price: 12500000,
-        imageUrl: 'https://res.cloudinary.com/dxda6158s/image/upload/Farm_2_dpgijn.jpg'
+        imageUrl: 'https://sieuthicakoi.vn/uploads/images/6323e7e55b3f4d51fbebf924/cach-nuoi-ca-koi-ngoai-troi.webp'
     },
     {
         id: 'KOI-E-3306-00-01',
@@ -41,7 +91,7 @@ export const tempTour = [
         dateEnd: '2024-10-15',
         description: 'Owner is Natalya',
         price: 25000000,
-        imageUrl: 'https://res.cloudinary.com/dxda6158s/image/upload/Farm_3_xmqjca.jpg'
+        imageUrl: 'https://storage.googleapis.com/digital-platform/hinh_anh_goi_y_15_mau_thiet_ke_ho_ca_Koi_dep_ai_nhin_cung_me_so_11_7d7b326ed1/hinh_anh_goi_y_15_mau_thiet_ke_ho_ca_Koi_dep_ai_nhin_cung_me_so_11_7d7b326ed1.jpg'
     },
     {
         id: 'KOI-E-3306-00-01',
@@ -52,7 +102,7 @@ export const tempTour = [
         dateEnd: '2024-10-15',
         description: 'Owner is Natalya',
         price: 159900000,
-        imageUrl: 'https://res.cloudinary.com/dxda6158s/image/upload/Farm_9_kqlhmq.jpg'
+        imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIu80ZqXL-EoyTCpytxCoaWpoovk6-R3GMRwttR1sA6egE30ZLdxGFOI3xni4s8O9_R64&usqp=CAU'
     },
 ]
 

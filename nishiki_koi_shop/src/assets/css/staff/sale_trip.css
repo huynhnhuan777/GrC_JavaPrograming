@@ -1,0 +1,83 @@
+.sale-trip {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #FFA500;
+    border-radius: 8px;
+    background-color: #FFF5E1;
+}
+
+.sale-trip h2 {
+    color: #FF8C00;
+    text-align: center;
+}
+
+.trip-actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.trip-actions input[type="text"] {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #FFA500;
+    border-radius: 4px;
+}
+
+.trip-actions button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: #FF8C00;
+    color: white;
+    cursor: pointer;
+}
+
+.trip-actions button:hover {
+    background-color: #FF7A00;
+}
+
+.trip-list {
+    margin-top: 20px;
+}
+
+.trip-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #FFA500;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    background-color: #FFE6CC;
+}
+
+.trip-item span {
+    color: #FF8C00;
+}
+
+.trip-item button {
+    padding: 4px 8px;
+    border: none;
+    border-radius: 4px;
+    background-color: #FF4500;
+    color: white;
+    cursor: pointer;
+}
+
+.trip-item button:hover {
+    background-color: #FF6347;
+}
+
+.trip-search {
+    margin-top: 20px;
+}
+
+.trip-search input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #FFA500;
+    border-radius: 4px;
+}
