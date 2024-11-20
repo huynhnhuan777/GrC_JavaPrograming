@@ -1,9 +1,6 @@
 import React, {useEffect, useState} from "react";
 import thankYouImage from "../../assets/img/thank-you.jpg";
 import '../../assets/css/Tour/tour.css';
-import {handleGetAllProd, useHookTourForm} from "../../utils/handleFuncs";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 const Tour = () => {
     // Khởi tạo dữ liệu mẫu nếu chưa có trong sessionStorage
     const sampleData = {
