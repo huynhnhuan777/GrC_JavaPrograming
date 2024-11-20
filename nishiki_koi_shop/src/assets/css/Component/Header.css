@@ -67,7 +67,9 @@ img.logo-header {
     z-index: 1000;
     box-shadow: 0 3px 30px 3px var(--box-shadow-btn);
     height: max-content;
-    background-color: #f0f0f0;
+    background-image: url("../../img/koi-fish-bg-3.jpg");
+    background-position: 0 -1600px;
+    background-size: cover;
 }
 
 /*format for main nav*/

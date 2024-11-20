@@ -1,92 +1,68 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {Link, useParams} from 'react-router-dom';
 import '../../assets/css/Fish/FishDetail.css';
+import {handleGetAllProd} from "../../utils/handleFuncs";
 
 const FishDetail = () => {
-    const { id } = useParams();
-    const [infoFish, setInfoFish] = useState(() => {
-        const storedInfo = sessionStorage.getItem('infoFish');
-        return storedInfo ? JSON.parse(storedInfo) : null; // Fallback to null if no data
-    });
-
-    const fakeOtherFish = [
-        {
-            id: 2,
-            name: 'Koi Showa Sanshoku',
-            imageUrl: 'https://cakoibienhoa.com/public/userfiles/products/ca-koi-kohaku.jpg', // Sử dụng link thực tế
-            price: 7500000,
-        },
-        {
-            id: 3,
-            name: 'Koi Kohaku',
-            imageUrl: 'https://cakoibienhoa.com/public/userfiles/products/ca-koi-kohaku.jpg', // Sử dụng link thực tế
-            price: 6000000,
-        },
-        {
-            id: 4,
-            name: 'Koi Utsurimono',
-            imageUrl: 'https://cakoibienhoa.com/public/userfiles/products/ca-koi-kohaku.jpg', // Sử dụng link thực tế
-            price: 8000000,
-        },
-    ];
+    const [fishInfo, setFishInfo] = useState({});
+    const [farmsData, setFarmsData] = useState([]);
+    const [fishData, setFishData] = useState([]);
+    const [suggestFish, setSuggestFish] = useState([]);
 
     useEffect(() => {
-        // Logic to fetch fish details based on ID can be added here
-    }, [id]);
+        setFishInfo(JSON.parse(sessionStorage.getItem('infoFish')));
+    }, []);
 
-    const handleAddToCart = () => {
-        alert(`Thêm ${infoFish.name} vào giỏ hàng!`);
-    };
+    // useEffect(() => {
+    //     console.log(fishData);
+    // }, [fishData]);
 
-    if (!infoFish) {
-        return (
-            <div className='fish-detail-container'>
-                <h2>Thông tin không khả dụng</h2>
-                <p>Vui lòng quay lại trang trước đó.</p>
-            </div>
-        );
-    }
+    useEffect(() => {
+        if (fishInfo.name) {
+            //danh sach nhung nong trai co ca nay
+            handleGetAllProd(`http://localhost:8080/api/v1/farms/filter/${fishInfo.name}`, null, setFarmsData, null);
+            //danh sach nhung con ca cung loai
+            handleGetAllProd(`http://localhost:8080/api/v1/fish/filter/${fishInfo.fishTypeId}`, null, setFishData, null);
+        }
+    }, [fishInfo]);
 
-    return (
-        <div className='fish-detail-container'>
-            <div className='fish-detail-content'>
-                {/* Left section: Fish image */}
-                <div className='fish-detail-left'>
-                    <img
-                        className='thumbnail-fish'
-                        src={infoFish.imageUrl || 'https://cakoibienhoa.com/public/userfiles/products/ca-koi-kohaku.jpg'}
-                        alt='thumbnail-fish'
-                    />
+    return (<div className="fish-detail-container">
+        <div className={'fish-detail-content'}>
+            <div className="fish-summary">
+                <div className={'fish-detail-thumbnail'}>
+                    <img src={fishInfo.image} alt={fishInfo.name} className="fish-image"/>
                 </div>
-
-                {/* Right section: Fish information and "Add to Cart" button */}
-                <div className='fish-detail-right'>
-                    <h4>Thông tin chi tiết</h4>
-                    <ul className='show-info-fish'>
-                        <li><strong>ID:</strong> {infoFish.id}</li>
-                        <li><strong>Tên:</strong> {infoFish.name}</li>
-                        <li><strong>Giá:</strong> {infoFish.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</li>
-                        <li><strong>Mô tả:</strong> {infoFish.description || 'Không có mô tả.'}</li>
-                    </ul>
-                    <button className='add-to-cart-btn' onClick={handleAddToCart}>Thêm vào giỏ hàng</button>
+                <div className={'fish-detail-summary'}>
+                    <h4>{fishInfo.name}</h4>
+                    <p>Kích thước: {fishInfo.size}</p>
+                    <p>Giá: {fishInfo.price}</p>
                 </div>
             </div>
-
-            {/* Bottom section: Other fish products */}
-            <div className='other-fish-section'>
-                <h4>Sản phẩm cá khác</h4>
-                <div className='other-fish-list'>
-                    {fakeOtherFish.map((fish, index) => (
-                        <div key={index} className='other-fish-card'>
-                            <img className='thumbnail-fish' src={fish.imageUrl} alt='other-fish-thumbnail' />
-                            <p>{fish.name}</p>
-                            <p>{fish.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
-                        </div>
-                    ))}
+            <div className={'fish-detail-description'}>{fishInfo.description}</div>
+            <div className={'fish-detail-suggestions'}>
+                <div className={'suggestions-items'}>
+                    <h4>Những nông trại có giống cá này</h4>
+                    <div className={'suggestions-items-content'}>
+                        {farmsData.map((item, i) => (<div key={i} className={'suggestion-item'}>
+                            <img src={item.image} alt={item.name} className="item-image"/>
+                            <p><strong>{item.name}</strong></p>
+                            <Link to={`/tour/${item.id}`}>Xem thêm</Link>
+                        </div>))}
+                    </div>
+                </div>
+                <div className={'suggestions-items'}>
+                    <h4>Có thể bạn quan tâm</h4>
+                    <div className={'suggestions-items-content'}>
+                        {fishData.map((item, i) => (<div key={i} className={'suggestion-item'}>
+                            <img src={item.image} alt={item.name} className="item-image"/>
+                            <p><strong>{item.name}</strong></p>
+                            <Link to={`/fish/${item.id}`}>Xem thêm</Link>
+                        </div>))}
+                    </div>
                 </div>
             </div>
         </div>
-    );
+    </div>)
 };
 
 export default FishDetail;

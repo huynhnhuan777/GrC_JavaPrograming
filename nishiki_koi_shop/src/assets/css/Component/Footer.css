@@ -5,11 +5,16 @@
     border: 1px solid gray;
     flex-direction: column;
     width:100%;
+    background-image: url("../../img/koi-fish-bg-3.jpg");
+    background-size: cover;
+    background-position: 0 -1650px;
+    position: static;
+    bottom: 0;
 }
 
 .footer-container .footer-copyright {
     width: 100%;
-    background-color: #343a40;
+    background-color: rgba(52, 58, 64, 0.47);
     color: #fff;
     text-align: center;
     padding: 10px 0;
@@ -43,14 +48,20 @@ ul.menu li {
 
 ul.menu li a {
     text-decoration: none;
-    color: gray;
+    color: #000000;
+    font-size: 16px;
 }
 
 ul.menu li.contact {
     display: flex;
     justify-content: left;
     align-items: center;
-    color: gray;
+    font-size: 16px;
+    color: #000000;
+}
+
+a:hover{
+    font-weight: bold;
 }
 
 ul.menu li.contact img {
