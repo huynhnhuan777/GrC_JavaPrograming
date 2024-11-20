@@ -173,7 +173,16 @@ const Header = () => {
                             <li
                                 onMouseEnter={() => HandleMouseEnter(['Đăng nhập', 'Đăng kí'])}
                                 onMouseLeave={() => HandleMouseLeave()}
-                            ><Link to={'/account'} onClick={handleCloseNavBar}>Tài khoản</Link>
+                            >
+                                <div style={{
+                                    width: 'inherit',
+                                    height: 'inherit',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    color: "white"
+                                }}>Tài khoản
+                                </div>
                                 <ul className={'sub-nav'}>
                                     {list.map((item, index) => (
                                         <li key={5 * index} className={isActive ? 'show' : 'hidden'}>

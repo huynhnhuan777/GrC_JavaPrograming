@@ -122,11 +122,15 @@ export const handleGetElementFromInp = (e, useHook) => {
 
 export async function handleGetAllProd(urlAPI, token, setData, setChooseOne) {
     try {
-        const response = await fetch(urlAPI, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
+        let response;
+        if (token)
+            response = await fetch(urlAPI, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+        else response = await fetch(urlAPI);
+
         if (!response.ok) {
             toast.warning('Lấy dữ liệu thất bại. Hãy kiểm tra lại đường truyền và thử lại!')
             return;

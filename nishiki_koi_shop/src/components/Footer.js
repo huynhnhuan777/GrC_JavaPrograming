@@ -2,6 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import '../assets/css/Component/Footer.css'
 import contact from "../pages/Contact/Contact";
+import bannerImg from "../assets/img/logo.png"
 
 const Footer = () => {
     return (
@@ -11,8 +12,8 @@ const Footer = () => {
             </div>
             <div className={'footer-content'}>
                 <div className={'footer-part'}>
-                    <img className={'banner'} src={''} alt={'banner'}/>
-                    <div className={'summary'}>
+                    <img className={'banner'} src={bannerImg} alt={'banner'} style={{width:"30%"}}/>
+                    <div className={'summary'} >
                         <Link to={'/test'}>Giới thiệu Nishiki Koi</Link> | <Link to={''}>Trang trại</Link> |
                         Không gì là không thể, đến cửa hành của chúng tôi, các bạn sẽ được cung cấp hơn 100+ loại cá
                         chép Koi chuẩn Nhật 100% nguyên chất, đậm zin

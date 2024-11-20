@@ -35,8 +35,8 @@
     flex-direction: column;
 }
 
-.fieldset {
-    width: calc(100% - 5px) !important;
+.form-content .fieldset {
+    width: calc(100% - 5px);
 }
 
 .textInput {
