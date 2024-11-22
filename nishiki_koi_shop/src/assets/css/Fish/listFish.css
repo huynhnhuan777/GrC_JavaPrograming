@@ -36,8 +36,22 @@
 }
 
 .fish-card:hover {
+    animation: cardHover 0.2s ease-in;
     box-shadow: 0 14px 14px var(--box-shadow-dialog);
+    transform: translateY(-10px);
 }
+
+@keyframes cardHover {
+    0% {
+        box-shadow: none;
+        transform: none;
+    }
+    100% {
+        box-shadow: 0 14px 14px var(--box-shadow-dialog);
+        transform: translateY(-10px);
+    }
+}
+
 
 .thumbnail-fish {
     height: 80%;
@@ -119,6 +133,7 @@
 .list-fish-container .filter-zone {
     width: max-content;
     margin-top: 100px;
+    margin-bottom: 10px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;

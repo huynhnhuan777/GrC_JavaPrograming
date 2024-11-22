@@ -12,7 +12,7 @@ export const ToolManager = ({setStatus, useHook, idItem, nameItem, baseUrl}) => 
     }
     const handleEditProd = (id, baseUrl) => {
         if (id === -1) toast.warning('Chưa chọn gì mà đòi sửa à? Phá quá ha!');
-        else navigate(`/${baseUrl}/detail/${id}`);
+        else navigate(`/admin/${baseUrl}/detail/${id}`);
     }
 
     return (

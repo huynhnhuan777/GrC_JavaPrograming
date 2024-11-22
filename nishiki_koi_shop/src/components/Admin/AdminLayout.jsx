@@ -18,17 +18,17 @@ const AdminLayout = ({childCompo, title}) => {
                     </div>
                     <div className={'admin-controller-navbar'}>
                         <ul className={'controller-navbar'}>
-                            <li><Link to={'/'}>Trang chủ</Link></li>
-                            <li><Link to={'/orders'}>Đơn hàng</Link></li>
-                            <li><Link to={'/report'}>Báo cáo</Link></li>
-                            <li><Link to={'/feedback'}>Phản hồi</Link></li>
+                            <li><Link to={'/admin'}>Trang chủ</Link></li>
+                            <li><Link to={'/admin/orders'}>Đơn hàng</Link></li>
+                            <li><Link to={'/admin/report'}>Báo cáo</Link></li>
+                            <li><Link to={'/admin/feedback'}>Phản hồi</Link></li>
                             <li style={{padding: "15px", color: "white"}}>Quản lí
                                 <ul className={'controller-sub-navbar'}>
-                                    <li><Link to={'/products'}>Giống cá</Link></li>
-                                    <li><Link to={'/farms'}>Nông trại</Link></li>
-                                    <li><Link to={'/types'}>Phân loại cá</Link></li>
-                                    <li><Link to={'/tours'}>Chuyến đi</Link></li>
-                                    <li><Link to={'/users'}>Người dùng</Link></li>
+                                    <li><Link to={'/admin/products'}>Giống cá</Link></li>
+                                    <li><Link to={'/admin/farms'}>Nông trại</Link></li>
+                                    <li><Link to={'/admin/types'}>Phân loại cá</Link></li>
+                                    <li><Link to={'/admin/tours'}>Chuyến đi</Link></li>
+                                    <li><Link to={'/admin/users'}>Người dùng</Link></li>
                                 </ul>
                             </li>
                             <li><Link to={'/'} onClick={handleSignOut}>Đăng xuất</Link></li>

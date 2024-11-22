@@ -80,7 +80,7 @@ export const useHookProdForm = () => {
 
 // Custom hook sử dụng Formik
 export const useHookFarmForm = () => {
-    return  useFormik({
+    return useFormik({
         initialValues: {
             name: '',
             description: '',
@@ -114,6 +114,15 @@ export const useHookTypeForm = () => {
     })
 }
 
+export const useHookCartForm = () => {
+    return useFormik({
+        initialValues: {
+            userId: '',
+            items: []
+        }
+    })
+}
+
 export const handleGetElementFromInp = (e, useHook) => {
     const formData = useHook;
     const {name, value} = e.target;
@@ -123,13 +132,13 @@ export const handleGetElementFromInp = (e, useHook) => {
 export async function handleGetAllProd(urlAPI, token, setData, setChooseOne) {
     try {
         let response;
-        if (token)
+        if (token !== null) {
             response = await fetch(urlAPI, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             })
-        else response = await fetch(urlAPI);
+        } else response = await fetch(urlAPI);
 
         if (!response.ok) {
             toast.warning('Lấy dữ liệu thất bại. Hãy kiểm tra lại đường truyền và thử lại!')
@@ -209,8 +218,8 @@ export const handleUploadImage = async (file, setImageUrl, upload_preset) => {
  * @return none
  * **/
 export const handleSubmit = async (e, formData, urlAPI, token, method, setStatus, urlCurrPage) => {
-    e.preventDefault();
-    console.log(formData.values);
+    if (e)
+        e.preventDefault();
     try {
         const formDataToSend = new FormData();
         Object.keys(formData.values).forEach(key => {

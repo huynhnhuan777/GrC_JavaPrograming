@@ -4,12 +4,13 @@
     align-items: center;
     border: 1px solid gray;
     flex-direction: column;
-    width:100%;
+    width: 100%;
     background-image: url("../../img/koi-fish-bg-3.jpg");
     background-size: cover;
     background-position: 0 -1650px;
-    position: static;
+    position: relative;
     bottom: 0;
+    z-index: 1;
 }
 
 .footer-container .footer-copyright {
@@ -60,7 +61,7 @@ ul.menu li.contact {
     color: #000000;
 }
 
-a:hover{
+a:hover {
     font-weight: bold;
 }
 

@@ -18,7 +18,7 @@ const Cart = () => {
     const token = sessionStorage.getItem('token');
 
     useEffect(() => {
-        handleGetObjById(`http://localhost:8080/api/v1/cart/${userId}`, token, setCartData);
+        handleGetObjById(`http://localhost:8080/api/v1/cart/${userId}`, token, setCartData).then(r => console.log(r));
     }, []);
 
     useEffect(() => {
