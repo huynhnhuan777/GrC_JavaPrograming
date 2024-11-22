@@ -79,8 +79,6 @@
     border-radius: 5px;
     margin: 25px 0;
     background-color: white;
-    min-width: 610px;
-    max-width: 610px;
 }
 
 .farm-detail-suggestions .suggestions-items .suggestions-items-content {
@@ -89,6 +87,7 @@
     align-items: center;
     flex-direction: row;
     border-radius: 5px;
+    min-width: 630px;
 }
 
 .suggestions-items-content .suggestion-item {

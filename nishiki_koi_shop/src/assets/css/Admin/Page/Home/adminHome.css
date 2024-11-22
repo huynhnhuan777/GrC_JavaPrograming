@@ -17,6 +17,7 @@
     height: max-content;
     padding:10px;
     border-radius: 5px;
+    background-color: white;
 }
 
 .process-revenue, .process-tour-order,.process-products-view{
@@ -28,6 +29,7 @@
     width: max-content;
     padding:10px;
     border-radius: 5px;
+    background-color: white;
 }
 .revenue-content{
     display: flex;

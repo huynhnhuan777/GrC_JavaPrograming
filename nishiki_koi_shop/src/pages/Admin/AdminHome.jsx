@@ -16,7 +16,7 @@ const AdminHome = () => {
 
     const renderLineChart = (data, dataKey, key) => {
         return (
-            <LineChart width={500} height={200} data={data} margin={{top: 5, right: 20, bottom: 5, left: 0}}>
+            <LineChart width={500} height={200} data={data} margin={{top: 5, right: 20, bottom: 5, left: 0}} >
                 <Line type={'monotone'} dataKey={dataKey} stroke={'#8884d8'}/>
                 <CartesianGrid strokeDasharray='3 3'/>
                 <XAxis dataKey={key}/>

@@ -52,7 +52,7 @@ const FarmDetail = () => {
                                 <div key={i} className={'suggestion-item'}>
                                     <img src={item.image} alt={item.name} className="item-image"/>
                                     <p><strong>{item.name}</strong></p>
-                                    <Link to={`/fish/${item.id}`} className={'featureBtn'}>Xemt thêm</Link>
+                                    <Link to={`/fish/${item.id}`} className={'featureBtn'}>Xem thêm</Link>
                                 </div>
                             ))}
                         </div>
@@ -66,7 +66,7 @@ const FarmDetail = () => {
                                 <div key={i} className={'suggestion-item'}>
                                     <img src={item.image} alt={item.name} className="item-image"/>
                                     <p><strong>{item.name}</strong></p>
-                                    <Link to={`/tour/${item.id}`} className={'featureBtn'}>Xem thêm</Link>
+                                    <Link to={`/tours/${item.id}`} className={'featureBtn'}>Xem thêm</Link>
                                 </div>
                             ))}
                         </div>
