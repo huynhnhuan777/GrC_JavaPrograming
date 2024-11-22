@@ -1,14 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import {Link, useParams} from 'react-router-dom';
 import '../../assets/css/Fish/FishDetail.css';
-import {handleGetAllProd} from "../../utils/handleFuncs";
+import {handleGetAllProd, handleSubmit, useHookCartItemForm} from "../../utils/handleFuncs";
 import {toast, ToastContainer} from "react-toastify";
+import farms from "../Farm/Farms";
 
 const FishDetail = () => {
     const [fishInfo, setFishInfo] = useState({});
     const [farmsData, setFarmsData] = useState([]);
     const [farm, setFarm] = useState('');
     const [fishData, setFishData] = useState([]);
+
+    const {id} = useParams();
+
+    const cartItem = useHookCartItemForm();
 
     const handleBuyNow = () => {
         if (sessionStorage.getItem("user")) {
@@ -18,12 +23,15 @@ const FishDetail = () => {
 
     const handleAddCart = () => {
         if (sessionStorage.getItem("user")) {
-
+            cartItem.values.fishId = fishInfo.id;
+            cartItem.values.quantity = 1;
+            console.log(cartItem);
+            handleSubmit(null, cartItem, 'http://localhost:8080/api/v1/cart/items/add', sessionStorage.getItem('token'), 'POST', null, null);
         } else toast.warning('Vui lòng đăng nhập để đưa sản phẩm và giỏ háng');
     }
 
     useEffect(() => {
-        setFishInfo(JSON.parse(sessionStorage.getItem('infoFish')));
+        setFishInfo(handleGetAllProd(`http://localhost:8080/api/v1/fish/${id}`, null, setFishInfo, null, null).then(r => console.log(r)));
     }, []);
 
     useEffect(() => {

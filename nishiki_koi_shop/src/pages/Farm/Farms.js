@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import "../../assets/css/Farms.css";
-import { toast, ToastContainer } from "react-toastify";
-import { handleGetAllProd } from "../../utils/handleFuncs";
+import {toast, ToastContainer} from "react-toastify";
+import {handleGetAllProd} from "../../utils/handleFuncs";
+import {Link} from "react-router-dom";
 
 const Tours = () => {
     const [farmData, setFarmData] = useState([]); // Dữ liệu lấy từ API
@@ -14,7 +15,8 @@ const Tours = () => {
             "http://localhost:8080/api/v1/farms/get-all-farm",
             sessionStorage.getItem("token"),
             setFarmData,
-            () => {} // Không cần setChooseOne trong trường hợp này
+            () => {
+            } // Không cần setChooseOne trong trường hợp này
         );
     }, []);
 
@@ -25,7 +27,7 @@ const Tours = () => {
 
     return (
         <div className="tours-container">
-            <h1 style={{fontSize:"50px", fontWeight:"700"}}>Danh sách Trang trại</h1>
+            <h1 style={{fontSize: "50px", fontWeight: "700"}}>Danh sách Trang trại</h1>
 
             {/* Bộ lọc */}
             <input
@@ -50,12 +52,11 @@ const Tours = () => {
                             <p>
                                 <strong>Địa điểm:</strong> {farm.location}
                             </p>
-                            <button
-                                className="view-more-btn"
-                                onClick={() => setSelectedFarm(farm)}
-                            >
-                                Xem thêm
-                            </button>
+                            {/*<button*/}
+                            {/*    className="view-more-btn"*/}
+                            {/*    onClick={() => setSelectedFarm(farm)}>Xem thêm</button>*/}
+
+                            <Link to={`/farms/${farm.id}`} className={'featureBtn'}>Xem thêm</Link>
                         </div>
                     ))
                 ) : (
@@ -64,31 +65,31 @@ const Tours = () => {
             </div>
 
             {/* Hiển thị chi tiết trang trại */}
-            {selectedFarm && (
-                <div className="farm-detail">
-                    <div className="farm-detail-content">
-                        <h2>Chi tiết Trang trại</h2>
-                        <img style={{width: "700px", height: "500px"}}
-                             src={selectedFarm.image}
-                             alt={selectedFarm.name}
-                             className="farm-detail-image"
-                        />
-                        <p><strong>Tên:</strong> {selectedFarm.name}</p>
-                        <p><strong>Địa điểm:</strong> {selectedFarm.location}</p>
-                        <p><strong>Thông tin liên hệ:</strong> {selectedFarm.contactInfo}</p>
-                        <p><strong>Mô tả:</strong> {selectedFarm.description}</p>
-                        <button
-                            className="close-btn"
-                            onClick={() => setSelectedFarm(null)}
-                        >
-                            Đóng
-                        </button>
-                    </div>
-                </div>
-            )}
+            {/*{selectedFarm && (*/}
+            {/*    <div className="farm-detail">*/}
+            {/*        <div className="farm-detail-content">*/}
+            {/*            <h2>Chi tiết Trang trại</h2>*/}
+            {/*            <img style={{width: "700px", height: "500px"}}*/}
+            {/*                 src={selectedFarm.image}*/}
+            {/*                 alt={selectedFarm.name}*/}
+            {/*                 className="farm-detail-image"*/}
+            {/*            />*/}
+            {/*            <p><strong>Tên:</strong> {selectedFarm.name}</p>*/}
+            {/*            <p><strong>Địa điểm:</strong> {selectedFarm.location}</p>*/}
+            {/*            <p><strong>Thông tin liên hệ:</strong> {selectedFarm.contactInfo}</p>*/}
+            {/*            <p><strong>Mô tả:</strong> {selectedFarm.description}</p>*/}
+            {/*            <button*/}
+            {/*                className="close-btn"*/}
+            {/*                onClick={() => setSelectedFarm(null)}*/}
+            {/*            >*/}
+            {/*                Đóng*/}
+            {/*            </button>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*)}*/}
 
             {/* Toast thông báo */}
-            <ToastContainer />
+            <ToastContainer/>
         </div>
     );
 };

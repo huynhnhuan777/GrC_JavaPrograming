@@ -13,7 +13,6 @@ const SignInForm = () => {
     const [success, setSuccess] = useState('');
 
     const navigate = useNavigate(); // Tạo hook useNavigate để điều hướng
-    const cartForm = useHookCartForm();
 
     const handleGetInfoUser = async (urlAPI, token) => {
         try {
@@ -29,8 +28,7 @@ const SignInForm = () => {
 
             // Chuyển đổi phản hồi thành JSON
             const userInfo = await userResponse.json();
-            cartForm.values.userId=userInfo.id;
-                sessionStorage.setItem('user', JSON.stringify(userInfo));
+            sessionStorage.setItem('user', JSON.stringify(userInfo));
         } catch (e) {
             console.error("Error: ", e.message);
             toast.error('Không thể lấy thông tin người dùng!');
@@ -62,8 +60,7 @@ const SignInForm = () => {
             // Gọi API để lấy thông tin customer
             if (roleName.role === 'ROLE_CUSTOMER') {
                 await handleGetInfoUser('http://localhost:8080/api/v1/users/myInfo', response.data.token);
-                handleSubmit(null, cartForm, 'http://localhost:8080/api/v1/cart', sessionStorage.getItem('token'), "POST", null, '/')
-               // window.location.assign('/')
+                window.location.assign('/')
             } else if (roleName.role === 'ROLE_MANAGER') {
                 await handleGetInfoUser('http://localhost:8080/api/v1/manager/myInfo', response.data.token);
                 window.location.assign('/admin')

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import React, {useEffect, useState} from "react";
+import {ToastContainer, toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import '../../assets/css/Account/payment.css';
 import admin from '../../utils/xml/api_full_administration.json'
@@ -12,7 +12,7 @@ const Payment = () => {
     /*Du lieu mau ve customer*/
 
     const [tempUser, setTempUser] = useState([
-        { id: 'user_1101_1121', name: 'CaoNhatHao', address: '' }
+        {id: 'user_1101_1121', name: 'CaoNhatHao', address: ''}
     ])
 
     const handleSetPayment = (event) => {
@@ -58,10 +58,23 @@ const Payment = () => {
     }
 
     const handleSubmitPayment = () => {
-        if (!validCity) toast("Tính ship cho quốc gia à?");
-        if (!validDistrict) toast("Ship cho cả thành phố hay gì?");
-        if (!validWard) toast("Mua 1 con cả quận cùng hưởng à?");
-        if (!validPayment) toast("Rồi muốn thanh toán kiểu gì?");
+        if (!validCity) {
+            toast.error("Tính để shipper đi hết 63 tỉnh thành à?");
+            return;
+        }
+        if (!validDistrict) {
+            toast.error("Ship cho cả thành phố hay gì?");
+            return;
+        }
+        if (!validWard) {
+            toast.error("Mua 1 con cả quận cùng hưởng à?");
+            return;
+        }
+        if (!validPayment) {
+            toast.error("Rồi muốn thanh toán kiểu gì?");
+            return;
+        }
+        toast.warning('Tính năng hiện chưa có ở bản demo!');
     }
 
     useEffect(() => {
@@ -96,22 +109,22 @@ const Payment = () => {
                 */}
                 <div className={'chooseAddress'}>
                     {tempUser[0].address ? (
-                        <div className={'availableAddress'}>
-                            <h3>Vui lòng chọn địa chỉ giao hàng: </h3>
-                            <form className={'form-address'}>
-                                <select className={'listAddress'}>
-                                    <option>---</option>
-                                    {tempUser[0].address.map((item, index) => (
-                                        <option key={index} value={index}>{item}</option>
-                                    ))}
-                                </select>
-                            </form>
-                        </div>
-                    )
+                            <div className={'availableAddress'}>
+                                <h3>Vui lòng chọn địa chỉ giao hàng: </h3>
+                                <form className={'form-address'}>
+                                    <select className={'listAddress'}>
+                                        <option>---</option>
+                                        {tempUser[0].address.map((item, index) => (
+                                            <option key={index} value={index}>{item}</option>
+                                        ))}
+                                    </select>
+                                </form>
+                            </div>
+                        )
                         :
                         (
                             <div className={'newAddress'}>
-                                <h3 style={{ padding: "10px" }}>Vui lòng ghi địa chỉ giao hàng mới:</h3>
+                                <h3 style={{padding: "10px"}}>Vui lòng ghi địa chỉ giao hàng mới:</h3>
                                 <form className={'form-address'}>
                                     <fieldset className={'fieldset'}>
                                         <legend>Tỉnh/Thành phố</legend>
@@ -152,11 +165,11 @@ const Payment = () => {
                                     </fieldset>
                                     <fieldset className={'fieldset'}>
                                         <legend>Số nhà + đường</legend>
-                                        <input className={'textInput'} type={'text'} />
+                                        <input className={'textInput'} type={'text'}/>
                                     </fieldset>
                                     <fieldset className={'fieldset'}>
                                         <legend>Ghi chú cho shipper</legend>
-                                        <input className={'textInput'} type={'text'} />
+                                        <input className={'textInput'} type={'text'}/>
                                     </fieldset>
                                 </form>
                             </div>
@@ -166,27 +179,27 @@ const Payment = () => {
                 <div className={'showProdList'}>
                     <table className={'listProd'}>
                         <tbody>
-                            <tr>
-                                <th>STT</th>
-                                <th>Thông tin sản phẩm</th>
-                                <th>Số lượng</th>
-                                <th>Giá</th>
-                                <th>Tổng</th>
+                        <tr>
+                            <th>STT</th>
+                            <th>Thông tin sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Giá</th>
+                            <th>Tổng</th>
+                        </tr>
+                        {listPayment.map((item, index) => (
+                            <tr key={index}>
+                                <td>{index + 1}</td>
+                                <td>
+                                    <div className={'infoProd'}>
+                                        <img className={'thumbnailProd'} src={item.image} alt={'prod'}/>
+                                        <p>{item.name}</p>
+                                    </div>
+                                </td>
+                                <td>{item.quantity}</td>
+                                <td>{item.price.toLocaleString('vi-VN')}</td>
+                                <td>{(item.quantity * item.price).toLocaleString('vi-VN')}</td>
                             </tr>
-                            {listPayment.map((item, index) => (
-                                <tr key={index}>
-                                    <td>{index + 1}</td>
-                                    <td>
-                                        <div className={'infoProd'}>
-                                            <img className={'thumbnailProd'} src={''} alt={'prod'} />
-                                            <p>{item.name}</p>
-                                        </div>
-                                    </td>
-                                    <td>{item.quantity}</td>
-                                    <td>{item.price.toLocaleString('vi-VN')}</td>
-                                    <td>{(item.quantity * item.price).toLocaleString('vi-VN')}</td>
-                                </tr>
-                            ))}
+                        ))}
                         </tbody>
                     </table>
                 </div>
@@ -206,7 +219,7 @@ const Payment = () => {
                             </form>
                             {payment === 2 ? (
                                 <div className={'ShowQR'}>
-                                    <img className={'QRImg'} src={''} alt={'QRCode'} />
+                                    <img className={'QRImg'} src={''} alt={'QRCode'}/>
                                 </div>
                             ) : ''}
                         </div>
@@ -216,6 +229,7 @@ const Payment = () => {
                                 <div className={'showInfoCash'}>
                                     <p>Tổng số tiền: {totalCost.toLocaleString('vi-VN')} </p>
                                     <p>Phí vận chuyển: {(totalCost * 0.03).toLocaleString('vi-VN')}</p>
+                                    <p>Tổng cộng: {(totalCost * 1.03).toLocaleString('vi-VN')}</p>
                                 </div>
                             ) : (
                                 <div className={'showInfoBanking'}>
@@ -224,13 +238,12 @@ const Payment = () => {
                             )
                             }
 
-                            <button className={'featureBtns'} onClick={handleSubmitPayment}>Xác nhận</button>
-
+                            <button className={'featureBtn'} onClick={handleSubmitPayment}>Xác nhận</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <ToastContainer />
+            <ToastContainer/>
         </div>
     )
 }
