@@ -142,7 +142,16 @@ const Header = () => {
                         <li
                             onMouseEnter={() => HandleMouseEnter(['Tư vấn đơn hàng', 'Tư vấn chuyến đi', 'Chính sách'])}
                             onMouseLeave={() => HandleMouseLeave()}
-                        ><Link to={'/contact'} onClick={handleCloseNavBar}>Liên hệ</Link>
+                        >
+                            <div style={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                width: "inherit",
+                                height: "inherit",
+                                color: "white"
+                            }}>Liên hệ
+                            </div>
                             <ul className={'sub-nav'}>
                                 {list.map((item, index) => (
                                     <li key={index} className={isActive ? 'show' : 'hidden'}>

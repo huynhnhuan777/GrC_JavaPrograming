@@ -62,6 +62,7 @@ const AdminProducts = () => {
                              idItem={id}
                              nameItem={'fish'}
                              baseUrl={'products'}
+                             urlAPI={`http://localhost:8080/api/v1/manager/fish/delete/${id}`}
                 />
                 {status && <AddNewProd setStatus={setStatus}/>}
                 <div className={'list-prod'}>

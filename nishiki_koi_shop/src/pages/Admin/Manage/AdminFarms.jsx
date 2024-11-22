@@ -25,6 +25,7 @@ const AdminFarms = () => {
                              idItem={id}
                              nameItem={'farm'}
                              baseUrl={'farms'}
+                             urlAPI={`http://localhost:8080/api/v1/manager/farm/delete/${id}`}
                 />
                 {status && <AddNewFarm setStatus={setStatus}/>}
                 <div className={'list-farm'}>

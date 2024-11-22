@@ -3,13 +3,14 @@ import '../../../assets/css/Admin/Page/ordersAdmin.css'
 import {toast, ToastContainer} from "react-toastify";
 import {useState} from "react";
 import {Link} from "react-router-dom";
-import {useChooseAll} from "../../../utils/handleFuncs";
+import {useChooseAll, useHookProdForm} from "../../../utils/handleFuncs";
 import {handleRenderSelectCard} from "../../../utils/handleRenderFuncs";
 import {ToolManager} from "../../../components/Admin/ToolManager";
 
 const OrdersAdmin = () => {
     const orderStatus = ['PENDING', 'APPROVED', 'REJECTED', 'CANCELLED'];
     const [status, setStatus] = useState(false);
+    const formData = useHookProdForm();
 
     const {chooseAll, chooseOne, handleChooseAll, setChooseOne, setChooseAll} = useChooseAll(sampleOrders.length);
 
@@ -25,7 +26,8 @@ const OrdersAdmin = () => {
     return (
         <div className={'manager-order-container'}>
             <div className={'manager-order-content'}>
-                <ToolManager setStatus={setStatus} itemLength={sampleOrders.length} useHook={{chooseAll, chooseOne, handleChooseAll, setChooseOne, setChooseAll}}/>
+                <ToolManager setStatus={setStatus} itemLength={sampleOrders.length}
+                             useHook={{chooseAll, chooseOne, handleChooseAll, setChooseOne, setChooseAll}}/>
 
                 <div className={'list-orders'}>
                     {sampleOrders.map((item, index) => (
@@ -34,7 +36,13 @@ const OrdersAdmin = () => {
                             <div className={'order-id'}>{item.orderId}</div>
                             <div className={'order-total-cost'}>{item.price}</div>
                             <div className={'order-status'}>
-                                {handleRenderSelectCard(item.status, orderStatus, true)}
+                                {handleRenderSelectCard({
+                                    name: 'status',
+                                    currChoice: item.status,
+                                    arrayData: orderStatus,
+                                    isDisabled: true,
+                                    useHook: formData
+                                })}
                             </div>
                             <div className={'tool'}>
                                 <input className={'check-box'} type={'checkbox'} style={{width: '15px', height: '15px'}}

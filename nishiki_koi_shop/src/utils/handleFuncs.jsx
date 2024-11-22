@@ -263,7 +263,7 @@ export const handleSubmit = async (e, formData, urlAPI, token, method, setStatus
  * so we can delete (remove from database) any object (only one with this function) - in database is remove one record.
  *
  * @since 0.1.0
- * @param {String} item : name of object, example: fish, farm,... (optional follow your define)
+ * @param urlAPI
  * @param {Int} idItem : id of object (id property of any record that you want to remove it.
  * @param {String} token : the authenticate token when user log in (it is provided by server - security)
  * In this function, we defined APIs in it, so you can not change it easily. We will update later to resolve this.

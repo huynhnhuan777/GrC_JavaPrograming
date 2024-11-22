@@ -148,10 +148,12 @@ const DetailFarm = ({farmData}) => {
                                onChange={(e) => formData.setFieldValue('image', e.target.files[0])}/>
                     </div>
                 </div>
-                <div className={'optionBtns'}>
-                    <button className={'featureBtn'} type={'submit'}>Cập nhật</button>
-                    <button className={'featureBtn'} type={'button'} onClick={handleCancelUpdate}>Hủy bỏ</button>
-                    <button className={'featureBtn'} type={'button'} onClick={handleResetForm}>Làm mới</button>
+                <div style={{width: '100%'}}>
+                    <div style={{display:'flex', justifyContent: 'center',alignItems: 'center'}}>
+                        <button className={'featureBtn'} type={'submit'}>Cập nhật</button>
+                        <button className={'featureBtn'} type={'button'} onClick={handleCancelUpdate}>Hủy bỏ</button>
+                        <button className={'featureBtn'} type={'button'} onClick={handleResetForm}>Làm mới</button>
+                    </div>
                 </div>
             </form>
             <ToastContainer/>

@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 import '../../assets/css/Admin/Component/ToolManager.css'
 import {handleDeleteObj, handleGetAllProd} from "../../utils/handleFuncs";
 
-export const ToolManager = ({setStatus, useHook, idItem, nameItem, baseUrl}) => {
+export const ToolManager = ({setStatus, useHook, idItem, nameItem, baseUrl, urlAPI}) => {
     const {chooseAll, chooseOne, handleChooseAll, setChooseOne, setChooseAll} = useHook;
     const navigate = useNavigate();
     const handleAddNewProd = () => {
@@ -57,7 +57,7 @@ export const ToolManager = ({setStatus, useHook, idItem, nameItem, baseUrl}) => 
             </Tooltip>
             <Tooltip title={'xóa'}>
                 <div className={'feature-btn mg-y-m'}
-                     onClick={() => handleDeleteObj(nameItem, idItem, sessionStorage.getItem('token'))}>
+                     onClick={() => handleDeleteObj(urlAPI, idItem, sessionStorage.getItem('token'))}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                          className="bi bi-trash" viewBox="0 0 16 16">
                         <path

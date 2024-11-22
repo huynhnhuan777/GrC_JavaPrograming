@@ -14,7 +14,7 @@ const AdminTours = () => {
     const [isFetching, setIsFetching] = useState(false);
 
     const handleGetFarmName = (id) => {
-        if (id) {
+        if (farmData) {
             const farm = farmData.find(f => f.id === id);
             return farm ? farm.name : 'unknown';
         } else return null;
@@ -39,6 +39,7 @@ const AdminTours = () => {
                              idItem={id}
                              nameItem={'tour'}
                              baseUrl={'tours'}
+                             urlAPI={`http://localhost:8080/api/v1/manager/tour/delete/${id}`}
                 />
                 {status && <AddNewTour setStatus={setStatus}/>}
                 <div className={'list-tour'}>
@@ -56,18 +57,18 @@ const AdminTours = () => {
 
                     {data && data.map((item, index) => (
                         <div key={index} className={'item-tour'}>
-                            <div className={'tour-id'}>{item.tourId}</div>
-                            <div className={'tour-name'}>{item.tourName}</div>
-                            <div className={'tour-desc'}>{item.tourDescription}</div>
-                            <div className={'tour-start-date'}>{item.tourStartDate}</div>
-                            <div className={'tour-end-date'}>{item.tourEndDate}</div>
-                            <div className={'tour-capacity'}>{item.tourCapacity}</div>
-                            <div className={'tour-price'}>{item.tourPrice}</div>
+                            <div className={'tour-id'}>{item.id}</div>
+                            <div className={'tour-name'}>{item.name}</div>
+                            <div className={'tour-desc'}>{item.description}</div>
+                            <div className={'tour-start-date'}>{item.startDate}</div>
+                            <div className={'tour-end-date'}>{item.endDate}</div>
+                            <div className={'tour-capacity'}>{item.capacity}</div>
+                            <div className={'tour-price'}>{item.price}</div>
                             <div className={'tour-farm'}>{handleGetFarmName(item.farmId)}</div>
                             <div className={'tour-tool'}>
                                 <input className={'check-box'} type={'checkbox'}
                                        style={{width: '20px', height: '20px', borderRadius: '100%'}}
-                                       onClick={() => handleChooseOne(chooseOne, setChooseOne, index, Number(item.proId), setId)}
+                                       onClick={() => handleChooseOne(chooseOne, setChooseOne, index, Number(item.id), setId)}
                                 />
                             </div>
                         </div>
