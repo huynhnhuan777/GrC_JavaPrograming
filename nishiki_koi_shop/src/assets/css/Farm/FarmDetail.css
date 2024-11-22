@@ -1,4 +1,4 @@
-.fish-detail-container {
+.farm-detail-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -6,7 +6,7 @@
     width: 100%;
 }
 
-.fish-detail-content {
+.farm-detail-container .farm-detail-content {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -14,9 +14,10 @@
     width: 80%;
     height: auto;
     padding: 10px;
+    background-color: transparent;
 }
 
-.fish-detail-content .fish-summary {
+.farm-detail-content .farm-summary {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -26,7 +27,7 @@
     height: auto;
 }
 
-.fish-detail-content .fish-summary .fish-detail-thumbnail {
+.farm-detail-content .farm-summary .farm-detail-thumbnail {
     margin-right: 10px;
     padding: 10px;
     box-shadow: 0 14px 28px var(--box-shadow-dialog);
@@ -35,11 +36,12 @@
     background-color: white;
 }
 
-.fish-detail-content .fish-summary .fish-detail-thumbnail .fish-image{
+.farm-detail-content .farm-summary .farm-detail-thumbnail .farm-image {
     height: 400px;
+    margin: 0;
 }
 
-.fish-detail-content .fish-summary .fish-detail-summary {
+.farm-detail-content .farm-summary .farm-detail-summary {
     margin-left: 10px;
     padding: 10px;
     box-shadow: 0 14px 28px var(--box-shadow-dialog);
@@ -53,7 +55,7 @@
     flex-direction: column;
 }
 
-.fish-detail-content .fish-detail-description {
+.farm-detail-content .farm-detail-description {
     margin: 10px 0;
     padding: 10px;
     box-shadow: 0 14px 28px var(--box-shadow-dialog);
@@ -63,14 +65,15 @@
     max-width: 610px;
 }
 
-.fish-detail-suggestions {
+
+.farm-detail-suggestions {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
-.fish-detail-suggestions .suggestions-items {
+.farm-detail-suggestions .suggestions-items {
     width: max-content;
     box-shadow: 0 14px 28px var(--box-shadow-dialog);
     border-radius: 5px;
@@ -80,7 +83,7 @@
     max-width: 610px;
 }
 
-.fish-detail-suggestions .suggestions-items .suggestions-items-content {
+.farm-detail-suggestions .suggestions-items .suggestions-items-content {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -102,5 +105,5 @@
 }
 
 .suggestions-items-content .suggestion-item .item-image {
-    width: initial;
+    width: 100%;
 }

@@ -3,6 +3,7 @@ import axios from 'axios';
 import {Link, useNavigate} from 'react-router-dom'; // Nhập Link và useNavigate
 import '../../assets/css/Account/Register.css';
 import {handleRenderSelectCard} from "../../utils/handleRenderFuncs";
+import {handleSubmit, useHookCartForm} from "../../utils/handleFuncs";
 
 const RegisterForm = () => {
     const [username, setUsername] = useState('');
@@ -14,7 +15,7 @@ const RegisterForm = () => {
 
     const navigate = useNavigate(); // Tạo hook useNavigate để điều hướng
 
-    const handleSubmit = async (e) => {
+    const handleSubmitForm = async (e) => {
         e.preventDefault();
 
         // Kiểm tra mật khẩu và xác nhận mật khẩu
@@ -35,7 +36,7 @@ const RegisterForm = () => {
             setSuccess('Đăng ký thành công!');
             setError('');
 
-            navigate('/');
+            navigate('/sign-in');
         } catch (err) {
             if (err.response && err.response.data) {
                 setError(err.response.data.message || 'Đã xảy ra lỗi trong quá trình đăng ký.');
@@ -56,7 +57,7 @@ const RegisterForm = () => {
 
                 {success && <p className="success-text">{success}</p>}
 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmitForm}>
                     <div className="form-group">
                         <fieldset className="fieldset">
                             <legend>Tên người dùng</legend>

@@ -95,71 +95,68 @@ const App = () => {
                     </>
                 ) : (
                     <Routes>
-                        <Route path={'/'}
+                        <Route path={'/admin/'}
                                element={<AdminLayout
                                    childCompo={<AdminHome/>}
                                    title={'Tổng quan'}>
                                </AdminLayout>}
                         />
-                        <Route path={'/report'}
+                        <Route path={'/admin/report'}
                                element={<AdminLayout
                                    childCompo={<AdminReports/>}
                                    title={'Báo cáo doanh thu'}>
                                </AdminLayout>}
                         />
-                        <Route path={'/orders'}
+                        <Route path={'/admin/orders'}
                                element={<AdminLayout
                                    childCompo={<OrdersAdmin/>}
                                    title={'Quản lý hóa đơn'}>
                                </AdminLayout>}
                         />
-                        <Route path={'/orders/:id'}
+                        <Route path={'/admin/orders/:id'}
                                element={<AdminLayout
                                    childCompo={<OrderDetailAdmin/>}
                                    title={'Thông tin hóa đơn chi tiết'}>
                                </AdminLayout>}
                         />
-                        <Route path={'/products'}
+                        <Route path={'/admin/products'}
                                element={<AdminLayout
                                    childCompo={<AdminProducts/>}
                                    title={'Quản lí sản phẩm'}>
                                </AdminLayout>}
                         />
-                        <Route path={'/farms'}
+                        <Route path={'/admin/farms'}
                                element={<AdminLayout
                                    childCompo={<AdminFarms/>}
                                    title={'Quản lí trang trại'}>
                                </AdminLayout>}
                         />
-                        <Route path={'/tours'}
+                        <Route path={'/admin/tours'}
                                element={<AdminLayout
                                    childCompo={<AdminTours/>}
                                    title={'Quản lí chuyến đi'}>
                                </AdminLayout>}
                         />
-                        <Route path={'/users'}
+                        <Route path={'/admin/users'}
                                element={<AdminLayout
                                    childCompo={<AdminUser/>}
                                    title={'Quản lí tài khoản người dùng'}>
                                </AdminLayout>}
                         />
-                        <Route path={'/:obj/detail/:id'}
+                        <Route path={'/admin/:obj/detail/:id'}
                                element={<AdminLayout
                                    childCompo={<AdminShowDetail/>}
                                    title={'Chi tiết đối tượng'}>
                                </AdminLayout>}
                         />
 
-                        <Route path={'/types'}
+                        <Route path={'/admin/types'}
                                element={<AdminLayout
                                    childCompo={<AdminTypeProd/>}
                                    title={'Quản lí các câp phân loại giống cá'}>
                                </AdminLayout>}
                         />
                         <Route path={'/*'} element={<Page404/>}/>
-
-                        <Route path={'/*'} element={<Page404 />} />
-
                     </Routes>
                 )}
             </BrowserRouter>

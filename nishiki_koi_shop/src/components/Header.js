@@ -140,7 +140,7 @@ const Header = () => {
                         <li><Link to={'/farms'} onClick={handleCloseNavBar}>Trang trại</Link></li>
                         <li><Link to={'/tours'}>Chuyến đi</Link></li>
                         <li
-                            onMouseEnter={() => HandleMouseEnter(['Tư vấn đơn hàng','Tư vấn chuyến đi', 'Chính sách'])}
+                            onMouseEnter={() => HandleMouseEnter(['Tư vấn đơn hàng', 'Tư vấn chuyến đi', 'Chính sách'])}
                             onMouseLeave={() => HandleMouseLeave()}
                         ><Link to={'/contact'} onClick={handleCloseNavBar}>Liên hệ</Link>
                             <ul className={'sub-nav'}>
@@ -155,8 +155,15 @@ const Header = () => {
                             <li
                                 onMouseEnter={() => HandleMouseEnter(['Thông tin cá nhân', 'Đơn hàng', 'Giỏ hàng', 'Đăng xuất'])}
                                 onMouseLeave={() => HandleMouseLeave()}
-                            ><Link to={'/account'}
-                                   onClick={handleCloseNavBar}>{(user.username)}</Link>
+                            >
+                                <div style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    width: "inherit",
+                                    height: "inherit",
+                                    color: "white"
+                                }}>{(user.username)}</div>
                                 <ul className={'sub-nav'}>
                                     {list.map((item, index) => (
                                         <li key={index} className={isActive ? 'show' : 'hidden'}>

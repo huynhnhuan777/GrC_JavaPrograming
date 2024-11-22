@@ -4,6 +4,7 @@ import {Link, useNavigate} from 'react-router-dom'; // Nhập Link và useNaviga
 import '../../assets/css/Account/Register.css';
 import {toast, ToastContainer} from "react-toastify";
 import {jwtDecode} from "jwt-decode";
+import {handleSubmit, useHookCartForm} from "../../utils/handleFuncs";
 
 const SignInForm = () => {
     const [email, setEmail] = useState('');
@@ -12,6 +13,7 @@ const SignInForm = () => {
     const [success, setSuccess] = useState('');
 
     const navigate = useNavigate(); // Tạo hook useNavigate để điều hướng
+    const cartForm = useHookCartForm();
 
     const handleGetInfoUser = async (urlAPI, token) => {
         try {
@@ -27,14 +29,15 @@ const SignInForm = () => {
 
             // Chuyển đổi phản hồi thành JSON
             const userInfo = await userResponse.json();
-            sessionStorage.setItem('user', JSON.stringify(userInfo));
+            cartForm.values.userId=userInfo.id;
+                sessionStorage.setItem('user', JSON.stringify(userInfo));
         } catch (e) {
             console.error("Error: ", e.message);
             toast.error('Không thể lấy thông tin người dùng!');
         }
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmitForm = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:8080/api/v1/auth/login', {
@@ -51,15 +54,16 @@ const SignInForm = () => {
 
             toast.success('Đăng nhập thành công!');
             setError('');
+
             // Lưu token vào sessionStorage (hoặc localStorage nếu bạn muốn)
             sessionStorage.setItem('token', response.data.token);
             const roleName = jwtDecode(response.data.token);
-            console.log(roleName)
 
             // Gọi API để lấy thông tin customer
             if (roleName.role === 'ROLE_CUSTOMER') {
                 await handleGetInfoUser('http://localhost:8080/api/v1/users/myInfo', response.data.token);
-                window.location.assign('/')
+                handleSubmit(null, cartForm, 'http://localhost:8080/api/v1/cart', sessionStorage.getItem('token'), "POST", null, '/')
+               // window.location.assign('/')
             } else if (roleName.role === 'ROLE_MANAGER') {
                 await handleGetInfoUser('http://localhost:8080/api/v1/manager/myInfo', response.data.token);
                 window.location.assign('/admin')
@@ -84,7 +88,7 @@ const SignInForm = () => {
             <div className="form-section">
                 <h2>Chào Mừng Bạn Đến Với Hệ Thống Bán Cá Koi Lớn Nhất Việt Nam!</h2>
                 {success && <p className="success-text">{success}</p>}
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmitForm}>
                     <div className="form-group">
                         <fieldset className="fieldset">
                             <legend>Email</legend>
