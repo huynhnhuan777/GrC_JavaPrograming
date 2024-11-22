@@ -114,11 +114,11 @@ export const useHookTypeForm = () => {
     })
 }
 
-export const useHookCartForm = () => {
+export const useHookCartItemForm = () => {
     return useFormik({
         initialValues: {
-            userId: '',
-            items: []
+            fishId: '',
+            quantity: '',
         }
     })
 }
@@ -218,6 +218,7 @@ export const handleUploadImage = async (file, setImageUrl, upload_preset) => {
  * @return none
  * **/
 export const handleSubmit = async (e, formData, urlAPI, token, method, setStatus, urlCurrPage) => {
+    console.log(formData.values);
     if (e)
         e.preventDefault();
     try {
@@ -244,7 +245,8 @@ export const handleSubmit = async (e, formData, urlAPI, token, method, setStatus
                     if (setStatus !== null) {
                         setStatus(false);
                     }
-                    window.location.assign(urlCurrPage)
+                    if (urlCurrPage !== null)
+                        window.location.assign(urlCurrPage)
                 },
                 autoClose: 1500,
             })
@@ -266,22 +268,21 @@ export const handleSubmit = async (e, formData, urlAPI, token, method, setStatus
  * @param {String} token : the authenticate token when user log in (it is provided by server - security)
  * In this function, we defined APIs in it, so you can not change it easily. We will update later to resolve this.
  * */
-export const handleDeleteObj = async (item, idItem, token) => {
-    let urlAPI = '';
-    switch (item) {
-        case 'fish': {
-            urlAPI = `http://localhost:8080/api/v1/manager/fish/delete/${idItem}`;
-            break;
-        }
-        case 'farm': {
-            urlAPI = `http://localhost:8080/api/v1/manager/farm/delete/${idItem}`;
-            break;
-        }
-        case 'cart': {
-            urlAPI = `http://localhost:8080/api/v1/cart/items/delete/${idItem}`;
-            break;
-        }
-    }
+export const handleDeleteObj = async (urlAPI, idItem, token) => {
+    // switch (item) {
+    //     case 'fish': {
+    //         urlAPI = `http://localhost:8080/api/v1/manager/fish/delete/${idItem}`;
+    //         break;
+    //     }
+    //     case 'farm': {
+    //         urlAPI = `http://localhost:8080/api/v1/manager/farm/delete/${idItem}`;
+    //         break;
+    //     }
+    //     case 'cart': {
+    //         urlAPI = `http://localhost:8080/api/v1/cart/items/delete/${idItem}`;
+    //         break;
+    //     }
+    // }
     if (idItem < 0) {
         toast.error('Có cái dell gì đâu đây mà xóa?')
         return;

@@ -1,6 +1,6 @@
 :root{
     --btn-bg-color:#E85C0D;
-    --btn-bg-color-hover:#FABC3F;
+    --btn-bg-color-hover: rgba(197, 197, 197, 0.68);
     --box-shadow-btn:#821131;
     --box-shadow-dialog: rgba(128, 128, 128, 0.8);
     --text-color:#E85C0D;

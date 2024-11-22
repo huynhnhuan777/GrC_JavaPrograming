@@ -109,7 +109,7 @@ ul.navigation li a:hover {
 ul.navigation li:hover {
     box-shadow: 0 3px 30px 3px var(--box-shadow-btn);
     z-index: 100;
-    background-color: var(--btn-bg-color-hover);
+    /*background-color: var(--btn-bg-color-hover);*/
 }
 
 /*for sub-nav*/

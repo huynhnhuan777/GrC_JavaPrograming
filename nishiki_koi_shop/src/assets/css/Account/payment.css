@@ -39,10 +39,10 @@
 /*format choose address*/
 
 .newAddress {
-    background-color: var(--bg-color-table);
+    background-color: white;
     padding: 10px;
     border-radius: 5px;
-    box-shadow: 0 4px 12px var(--box-shadow-btn);
+    box-shadow: 0 4px 12px var(--box-shadow-dialog);
     width: 70%;
 }
 
@@ -55,7 +55,7 @@
 }
 
 fieldset.fieldset {
-    width: auto;
+    width: 100%;
     padding: 0;
     margin: 10px 0;
     border-radius: 5px;
@@ -75,7 +75,7 @@ fieldset.fieldset legend {
     height: 2rem;
     background-color: transparent;
     border: none;
-    padding:0 10px;
+    padding: 0 10px;
 }
 
 .selectInput:focus-visible, .textInput:focus-visible {
@@ -98,27 +98,29 @@ table.listProd tr:nth-child(odd) {
 
 /*format payment zone*/
 .Payment {
-    box-shadow: 0 4px 14px var(--box-shadow-btn);
+    box-shadow: 0 4px 14px var(--box-shadow-dialog);
+    background-color: white;
     width: 80%;
     border-radius: 5px;
     padding: 10px 0;
 }
 
-.chooseMethodPayment{
+.chooseMethodPayment {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     width: 100%;
 }
-.form-payment{
+
+.form-payment {
     width: 70%;
 }
 
-.showInfoBanking{
+.showInfoBanking {
     margin-bottom: 10px;
 }
 
-.ShowQR{
-    margin:10px 0;
+.ShowQR {
+    margin: 10px 0;
 }
