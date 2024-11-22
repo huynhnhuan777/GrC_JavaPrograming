@@ -22,7 +22,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position: sticky;
+    position: fixed;
+    left: 1px;
     top: 200px;
 }
 
@@ -38,6 +39,7 @@
 .show-summary-tour {
     width: 20%;
     display: none;
+    margin-right: -350px;
 }
 
 .fieldset {
@@ -47,11 +49,11 @@
 
 /*format filter zone*/
 .filter-zone .filter-form {
-    width: 80%;
+    width: 60%;
     box-shadow: 0 4px 14px var(--box-shadow-dialog);
     padding: 10px;
     border-radius: 5px;
-    display: flex;
+    display: block;
     justify-content: center;
     align-items: center ;
     flex-direction: column;
