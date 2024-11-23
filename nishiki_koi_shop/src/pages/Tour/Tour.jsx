@@ -12,10 +12,10 @@ const Tour = () => {
 
     // Lấy dữ liệu từ sessionStorage
     useEffect(() => {
-        const savedData = sessionStorage.getItem('farmData');
-        if (savedData) {
-            const parsedData = JSON.parse(savedData);
-            setTourData(parsedData.info);
+        const savedInfo = sessionStorage.getItem('info'); // Đọc từ 'info'
+        if (savedInfo) {
+            const parsedData = JSON.parse(savedInfo);
+            setTourData(parsedData); // Gán thẳng dữ liệu vào state
         } else {
             console.error("Không tìm thấy dữ liệu trong sessionStorage.");
             toast.error("Không có thông tin chuyến đi.");
@@ -24,8 +24,7 @@ const Tour = () => {
 
     const handleTourBooking = async () => {
         try {
-            // Lấy token từ sessionStorage
-            const token = sessionStorage.getItem('token');
+            const token = sessionStorage.getItem('token'); // Lấy token từ sessionStorage
             console.log("Token đang sử dụng:", token);
 
             if (!token) {
@@ -33,22 +32,21 @@ const Tour = () => {
                 return;
             }
 
-
-            // Gửi yêu cầu tạo order tour
+            // Tạo đơn đặt tour
             const orderTourResponse = await axios.post(
-                "http://localhost:8080/api/v1/order-tours/creat",
+                "http://localhost:8080/api/v1/order-tours/create",
                 {
-                    userId: 1, // Thay bằng userId phù hợp
+                    userId: 1, // Thay bằng userId thực tế từ ứng dụng của bạn
                     totalAmount: tourData.price * numberOfPeople,
                     status: "PENDING",
                     tourBookingDate: new Date().toISOString(),
                     tourStartDate: tourData.startDate,
-                    paymentMethod: "CASH", // Hoặc phương thức thanh toán khác
+                    paymentMethod: "CASH", // Hoặc các phương thức thanh toán khác
                     createdDate: new Date().toISOString(),
                 },
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`, // Thêm token vào header
+                        Authorization: `Bearer ${token}`, // Gửi token trong header
                         "Content-Type": "application/json",
                     },
                 }
@@ -61,7 +59,7 @@ const Tour = () => {
                 return;
             }
 
-            // Gửi yêu cầu tạo order tour details
+            // Tạo chi tiết đơn đặt tour
             await axios.post(
                 "http://localhost:8080/api/v1/order-tour-details",
                 {
@@ -72,7 +70,7 @@ const Tour = () => {
                 },
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`, // Token cho yêu cầu thứ hai
+                        Authorization: `Bearer ${token}`,
                         "Content-Type": "application/json",
                     },
                 }
@@ -98,20 +96,22 @@ const Tour = () => {
                     </div>
                     <div className={'farm-detail-summary'}>
                         <div>
-                            <h3>Mã chuyến đi: {tourData?.name}</h3>
+                            <h3>Tên chuyến đi: {tourData?.name}</h3>
                             <p>Ngày khởi hành: {tourData?.startDate}</p>
                             <p>Ngày kết thúc: {tourData?.endDate}</p>
-                            <p>Tổng tham dự tối đa: {tourData?.capacity}</p>
-                            <p>Giá vé: {tourData?.price}</p>
+                            <p>Tổng tham dự tối đa: {tourData?.capacity || 'Không rõ'}</p>
+                            <p>Giá vé: {tourData?.price || 'Liên hệ'}</p>
                         </div>
                         <div className={'optionBtns'}>
-                            <button className={'featureBtn'} onClick={handleTourBooking}>Đặt chuyến</button>
+                            <button className={'featureBtn'} onClick={handleTourBooking}>
+                                Đặt chuyến
+                            </button>
                         </div>
                     </div>
                 </div>
                 <div className={'farm-detail-description'}>
                     <h4>Mô tả</h4>
-                    {tourData?.description}
+                    <p>{tourData?.description || 'Không có mô tả cho chuyến đi này.'}</p>
                 </div>
                 <div className={'farm-detail-suggestions'}>
                     <div className={'suggestions-items'}>
@@ -120,8 +120,12 @@ const Tour = () => {
                             {fish.map((item, i) => (
                                 <div key={i} className={'suggestion-item'}>
                                     <img src={item.image} alt={item.name} className="item-image" />
-                                    <p><strong>{item.name}</strong></p>
-                                    <Link to={`/fish/${item.id}`} className={'featureBtn'}>Xem thêm</Link>
+                                    <p>
+                                        <strong>{item.name}</strong>
+                                    </p>
+                                    <Link to={`/fish/${item.id}`} className={'featureBtn'}>
+                                        Xem thêm
+                                    </Link>
                                 </div>
                             ))}
                         </div>
