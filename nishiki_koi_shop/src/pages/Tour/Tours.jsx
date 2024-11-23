@@ -57,6 +57,17 @@ import {handleGetAllProd, useHookTourForm} from "../../utils/handleFuncs";const 
         }
         setFarmFilter(temp);
     };
+    useEffect(() => {
+        handleGetAllProd(
+            'http://localhost:8080/api/v1/tours/get-all-tours',
+            sessionStorage.getItem('token'),
+            (data) => {
+                console.log('Tour Data:', data); // Kiểm tra dữ liệu
+                setTourData(data);
+            },
+            null
+        );
+    }, []);
 
     useEffect(() => {
         handleGetAllProd('http://localhost:8080/api/v1/farms/get-all-farm', sessionStorage.getItem('token'), setFarmData, setChooseOne);
@@ -64,11 +75,11 @@ import {handleGetAllProd, useHookTourForm} from "../../utils/handleFuncs";const 
     }, []);
 
     const handleSetIndexs = (info, index) => {
+        console.log('Selected Tour Info:', info); // Kiểm tra dữ liệu của tour được chọn
         setLastIndex(currIndex);
         setCurrIndex(index);
         setSummary(info);
     };
-
 
     const handleShowSummary = () => {
         const update = isActive.map((_, i) => i === currIndex);
@@ -90,6 +101,7 @@ import {handleGetAllProd, useHookTourForm} from "../../utils/handleFuncs";const 
 
     const handleSaveFarmObj = (info) => {
         sessionStorage.setItem('info', JSON.stringify(info)); // Lưu info vào sessionStorage
+        console.log(info)
     };
     useEffect(() => {
         setIsActive(Array(farmFilter.length).fill(false));
@@ -201,23 +213,25 @@ import {handleGetAllProd, useHookTourForm} from "../../utils/handleFuncs";const 
                 </div>
                 <div className={'show-tours'}>
                     {farmFilter.length !== 0 ? (
-                        farmFilter.map((item, index) => (
-                            <div key={index} className={'tour-card'} onClick={() => handleSetIndexs(item, index)}>
-                                <img className={'thumbnail-tour'} src={item.image} alt={'thumbnailTour'}
-                                     style={{width: "300px", height: "200px"}}/>
-                                <p style={{fontSize: "20px"}}><strong>Number Tour:</strong> {item.farmId}
-                                </p> {/* title */}
-                                <p style={{fontSize: "20px"}}><strong>Name: </strong>{item.tourName}</p> {/* summary */}
-                                <p style={{fontSize: "20px"}}><strong>price : </strong>{item.tourPrice}</p>
-                                <Link
-                                    to={'/tours/' + item.farmId}
-                                    className={isActive[index] === true ? 'show-more effect-show' : 'hidden'}
-                                    onClick={() => handleSaveFarmObj(item)} // Truyền 'item' vào hàm
-                                >
-                                    Xem thêm
-                                </Link>
-                            </div>
-                        ))
+                        farmFilter.map((item, index) => {
+                            console.log('Current item:', item); // Kiểm tra dữ liệu của từng item trong farmFilter
+                            return (
+                                <div key={index} className={'tour-card'} onClick={() => handleSetIndexs(item, index)}>
+                                    <img className={'thumbnail-tour'} src={item.image} alt={'thumbnailTour'}
+                                         style={{width: "300px", height: "200px"}}/>
+                                    <p style={{fontSize: "20px"}}><strong>Number Tour:</strong> {item.farmId}</p> {/* title */}
+                                    <p style={{fontSize: "20px"}}><strong>Name: </strong>{item.name}</p> {/* summary */}
+                                    <p style={{fontSize: "20px"}}><strong>price : </strong>{item.price}</p>
+                                    <Link
+                                        to={'/tours/' + item.farmId}
+                                        className={isActive[index] === true ? 'show-more effect-show' : 'hidden'}
+                                        onClick={() => handleSaveFarmObj(item)} // Truyền 'item' vào hàm
+                                    >
+                                        Xem thêm
+                                    </Link>
+                                </div>
+                            );
+                        })
                     ) : (
                         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                             <img width={'50%'} src={warningPNG} alt={'warningPNG'}/>
@@ -242,19 +256,19 @@ import {handleGetAllProd, useHookTourForm} from "../../utils/handleFuncs";const 
                                 <img className={'thumbnail-tour'} src={summary.image} alt={'thumbnailTour'}
 
                                 />
-                                <p><strong style={{color: 'var(--text-color)'}}>Tên:</strong> {summary.tourName}
+                                <p><strong style={{color: 'var(--text-color)'}}>Tên:</strong> {summary.name}
                                 </p> {/*title*/}
                                 <p><strong style={{color: 'var(--text-color)'}}>Giới
-                                    thiệu:</strong> {summary.tourDescription}
+                                    thiệu:</strong> {summary.description}
 
                                 </p> {/*summary*/}
                                 <p>
                                     <strong style={{color: 'var(--text-color)'}}>Giá:</strong>
-                                    {summary.tourPrice && !isNaN(summary.tourPrice) ? summary.tourPrice.toLocaleString('vi-VN') : 'N/A'}
+                                    {summary.price && !isNaN(summary.price) ? summary.price.toLocaleString('vi-VN') : 'N/A'}
                                 </p>
                                 <p>
                                     <strong style={{color: 'var(--text-color)'}}>Ngày bắt đầu :</strong>
-                                    {summary.tourStartDate}
+                                    {summary.startDate}
                                 </p>
 
                             </div>

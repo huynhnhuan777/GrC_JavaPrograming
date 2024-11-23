@@ -94,17 +94,21 @@ export const useHookFarmForm = () => {
 export const useHookTourForm = () => {
     return useFormik({
         initialValues: {
-            tourName: '',
-            tourDescription: '',
-            tourPrice: '',
-            tourImage: '',
-            tourStartDate: '',
-            tourEndDate: '',
-            tourCapacity: 0,
-            farmId: 0,
+            tourName: '', // Tên tour
+            tourDescription: '', // Mô tả tour
+            tourPrice: '', // Giá tour
+            tourImage: '', // Hình ảnh tour
+            tourStartDate: '', // Ngày bắt đầu
+            tourEndDate: '', // Ngày kết thúc
+            tourCapacity: 0, // Số lượng khách tối đa
+            farmId: 0, // ID của farm
         },
-    })
+        onSubmit: (values) => {
+            console.log('Form values:', values);
+        },
+    });
 };
+
 
 export const useHookTypeForm = () => {
     return useFormik({
