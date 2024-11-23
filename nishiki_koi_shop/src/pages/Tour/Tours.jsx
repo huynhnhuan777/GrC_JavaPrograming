@@ -28,24 +28,25 @@ import {handleGetAllProd, useHookTourForm} from "../../utils/handleFuncs";const 
             }
 
             // Lọc theo giá
-            if (
-                priceTour[0] >= 0 &&
-                (tour.tourPrice < priceTour[0] || tour.tourPrice > priceTour[1])
-            ) {
+            const [minPrice, maxPrice] = priceTour;
+            if (minPrice >= 0 && (tour.price < minPrice || tour.price > maxPrice)) {
                 return false;
             }
 
-            // Lọc theo ngày bắt đầu
+            // Lọc theo ngày
             const startDateInput = document.querySelector('.dateInput[name="startDate"]');
             const endDateInput = document.querySelector('.dateInput[name="endDate"]');
 
-            const startDate = startDateInput ? startDateInput.value : null;
-            const endDate = endDateInput ? endDateInput.value : null;
+            const startDate = startDateInput?.value ? new Date(startDateInput.value) : null;
+            const endDate = endDateInput?.value ? new Date(endDateInput.value) : null;
 
-            if (startDate && new Date(tour.tourStartDate) < new Date(startDate)) {
+            const tourStartDate = new Date(tour.tourStartDate);
+            const tourEndDate = new Date(tour.tourEndDate);
+
+            if (startDate && tourStartDate < startDate) {
                 return false;
             }
-            if (endDate && new Date(tour.tourEndDate) > new Date(endDate)) {
+            if (endDate && tourEndDate > endDate) {
                 return false;
             }
 
@@ -85,7 +86,8 @@ import {handleGetAllProd, useHookTourForm} from "../../utils/handleFuncs";const 
     const handleChooseFarm = (e) => setNameFarm(e.target.value);
 
     const handleChoosePrice = (range) => {
-        setPriceTour(range); // Cập nhật giá trị cho state
+        console.log("Khoảng giá được chọn:", range);
+        setPriceTour(range); // Cập nhật state
     };
 
 
@@ -118,9 +120,7 @@ import {handleGetAllProd, useHookTourForm} from "../../utils/handleFuncs";const 
                                 className="dateInput"
                                 type="date"
                                 name="startDate"
-                                defaultValue=""
                             />
-
                         </fieldset>
                         <fieldset className={'fieldset'}>
                             <legend>Ngày trở về</legend>
@@ -128,7 +128,6 @@ import {handleGetAllProd, useHookTourForm} from "../../utils/handleFuncs";const 
                                 className="dateInput"
                                 type="date"
                                 name="endDate"
-                                defaultValue=""
                             />
                         </fieldset>
                         <fieldset className="fieldset">
@@ -183,11 +182,12 @@ import {handleGetAllProd, useHookTourForm} from "../../utils/handleFuncs";const 
                                     name="price"
                                     type="radio"
                                     value="all"
-                                    onChange={() => handleChoosePrice([-1, 0])}
+                                    onChange={() => handleChoosePrice([0, Infinity])}
                                 />
                                 Tất cả
                             </p>
                         </fieldset>
+
 
                         <fieldset className={'fieldset'}>
                             <legend>Trang trại</legend>
