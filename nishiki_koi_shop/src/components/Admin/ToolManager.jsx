@@ -55,7 +55,7 @@ export const ToolManager = ({setStatus, useHook, idItem, nameItem, baseUrl, urlA
                     </svg>
                 </div>
             </Tooltip>
-            <Tooltip title={'xóa'}>
+            <Tooltip title={baseUrl === 'orders' ? 'Tính năng không khả dụng' : 'Xóa'}>
                 <div className={'feature-btn mg-y-m'}
                      onClick={() => handleDeleteObj(urlAPI, idItem, sessionStorage.getItem('token'))}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
@@ -67,7 +67,7 @@ export const ToolManager = ({setStatus, useHook, idItem, nameItem, baseUrl, urlA
                     </svg>
                 </div>
             </Tooltip>
-            <Tooltip title={'Thêm mới'}>
+            <Tooltip title={baseUrl === 'orders' ? 'Tính năng không khả dụng' : 'Thêm mới'}>
                 <div className={'feature-btn mg-y-m'} onClick={handleAddNewProd}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                          className="bi bi-plus-square" viewBox="0 0 16 16">

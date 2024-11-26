@@ -22,24 +22,49 @@ export const handleRenderSelectCard = ({name, currChoice, arrayData, isDisabled,
     else temp = Array(arrayData.length).fill(true);
 
     let checkCurr = false;
-    for (let i = 0; i < arrayData.length; i++) {
-        if (arrayData[i].id === currChoice) { //compare string -string
-            checkCurr = true;
+    if (!isNaN(currChoice)) {
+        for (let i = 0; i < arrayData.length; i++) {
+            if (arrayData[i].id === currChoice) { //compare num=num
+                checkCurr = true;
+            }
+            if (checkCurr) {
+                temp[i] = true;
+            }
         }
-        if (checkCurr) {
-            temp[i] = true;
+
+        return (
+            <select className={'select-status'}
+                    name={name}
+                    onChange={useHook.handleChange}
+                    value={currChoice !== '-1' ? currChoice : undefined}
+                    style={{textAlign: 'center', width: '100%', borderRadius: '5px'}}>
+                <option value={'-1'}>---</option>
+                {arrayData.map((item, index) => (
+                    <option key={index} value={item.id} disabled={!temp[index]}>{item.name}</option>
+                ))}
+            </select>
+        )
+    } else {
+        for (let i = 0; i < arrayData.length; i++) {
+            if (arrayData[i] === currChoice) { //compare num=num
+                checkCurr = true;
+            }
+            if (checkCurr) {
+                temp[i] = true;
+            }
         }
+
+        return (
+            <select className={'select-status'}
+                    name={name}
+                    onChange={useHook.handleChange}
+                    // value={currChoice}
+                    style={{textAlign: 'center', width: '100%', borderRadius: '5px'}}>
+                {arrayData.map((item, index) => (
+                    <option key={index} value={item} disabled={!temp[index]}>{item}</option>
+                ))}
+            </select>
+        )
     }
-    return (
-        <select className={'select-status'}
-                name={name}
-                onChange={useHook.handleChange}
-                value={currChoice !== '-1' ? currChoice : undefined}
-                style={{textAlign: 'center', width: '100%', borderRadius: '5px'}}>
-            <option value={'-1'}>---</option>
-            {arrayData.map((item, index) => (
-                <option key={index} value={item.id} disabled={!temp[index]}>{item.name}</option>
-            ))}
-        </select>
-    )
+
 }

@@ -1,55 +1,82 @@
 import {sampleOrders} from "../../../store/sampleTest";
 import '../../../assets/css/Admin/Page/ordersAdmin.css'
 import {toast, ToastContainer} from "react-toastify";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import {useChooseAll, useHookProdForm} from "../../../utils/handleFuncs";
+import {
+    handleChooseOne, handleGetAllProd, handleSubmit, useChooseAll, useHookPaymentForm
+} from "../../../utils/handleFuncs";
 import {handleRenderSelectCard} from "../../../utils/handleRenderFuncs";
 import {ToolManager} from "../../../components/Admin/ToolManager";
 
 const OrdersAdmin = () => {
     const orderStatus = ['PENDING', 'APPROVED', 'REJECTED', 'CANCELLED'];
     const [status, setStatus] = useState(false);
-    const formData = useHookProdForm();
+    const [id, setId] = useState(-1);
+
+    const formData = useHookPaymentForm();
+
+    const [orders, setOrders] = useState([]);
 
     const {chooseAll, chooseOne, handleChooseAll, setChooseOne, setChooseAll} = useChooseAll(sampleOrders.length);
 
-    const handleChooseOne = (index) => {
-        if (chooseOne[index]) toast('Đã hủy chọn thành công');
-        else toast.success('Đã chọn thành công');
+    useEffect(() => {
+        handleGetAllProd('http://localhost:8080/api/v1/manager/order-fishes/get-all-order-fishes', sessionStorage.getItem('token'), setOrders, setChooseOne);
+    }, []);
 
-        const temp = chooseOne;
-        chooseOne[index] = !chooseOne[index];
-        setChooseOne(temp);
-    }
+    useEffect(() => {
+        console.log(formData.values);
+    }, [formData.values]);
 
-    return (
-        <div className={'manager-order-container'}>
+    return (<div className={'manager-order-container'}>
             <div className={'manager-order-content'}>
-                <ToolManager setStatus={setStatus} itemLength={sampleOrders.length}
-                             useHook={{chooseAll, chooseOne, handleChooseAll, setChooseOne, setChooseAll}}/>
+                <ToolManager setStatus={setStatus}
+                             itemLength={orders.length}
+                             useHook={{chooseAll, chooseOne, handleChooseAll, setChooseOne, setChooseAll}}
+                             idItem={id}
+                             baseUrl={'orders'}
+                />
 
                 <div className={'list-orders'}>
-                    {sampleOrders.map((item, index) => (
-                        <div key={index} className={'order-item'}>
-                            <div className={'order-user-name'}>{item.username}</div>
-                            <div className={'order-id'}>{item.orderId}</div>
-                            <div className={'order-total-cost'}>{item.price}</div>
-                            <div className={'order-status'}>
-                                {handleRenderSelectCard({
-                                    name: 'status',
-                                    currChoice: item.status,
-                                    arrayData: orderStatus,
-                                    isDisabled: true,
-                                    useHook: formData
-                                })}
+                    <div className={'order-item'}>
+                        <div className={'order-id'}>ID hóa đơn</div>
+                        <div className={'order-date'}>Ngày lập</div>
+                        <div className={'order-payment-method'}>Phương thức thanh toán</div>
+                        <div className={'order-status'}>Tình trạng</div>
+                        <div className={'order-total-cost'}>Tổng giá trị</div>
+                        <div className={'order-show-more'}></div>
+                        <div className={'order-submit'}></div>
+                    </div>
+                    {orders.map((item, index) => (<div key={index} className={'order-item'}>
+                            <div className={'order-id'}>{item.orderFishId}</div>
+                            <div className={'order-date'}>{item.createdDate}</div>
+                            <div className={'order-payment-method'}>{item.paymentMethod}</div>
+                            <div className={'order-status'}>{handleRenderSelectCard({
+                                name: 'status',
+                                currChoice: item.status,
+                                arrayData: orderStatus,
+                                isDisabled: true,
+                                useHook: formData
+                            })} </div>
+                            <div
+                                className={'order-total-cost'}>{item.totalAmount ? item.totalAmount.toLocaleString('vi-VN') : ''} đ
                             </div>
-                            <div className={'tool'}>
+                            <div className={'order-show-more'}>
                                 <input className={'check-box'} type={'checkbox'} style={{width: '15px', height: '15px'}}
-                                       onClick={() => handleChooseOne(index)}
+                                       onClick={() => handleChooseOne(chooseOne, setChooseOne, index, Number(item.orderFishId), setId)}
                                 />
                             </div>
-                            <Link className={'order-details'} to={'/orders/' + item.orderId}>Xem thêm</Link>
+                            <div className={'order-submit'}>
+                                <button className={'featureBtn'}
+                                        onClick={(e) => handleSubmit(e,
+                                            formData,
+                                            `http://localhost:8080/api/v1/manager/order-fishes/update/${item.orderFishId}`,
+                                            sessionStorage.getItem('token'),
+                                            "PUT",
+                                            null,
+                                            'admin/orders')}>Cập nhật
+                                </button>
+                            </div>
                         </div>
                     ))}
                 </div>

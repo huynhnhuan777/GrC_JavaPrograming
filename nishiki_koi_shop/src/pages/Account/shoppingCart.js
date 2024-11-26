@@ -4,13 +4,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import '../../assets/css/Account/cart.css';
 import {Link, useNavigate} from "react-router-dom";
 import {handleDeleteObj, handleGetObjById, handleSubmit, useHookCartItemForm} from "../../utils/handleFuncs";
-import axios from "axios";
+import Loading from "../../components/Modal/Loading";
 
 const Cart = () => {
     const [cartData, setCartData] = useState([]);
-    const [isChecked, setIsChecked] = useState({});
+    const [isChecked, setIsChecked] = useState([]);
     const [totalCost, setTotalCost] = useState(0);
     const [checkedAll, setCheckedAll] = useState(false);
+
+    const [isLoading, setIsLoading] = useState({cart: false, check: false});
 
     const navigate = useNavigate();
     const userId = sessionStorage.getItem('user') ? JSON.parse(sessionStorage.getItem('user')).id : null;
@@ -19,17 +21,20 @@ const Cart = () => {
     const cartItem = useHookCartItemForm();
 
     useEffect(() => {
-        handleGetObjById(`http://localhost:8080/api/v1/cart/items`, token, setCartData).then(r => console.log(r));
+        handleGetObjById(`http://localhost:8080/api/v1/cart/items`, token, setCartData).then(() => setIsLoading(prev => ({
+            ...prev,
+            cart: true
+        }) || ({...prev, cart: false})));
     }, []);
 
-    useEffect(() => {
-        if (cartData && cartData.items) {
-            const newTotalCost = cartData.items.reduce((sum, item, index) => {
-                return sum + (isChecked[index] ? item.quantity * item.price : 0);
-            }, 0);
-            setTotalCost(newTotalCost);
-        }
-    }, [cartData, isChecked]);
+    // useEffect(() => {
+    //     if (cartData && cartData.items) {
+    //         const newTotalCost = cartData.items.reduce((sum, item, index) => {
+    //             return sum + (isChecked[index] ? item.quantity * item.price : 0);
+    //         }, 0);
+    //         setTotalCost(newTotalCost);
+    //     }
+    // }, [cartData]);
 
     const handleIncreaseAmount = (index) => {
         const updatedItems = [...cartData];
@@ -46,11 +51,12 @@ const Cart = () => {
 
         setCartData(updatedItems);
 
-        handleSubmit(null, cartItem, 'http://localhost:8080/api/v1/cart/items/add', sessionStorage.getItem('token'), "POST", null, null).then(r => console.log(r));
+        handleSubmit(null, cartItem, 'http://localhost:8080/api/v1/cart/items/add', sessionStorage.getItem('token'), "POST", null, null);
 
         if (isChecked[index]) {
             setTotalCost(prev => prev + updatedItems[index].price);
         }
+        console.log(isChecked);
     };
 
     const handleDecreaseAmount = (index) => {
@@ -77,14 +83,13 @@ const Cart = () => {
 
     const handleChecked = (index) => {
         setIsChecked((prev) => {
-            const newChecked = {...prev, [index]: !prev[index]};
-            setTotalCost(prev => {
-                const tmp = cartData[index];
-                return prev + (isChecked[index] ? -tmp.quantity * tmp.price : tmp.quantity * tmp.price);
-            });
-            return newChecked;
+            return {...prev, [index]: !prev[index]};
         });
 
+        setTotalCost(prev => {
+            const tmp = cartData[index];
+            return prev + (isChecked[index] ? tmp.quantity * tmp.price * -1 : tmp.quantity * tmp.price);
+        });
         toast.success(isChecked[index] ? "Hông lấy nữa hả? Tiếc ghê..." : "Chọn thành công!");
     };
 
@@ -122,107 +127,120 @@ const Cart = () => {
         }
     };
 
+    // useEffect(() => {
+    //     console.log(cartData);
+    //     console.log(isChecked)
+    // }, [cartData, isChecked]);
+
     useEffect(() => {
-        console.log(cartData);
-    }, [cartData])
+        if (cartData) {
+            setIsChecked(cartData.map(() => false));
+            setIsLoading(prevState => ({...prevState, check: true}) || ({...prevState, check: false}));
+        }
+    }, [])
 
     return (
-        <div className={'cart-container'}>
-            <div className={'cart-content'}>
-                <table style={{backgroundColor: 'var(--bg-color-table)'}}>
-                    <thead>
-                    <tr className={'disable'}>
-                        <th style={{width: '5%'}}></th>
-                        <th style={{width: '45%'}}><h3>Thông tin sản phẩm</h3></th>
-                        <th style={{width: '10%'}}><h3>Số lượng</h3></th>
-                        <th style={{width: '15%'}}><h3>Giá</h3></th>
-                        <th style={{width: '15%'}}><h3>Tạm tính</h3></th>
-                        <th style={{width: '10%'}}>
-                            <div>
-                                <button className={'featureBtn'} onClick={handleCheckedAll}
-                                        style={{width: '100px'}}>Chọn hết
-                                </button>
-                                <button className={'featureBtn'} onClick={handleUnCheckedAll}
-                                        style={{width: '100px'}}>Bỏ Hểt
-                                </button>
-                            </div>
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {cartData === null || cartData.length === 0 ? (
-                        <tr>
-                            <td colSpan={6}><p>Có cái dell gì đâu mà mua</p></td>
-                        </tr>
-                    ) : (
-                        <>
-                            {cartData.map((item, index) => (
-                                <tr key={index}>
-                                    <td>
-                                        <button className={'featureBtn'}
-                                                onClick={() => handleDeleteObj(`http://localhost:8080/api/v1/cart/items/delete/${item.id}`, item.id, sessionStorage.getItem('token'))}>Xóa
+        isLoading.cart === false || isLoading.check === false ? <Loading/> :
+            <>
+                <div className={'cart-container'}>
+                    <div className={'cart-content'}>
+                        <table style={{backgroundColor: 'var(--bg-color-table)'}}>
+                            <thead>
+                            <tr className={'disable'} style={{borderBottom: '1px solid var(--bg-color-table)'}}>
+                                <th style={{width: '5%'}}></th>
+                                <th style={{width: '45%'}}><h3>Thông tin sản phẩm</h3></th>
+                                <th style={{width: '10%'}}><h3>Số lượng</h3></th>
+                                <th style={{width: '15%'}}><h3>Giá</h3></th>
+                                <th style={{width: '15%'}}><h3>Tạm tính</h3></th>
+                                <th style={{width: '10%'}}>
+                                    <div>
+                                        <button className={'featureBtn'} onClick={handleCheckedAll}
+                                                style={{width: '100px'}}>Chọn hết
                                         </button>
-                                    </td>
-                                    <td>
-                                        <div className={'infoProd'}>
-                                            <img
-                                                className={'thumbnailProd'}
-                                                src={item.image}
-                                                alt={'product'}
-                                                style={{height: '200px', width: 'auto'}}
-                                            />
-                                            <Link to={`/fish/${item.id}`}><strong>{item.name}</strong></Link>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className={'changeAmountBtns'}>
-                                            <button className={'featureBtn'}
-                                                    onClick={() => handleDecreaseAmount(index)}>-
-                                            </button>
-                                            <p><strong>{item.quantity}</strong></p>
-                                            <button className={'featureBtn'}
-                                                    onClick={() => handleIncreaseAmount(index)}>+
-                                            </button>
-                                        </div>
-                                    </td>
-                                    <td><strong>{item.price.toLocaleString('vi-VN')} đ</strong></td>
-                                    <td><strong>{(item.quantity * item.price).toLocaleString('vi-VN')} đ</strong></td>
-                                    <td>
-                                        <input
-                                            className={'chooseProd'}
-                                            type="checkbox"
-                                            checked={isChecked[index] || false}
-                                            style={{width: '20px', height: '20px'}}
-                                            onChange={() => handleChecked(index)}
-                                        />
-                                    </td>
-                                </tr>
-                            ))}
-                            <tr style={{backgroundColor: 'transparent'}}>
-                                <td colSpan={4}>Tổng tiền:</td>
-                                <td>{totalCost.toLocaleString('vi-VN')}</td>
-                                <td>
-                                    <button className={'featureBtn'} onClick={handleBuyClick}>Mua ngay</button>
-                                </td>
+                                        <button className={'featureBtn'} onClick={handleUnCheckedAll}
+                                                style={{width: '100px'}}>Bỏ Hểt
+                                        </button>
+                                    </div>
+                                </th>
                             </tr>
-                        </>
-                    )}
-                    </tbody>
-                </table>
-                <ToastContainer
-                    position="top-right"
-                    autoClose={2000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick={true}
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="light"
-                />
-            </div>
-        </div>
+                            </thead>
+                            <tbody>
+                            {cartData === null || cartData.length === 0 ? (
+                                <tr>
+                                    <td colSpan={6}><p>Có cái dell gì đâu mà mua</p></td>
+                                </tr>
+                            ) : (
+                                <>
+                                    {cartData.map((item, index) => (
+                                        <tr key={index}>
+                                            <td>
+                                                <button className={'featureBtn'}
+                                                        onClick={() => handleDeleteObj(`http://localhost:8080/api/v1/cart/items/delete/${item.id}`, item.id, sessionStorage.getItem('token'))}>Xóa
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <div className={'infoProd'}>
+                                                    <img
+                                                        className={'thumbnailProd'}
+                                                        src={item.image}
+                                                        alt={'product'}
+                                                        style={{height: '200px', width: 'auto'}}
+                                                    />
+                                                    <Link to={`/fish/${item.id}`}><strong>{item.name}</strong></Link>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div className={'changeAmountBtns'}>
+                                                    <button className={'featureBtn'}
+                                                            onClick={() => handleDecreaseAmount(index)}>-
+                                                    </button>
+                                                    <p><strong>{item.quantity}</strong></p>
+                                                    <button className={'featureBtn'}
+                                                            onClick={() => handleIncreaseAmount(index)}>+
+                                                    </button>
+                                                </div>
+                                            </td>
+                                            <td><strong>{item.price.toLocaleString('vi-VN')} đ</strong></td>
+                                            <td>
+                                                <strong>{(item.quantity * item.price).toLocaleString('vi-VN')} đ</strong>
+                                            </td>
+                                            <td>
+                                                <input
+                                                    className={'chooseProd'}
+                                                    type="checkbox"
+                                                    checked={isChecked[index] || false}
+                                                    style={{width: '20px', height: '20px'}}
+                                                    onChange={() => handleChecked(index)}
+                                                />
+                                            </td>
+                                        </tr>
+                                    ))}
+                                    <tr style={{backgroundColor: 'transparent'}}>
+                                        <td colSpan={4}><strong>Tổng tiền:</strong></td>
+                                        <td><strong>{totalCost.toLocaleString('vi-VN')}</strong></td>
+                                        <td>
+                                            <button className={'featureBtn'} onClick={handleBuyClick}>Mua ngay</button>
+                                        </td>
+                                    </tr>
+                                </>
+                            )}
+                            </tbody>
+                        </table>
+                        <ToastContainer
+                            position="top-right"
+                            autoClose={2000}
+                            hideProgressBar={false}
+                            newestOnTop={false}
+                            closeOnClick={true}
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                            theme="light"
+                        />
+                    </div>
+                </div>
+            </>
     );
 };
 
