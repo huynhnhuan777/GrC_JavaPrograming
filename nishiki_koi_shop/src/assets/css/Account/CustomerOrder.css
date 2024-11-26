@@ -12,6 +12,8 @@
     border-collapse: collapse;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     overflow-x: auto;
+    background-color: white;
+    border-radius: 10px;
 }
 
 .customer-order-content h2 {

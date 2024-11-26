@@ -1,15 +1,23 @@
-.policy-container{
+.policy-container {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.policy-content{
+.policy-content {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction:column;
+    flex-direction: column;
     width: 90%;
     margin-top: 100px;
     margin-bottom: 40px;
+    padding: 20px;
+    background-color:white;
+    border-radius: 10px;
+}
+
+.policy-content fieldset.fieldset {
+    align-items: flex-start;
+    width: 90%;
 }

@@ -55,14 +55,6 @@ export const handleChooseOne = (chooseOne, setChooseOne, index, idItem, setId) =
     setChooseOne(temp);
 }
 
-
-export const useHookUserForm = () => {
-    const [formData, setFormData] = useState({
-        username: '', fullName: '', email: '', roleName: '', createdDate: '', password: '',
-    })
-    return {formData, setFormData};
-}
-
 export const useHookProdForm = () => {
     return useFormik({
         initialValues: {
@@ -90,7 +82,7 @@ export const useHookFarmForm = () => {
         },
     });
 };
-// ------------------------------
+
 export const useHookTourForm = () => {
     return useFormik({
         initialValues: {
@@ -126,6 +118,38 @@ export const useHookCartItemForm = () => {
         }
     })
 }
+
+export const useHookUserForm = () => {
+    return useFormik({
+        initialValues: {
+            fullName: '',
+            username: '',
+            email: '',
+            phoneNumber: '',
+            address: '',
+            roleName: ''
+        }
+    })
+}
+
+export const useHookPaymentForm = () => {
+    return useFormik({
+        initialValues:{
+            cartItemIds:[],
+            status:'',
+            paymentMethod:'',
+            shippingAddress:'',
+        }
+    })
+}
+//
+// export const useHookOrderForm = () => {
+//     return useFormik({
+//         initialValues:{
+//
+//         }
+//     })
+// }
 
 export const handleGetElementFromInp = (e, useHook) => {
     const formData = useHook;
